@@ -1,23 +1,35 @@
 # TravelFlix
 
 Greenfield assigment
-small changed
 
-step one
-[] set up our data base
-[] make sure we are able to get infomations for our apis
+Apis
+Rapid Api, uNoGS API Documentation
+:https://rapidapi.com/
 
-step two
-[] create a get request for geting  tvshow/movies
-[] create a get request for each country in nextflix
-[] create a function that sort what tvshow/movies are not able in you country
-[] create a user with a name and what country there from
-[] create functionlay to add friends
-[] let people mess aour with our like list
+Auth(passwords)
+:https://www.passportjs.org/concepts/authentication/google/
 
-step three
-[] render the information to the page
-[] have three pages?
-  [] user create/login
-  [] user page
-  [] homepage
+Maps
+:https://www.react-simple-maps.io/
+
+Styles
+https://mui.com
+:https://mui.com/material-ui/react-accordion/
+:
+
+
+Clients Comments
+person 1
+(I want to be able to see all tv shows, movies, and ect from nextflix from others countries)
+
+person 2
+(I want to be able see all unique from netflix from what country I'm curently in)
+
+person 3
+(I want to be able to selet what country i'm in by clicking on a country on a map)
+
+person 4
+(I want to be able to see more information after clicking on a video like a tralier and a descrtion)
+
+person 5
+(being able to save what vidoes i selected and the country they are from in to a list)
