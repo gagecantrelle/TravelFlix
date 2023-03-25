@@ -2,8 +2,7 @@
 const path = require('path');
 // const dotenv = require('dotenv');
 const express = require('express');
-const { Sequelize } = require('sequelize');
-const sequelize = require('./database');
+
 // dotenv.config({
 //   path: path.resolve(__dirname, '../.env'),
 // });
