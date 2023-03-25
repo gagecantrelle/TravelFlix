@@ -17,6 +17,5 @@ import Button from '@mui/material/Button';
     </div>)
   };
 }
-  
 
 export default App;
