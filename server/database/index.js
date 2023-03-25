@@ -15,5 +15,6 @@ const sequelize = new Sequelize('test', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });
+
  sequelize.authenticate().then(()=>{console.log("connected")});
 module.exports.sequelize = sequelize
