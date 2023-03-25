@@ -4,13 +4,10 @@ import React from 'react';
     constructor(props) {
       super(props);
       this.state = {
-       count: 0
-      };}
-  //const [count, setCount] = React.useState(0);
+       
+      };
+    };
 
-  // const handleClick = () => {
-  //   setCount(count + 1);
-  // }
 
   render(){
     return (<div>
