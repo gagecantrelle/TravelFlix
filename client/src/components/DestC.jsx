@@ -6,12 +6,11 @@ import Button from '@mui/material/Button';
 function DestC(props) {
   const { changeDest } = props;
   // eslint-disable-next-line no-use-before-define
-  const [value, setValue] = React.useState(NetFlixCountries[0].country);
+  const [value, setValue] = React.useState('Destination');
   const [inputValue, setInputValue] = React.useState('');
   // eslint-disable-next-line no-use-before-define
   const options = NetFlixCountries.map((option) => option.country);
   const clickHandler = () => {
-    console.log(value)
     changeDest(value);
   };
   return (

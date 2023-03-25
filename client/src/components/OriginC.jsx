@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 function OriginC(props) {
   const { changeOrigin } = props;
   // eslint-disable-next-line no-use-before-define
-  const [value, setValue] = React.useState(NetFlixCountries[0].country);
+  const [value, setValue] = React.useState('Origin');
   const [inputValue, setInputValue] = React.useState('');
   // eslint-disable-next-line no-use-before-define
   const options = NetFlixCountries.map((option) => option.country);
