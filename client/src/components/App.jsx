@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
   const handleClick = () => {
     setCount(count + 1);
   }
-
+render()
   return (
     <div>
       <h1>Hello, World!</h1>
