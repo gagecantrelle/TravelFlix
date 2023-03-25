@@ -1,16 +1,36 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
 
-function CountryMen2() {
+function OriginC(props) {
+  const { changeOrigin } = props;
+  // eslint-disable-next-line no-use-before-define
+  const [value, setValue] = React.useState(NetFlixCountries[0].country);
+  const [inputValue, setInputValue] = React.useState('');
+  // eslint-disable-next-line no-use-before-define
+  const options = NetFlixCountries.map((option) => option.country);
+  const clickHandler = () => {
+    changeOrigin(value);
+  };
   return (
-    <Autocomplete
-      disablePortal
-      id="menu-1"
-      options={NetFlixCountries.map((option) => option.country)}
-      sx={{ width: 150 }}
-      renderInput={(params) => <TextField {...params} country="Country" />}
-    />
+    <div>
+      <Autocomplete
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        id="menu-1"
+        options={options}
+        sx={{ width: 150 }}
+        renderInput={(params) => <TextField {...params} country="Country" />}
+      />
+      <Button variant="contained" sx={{ width: 150 }} onClick={clickHandler}>Select Origin</Button>
+    </div>
   );
 }
 const NetFlixCountries = [
@@ -395,4 +415,5 @@ const NetFlixCountries = [
     tseries: 2127,
   },
 ];
-export default CountryMen2;
+
+export default OriginC;

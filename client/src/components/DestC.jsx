@@ -2,7 +2,38 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import { String } from 'prop-types';
+
+function DestC(props) {
+  const { changeDest } = props;
+  // eslint-disable-next-line no-use-before-define
+  const [value, setValue] = React.useState(NetFlixCountries[0].country);
+  const [inputValue, setInputValue] = React.useState('');
+  // eslint-disable-next-line no-use-before-define
+  const options = NetFlixCountries.map((option) => option.country);
+  const clickHandler = () => {
+    console.log(value)
+    changeDest(value);
+  };
+  return (
+    <div>
+      <Autocomplete
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        id="menu-1"
+        options={options}
+        sx={{ width: 150 }}
+        renderInput={(params) => <TextField {...params} country="Country" />}
+      />
+      <Button variant="contained" sx={{ width: 150 }} onClick={clickHandler}>Destination</Button>
+    </div>
+  );
+}
 const NetFlixCountries = [
   {
     id: 21,
@@ -385,30 +416,4 @@ const NetFlixCountries = [
     tseries: 2127,
   },
 ];
-
-function CountryMen1() {
-  const [value, setValue] = React.useState(NetFlixCountries[0].country);
-  const [inputValue, setInputValue] = React.useState('');
-  const options = NetFlixCountries.map((option) => option.country);
-  return (
-    <div>
-      <Autocomplete
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        id="menu-1"
-        options={options}
-        sx={{ width: 150 }}
-        renderInput={(params) => <TextField {...params} country="Country" />}
-      />
-      <Button variant="contained" sx={{ width: 150 }}>Select Origin</Button>
-    </div>
-  );
-}
-
-export default CountryMen1;
+export default DestC;

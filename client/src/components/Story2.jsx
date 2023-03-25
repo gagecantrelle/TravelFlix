@@ -2,10 +2,14 @@ import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import CountryMen2 from './CountryMen2.jsx';
-import CountryMen1 from './CountryMen1.jsx';
+import DestC from './DestC.jsx';
+import OriginC from './OriginC.jsx';
 
 function Story2() {
+  const [originC, setOrigin] = React.useState('');
+  const changeOrigin = (origin) => setOrigin(origin);
+  const [destC, setDest] = React.useState('');
+  const changeDest = (destination) => setDest(destination);
   return (
     <>
       <CssBaseline />
@@ -15,8 +19,8 @@ function Story2() {
         }}
         >
           {' '}
-          <CountryMen1 sx={{ flex: 1, marginLeft: '100px' }} />
-          <CountryMen2 sx={{ flex: 1, marginLeft: '100px' }} />
+          <OriginC changeOrigin={changeOrigin} sx={{ flex: 1, marginLeft: '100px' }} />
+          <DestC changeDest={changeDest} sx={{ flex: 1, marginLeft: '100px' }} />
 
         </Box>
 
