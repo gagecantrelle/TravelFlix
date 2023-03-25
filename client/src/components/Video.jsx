@@ -19,7 +19,7 @@ class Video extends React.Component {
     }
 //will get the list of videos from the api and then give that value to the state video key
 getVideosData(){
-    axio.get('/')
+    axios.get('/')
     .then((data)=>{
       if(data){
        this.setState({
@@ -38,7 +38,7 @@ getVideosData(){
 //onclick add to like of dislike
 thums(opition, value, id){
 if(opition ===  'likes'){
-axio.put(`/${id}`,{
+axios.put(`/${id}`,{
     likes: value + 1
 })
 .then((data)=>{
@@ -52,7 +52,7 @@ axio.put(`/${id}`,{
     console.log('ERROR was unable to get video data:  ', err)
 })
 }else if(opition === 'dislikes'){
-    axio.put(`/${id}`,{
+    axios.put(`/${id}`,{
         dislikes: value + 1
     })
     .then((data)=>{
@@ -82,11 +82,11 @@ return(
         <div>
       <div>{data.movie}</div>  
       <div>{data.video}</div>
-      <div>{data.descriptions}</div>
       <button onClick={this.thums('likes', data.likes, data._id)}>likes</button>
       <div className="likebutton">{data.likes}</div>
       <button onClick={this.thums('likes', data.likes, data._id)}>dislikes</button>
       <div className="dislikebutton">{data.dislikes}</div>
+      <div>{data.descriptions}</div>
       </div>
     })}
 
@@ -99,3 +99,5 @@ return(
 }
 
 }
+
+export default Video;
