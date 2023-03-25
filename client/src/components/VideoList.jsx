@@ -13,7 +13,11 @@ class VideoList extends React.Component {
 
 render(){
 
-//return()  
+return(
+    <div>
+        <div>test</div>
+    </div>
+)  
 
 }
 
