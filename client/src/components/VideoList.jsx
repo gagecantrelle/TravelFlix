@@ -1,5 +1,5 @@
-// import react from 'react'
-// import Video from 'Video'
+ import React from 'react'
+ import Video from './Video.jsx'
 
 class VideoList extends React.Component {
     constructor(){
@@ -15,7 +15,9 @@ render(){
 
 return(
     <div>
-        <div>test</div>
+        <div>commintes</div>
+        <Video />
+        
     </div>
 )  
 

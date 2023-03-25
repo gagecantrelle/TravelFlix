@@ -1,11 +1,18 @@
-// import react from 'react'
-// import axios from 'axios'
+ import React from 'react'
+ import axios from 'axios'
+import { Toolbar } from '@mui/material'
+ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+ import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 ////dummy data
-let dummydata = [
-    {country: 'mexico', movie: 'housefire', likes: 300, dislikes: 30, video: 'video', descriptions: 'descriptions'}, 
-    {country: 'usa', movie: 'housefloods', likes: 500, dislikes: 3, video: 'video', descriptions: 'descriptions'}, 
-    {country: 'japan', movie: 'housestorm', likes: 1, dislikes: 0, video: 'video', descriptions: 'descriptions'}
+let GageDummyData = [
+    {country: 'mexico', movie: 'housefire', likes: 300, dislikes: 30, video: 'video', descriptions: 'descriptions', id: 1}, 
+    {country: 'usa', movie: 'housefloods', likes: 500, dislikes: 3, video: 'video', descriptions: 'descriptions', id: 2}, 
+    {country: 'japan', movie: 'housestorm', likes: 1, dislikes: 0, video: 'video', descriptions: 'descriptions', id: 3}
 ]
 ////
 
@@ -14,7 +21,7 @@ class Video extends React.Component {
         super()
         this.state={
             //will resprent the list of videos
-            videos: []
+            videos: GageDummyData 
         }
     }
 //will get the list of videos from the api and then give that value to the state video key
@@ -68,27 +75,58 @@ axios.put(`/${id}`,{
 }
 }
 
-
-//will run all componets that need to run befor render
-componentDidMount(){
-  this.getVideosData();  
+log(id, value){
+    console.log(value, id)
+//   if(value === 'like'){
+//     for(let i = 0; i < this.state.videos.length; i++){
+//         if(this.state.videos[i].id === id){
+//             this.state.video[i].likes += 1;
+//         }
+//     }
+    
+//   }else if(value === 'dislike'){
+//     for(let i = 0; i < this.state.videos.length; i++){
+//         if(this.state.videos[i].id === id){
+//             this.state.video[i].likes += 1;
+//         }
+//     }
+//   }
+//   console.log(this.state.videos)
 }
 
+//will run all componets that need to run befor render
+// componentDidMount(){
+//   this.getVideosData();  
+// }
+
 render(){
-const {list} = this.state
+const {videos} = this.state
+//this.thums('likes', data.likes, data._id)
+//this.thums('dislikes', data.dislikes, data._id)
+console.log(videos);
 return(
     <div className="box">
-    {list.map(data =>{
-        <div>
-      <div>{data.movie}</div>  
-      <div>{data.video}</div>
-      <button onClick={this.thums('likes', data.likes, data._id)}>likes</button>
+    {videos.map(data =>{return(
+        <div key={data.country}>
+            <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+        <div>{data.movie}</div>  
+        <div>{data.video}</div>
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+        <Toolbar variant="dense">
+      <button onClick={() => this.log(data.id, 'like')} ><ThumbUpOffAltIcon></ThumbUpOffAltIcon></button>
       <div className="likebutton">{data.likes}</div>
-      <button onClick={this.thums('likes', data.likes, data._id)}>dislikes</button>
+      <button onClick={() => this.log(data.id, 'dislike')}><ThumbDownOffAltIcon></ThumbDownOffAltIcon></button>
       <div className="dislikebutton">{data.dislikes}</div>
+      </Toolbar>
+      </AppBar>
+      </Box>
       <div>{data.descriptions}</div>
+      </CardContent>
+      </Card>
       </div>
-    })}
+    )})}
 
 
 
