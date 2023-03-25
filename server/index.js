@@ -1,8 +1,7 @@
 const path = require('path');
 // const dotenv = require('dotenv');
 const express = require('express');
-const sequelize = require('./database')
-const { Sequelize } = require('sequelize');
+
 // dotenv.config({
 //   path: path.resolve(__dirname, '../.env'),
 // });
@@ -18,7 +17,7 @@ app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);
 });
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
   console.log('here');
   res.send();
 });
