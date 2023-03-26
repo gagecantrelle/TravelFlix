@@ -19,7 +19,7 @@ function Story2() {
   const findUnique = () => {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
-      .then()
+      .then((data) => console.log(data.data))
       .catch();
   };
   return (

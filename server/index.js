@@ -21,16 +21,22 @@ app.get('/findUnique', async (req, res) => {
   const { origin, destination } = req.query;
   let originArr;
   let destinationArr;
+
   await getTop100By(origin)
     .then((data) => originArr = data.results)
     .catch((error) => console.error(error));
+
   await getTop100By(destination)
     .then((data) => destinationArr = data.results)
     .catch((error) => console.error(error));
+
+  // this code takes the destination array and the origin array and returns
+  // a newArray of unique items
+  const uniqueArray1 = destinationArr
   // eslint-disable-next-line max-len
-  const uniqueArray1 = destinationArr.filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
-  console.log(uniqueArray1.length);
-  res.send();
+    .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
+
+  res.send(uniqueArray1);
 });
 
 //  sequelize.authenticate().then(()=>{console.log("connected")});
