@@ -15,7 +15,12 @@ function Story2() {
   const changeOrigin = (origin) => setOrigin(origin);
   const [destC, setDest] = React.useState('');
   const changeDest = (destination) => setDest(destination);
+  // when LFG button is clicked make a call to the server to find unique items
   const findUnique = () => {
+    const param = { origin: originC, destination: destC };
+    axios.get('/findUnique', { params: param })
+      .then()
+      .catch();
   };
   return (
     <>
