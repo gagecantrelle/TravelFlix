@@ -1,6 +1,6 @@
 const path = require('path');
-
 const express = require('express');
+const { getTop100By } = require('./Api/api');
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
@@ -13,10 +13,12 @@ app.get('/', (req, res) => {
   console.log('here');
   res.send();
 });
-// Recieves request for unique netflix programs
-// need to build out
+// Receives request for unique netflix programs
+// makes call to api for each country, returns data to
+// server which then uses ServerFunc to manipulate and then returns manipulated data back to client
 app.get('/findUnique', (req, res) => {
-  console.log(req.query);
+  const { origin, destination } = req.query;
+  console.log(origin);
   res.send();
 });
 

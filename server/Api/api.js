@@ -24,3 +24,5 @@ const getTop100By = (countryID) => {
     console.error(error);
   });
 };
+
+module.exports.getTop100By = getTop100By;
