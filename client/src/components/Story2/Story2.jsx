@@ -6,9 +6,11 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import DestC from './DestC.jsx';
 import OriginC from './OriginC.jsx';
+import UniqueTable from './UniqueTable.jsx';
 
 function Story2() {
   const [originC, setOrigin] = React.useState('');
@@ -28,17 +30,34 @@ function Story2() {
     <>
       <CssBaseline />
       <Container fixed>
-        <Box sx={{
-          display: 'flex', justifyContent: 'space-around', bgcolor: 'white', height: '25vh',
-        }}
-        >
-          {' '}
-          <OriginC changeOrigin={changeOrigin} sx={{ flex: 1, marginLeft: '125px' }} />
-          <Button variant="contained" endIcon={<FlightTakeoffIcon />} size="large" onClick={findUnique} sx={{ width: 170, height: 90 }}> LFG </Button>
-          <DestC changeDest={changeDest} sx={{ flex: 1, marginLeft: '125px' }} />
+        <Stack spacing={4}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            bgcolor: 'white',
+            height: '12vh',
+          }}
+          >
+            {' '}
+            <OriginC changeOrigin={changeOrigin} sx={{ flex: 1, marginLeft: '125px' }} />
+            <Button
+              variant="contained"
+              endIcon={<FlightTakeoffIcon />}
+              size="large"
+              onClick={findUnique}
+              sx={{ width: 170, height: 90 }}
+            >
+              {' '}
+              LFG
+              {' '}
 
-        </Box>
+            </Button>
+            <DestC changeDest={changeDest} sx={{ flex: 1, marginLeft: '125px' }} />
 
+          </Box>
+
+          <UniqueTable />
+        </Stack>
       </Container>
     </>
 
