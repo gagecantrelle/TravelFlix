@@ -12,15 +12,17 @@ import DestC from './DestC.jsx';
 import OriginC from './OriginC.jsx';
 import UniqueTable from './UniqueTable.jsx';
 
-function Story2() {
+function Story2(props) {
   const [originC, setOrigin] = React.useState('');
   const changeOrigin = (origin) => setOrigin(origin);
   const [destC, setDest] = React.useState('');
   const changeDest = (destination) => setDest(destination);
   const [uniqueArray, setUniqueArray] = React.useState([]);
   const setUnique = (list) => setUniqueArray(list);
+
   // when LFG button is clicked make a call to the server to find unique items
-  const findUnique = () => {
+  const findUnique = (props) => {
+    const { changeMovie } = props;
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
       .then((data) => setUnique(data.data))
@@ -62,7 +64,7 @@ function Story2() {
             height: '40vh',
           }}
           >
-            <UniqueTable />
+            <UniqueTable changeMovie={props.changeMovie} />
           </Box>
         </Stack>
       </Container>

@@ -22,10 +22,15 @@ function createData(
     addToWatchList,
   };
 }
-
+// creates the rows by taking data and extracting each movies data
 const rows = fakeUniqueData.map((movie) => createData(movie.title, movie.img, movie));
 
-export default function BasicTable() {
+function BasicTable(props) {
+  const { changeMovie } = props;
+  const trailerPlay = (movie) => {
+    console.log('yes');
+    changeMovie(movie);
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 400, maxHeight: 100 }} aria-label="simple table">
@@ -50,7 +55,7 @@ export default function BasicTable() {
                 <img src={row.image} alt={row.name} width="100" />
               </TableCell>
               <TableCell align="right">
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={() => trailerPlay(row.trailer)}>
                   Watch Trailer
                 </Button>
               </TableCell>
@@ -66,3 +71,4 @@ export default function BasicTable() {
     </TableContainer>
   );
 }
+export default BasicTable;
