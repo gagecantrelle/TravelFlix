@@ -55,8 +55,15 @@ function Story2() {
             <DestC changeDest={changeDest} sx={{ flex: 1, marginLeft: '125px' }} />
 
           </Box>
-
-          <UniqueTable />
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            bgcolor: 'white',
+            height: '40vh',
+          }}
+          >
+            <UniqueTable />
+          </Box>
         </Stack>
       </Container>
     </>

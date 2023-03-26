@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { fakeUniqueData } from '../../NetFlixCountries';
 
-const firstFake = fakeUniqueData[0];
 function createData(
   name,
   image,
@@ -29,7 +28,7 @@ const rows = fakeUniqueData.map((movie) => createData(movie.title, movie.img, mo
 export default function BasicTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 400 }} aria-label="simple table">
+      <Table sx={{ minWidth: 400, maxHeight: 100 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Unique Programs</TableCell>
