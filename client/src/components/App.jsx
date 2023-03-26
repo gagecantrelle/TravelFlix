@@ -25,17 +25,17 @@ class App extends React.Component {
     };
   }
 
-  render() {
-    return (
-      <div>
-        <Button variant="contained">Hello World</Button>
-        <p>You clicked  times.</p>
-        <button type="button">Click me!</button>
 
-        <Story2 />
-      </div>
-    );
-  }
-}
+  render(){
+    return (<div>
+     <Button variant="contained">Hello World</Button>
+      <p>You clicked  times.</p>
+      <button >Click me!</button>
+      <Story2 />
+      <VideoList />
+    </div>)
+  }};
+
+
 
 export default App;
