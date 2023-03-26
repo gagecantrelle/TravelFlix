@@ -4,7 +4,7 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
-import { NetFlixCountries } from '../NetFlixCountries';
+import { NetFlixCountries } from '../../NetFlixCountries';
 
 function DestC(props) {
   const { changeDest } = props;
