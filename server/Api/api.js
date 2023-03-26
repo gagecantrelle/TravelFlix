@@ -18,9 +18,7 @@ const getTop100By = (countryID) => {
     },
   };
 
-  axios.request(options).then((response) => {
-    console.log(response.data);
-  }).catch((error) => {
+  return axios.request(options).then((response) => response.data).catch((error) => {
     console.error(error);
   });
 };
