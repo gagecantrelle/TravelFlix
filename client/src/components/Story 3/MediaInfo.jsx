@@ -13,10 +13,12 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  // console.log(props.title);
+  // console.log(props.selectedMovie.title);
   function handleClick() {
     console.log('Opening YouTube player...');
     axios.post('/search', {
-      title: props.title,
+      title: props.selectedMovie.title,
     }).then((response) => {
       console.log(response.data)
       setVideoId(response.data)

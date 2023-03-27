@@ -2,6 +2,7 @@
 const path = require('path');
 const express = require('express');
 const { getTop100By, youtubeSearch } = require('./Api/api');
+require('dotenv').config();
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
@@ -40,7 +41,8 @@ app.get('/findUnique', async (req, res) => {
 });
 
 app.post('/search', (req, res) => {
-  youtubeSearch('dog').then((data) => {
+  console.log(req.body);
+  youtubeSearch(req.body.title).then((data) => {
     const videoIds = data.items.map((item) => item.id.videoId);
     console.log(videoIds);
     res.send(videoIds[0]);

@@ -30,7 +30,9 @@ const youtubeSearch = (title) => {
     url: 'https://www.googleapis.com/youtube/v3/search',
     params: {
       key: 'AIzaSyAUtFK82kru3O2T-c1KuVhIofmOq41q3fM',
-      q: 'dog',
+      //  key: YOUTUBE_KEY,
+      // q: 'dog',
+      q: title,
       // part: 'snippet',
       type: 'video',
       maxResults: 3,
