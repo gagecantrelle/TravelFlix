@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-const { Sequelize } = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
 
 const database = 'travel';
 let sequelize;
+let User;
 async function createDatabaseIfNotExists() {
   const connection = await mysql2.createConnection({
     host: 'localhost',
@@ -27,10 +28,25 @@ async function init() {
     await sequelize.authenticate().then(() => {
       console.log('connected');
     });
+    // creates user Model
+    User = sequelize.define('User', {
+      userName: { type: DataTypes.STRING },
+      refreshToken: { type: DataTypes.STRING },
+      authToken: { type: DataTypes.STRING },
+      comments: { type: DataTypes.STRING },
+      userImage: { type: DataTypes.STRING },
+      locationsTraveled: { type: DataTypes.STRING },
+      movieList: { type: DataTypes.STRING },
+      homeCountry: { type: DataTypes.STRING },
+    });
+    // makes sure the User Schema matches the one we just created in DB
+    await User.sync();
   } catch (error) {
     console.log('dbFailed:', error);
   }
 }
 
 init();
+
+module.exports.User = User;
 module.exports.sequelize = sequelize;

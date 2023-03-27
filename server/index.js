@@ -4,6 +4,8 @@ const express = require('express');
 const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
+const { User } = require('./database/index');
+
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
