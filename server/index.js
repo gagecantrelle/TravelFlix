@@ -62,13 +62,24 @@ app.post('/search', (req, res) => {
     await User.create({ userName })
       .then((data) => console.log(data));
   });
-  // Put movie app.? here
+
+  // get all the movies from the movie model
+  app.get('/findMovies', async (req, res) => {
+    Movie.find()
+      .then((data) => {
+        if (data) {
+          console.log('successful get');
+          res.send(data).status(200);
+        } else {
+          console.log('unsuccessful get');
+          res.sendStatus(200);
+        }
+      })
+      .catch((err) => {
+        console.log('ERROR was unable to get all movies: ', err);
+      });
+  });
 })();
-
-//get all the movies from the movie modle
-app.get("/getMovies", async (req, res) =>{
-
-})
 
 app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);
