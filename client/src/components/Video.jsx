@@ -10,9 +10,9 @@ import CardContent from '@mui/material/CardContent';
 
 ////dummy data
 let GageDummyData = [
-    {country: 'mexico', movie: 'housefire', likes: 300, dislikes: 30, video: 'video', descriptions: 'descriptions', id: 1}, 
-    {country: 'usa', movie: 'housefloods', likes: 500, dislikes: 3, video: 'video', descriptions: 'descriptions', id: 2}, 
-    {country: 'japan', movie: 'housestorm', likes: 1, dislikes: 0, video: 'video', descriptions: 'descriptions', id: 3}
+    {country: 'mexico', title: 'housefire', likes: 300, dislikes: 30, video: 'video', synopsis: 'synopsis', id: 1, title_date: '2023-1-1', image: 'image'}, 
+    {country: 'usa', title: 'housefloods', likes: 500, dislikes: 3, video: 'video', synopsis: 'synopsis', id: 2, title_date: '2023-1-1', image: 'image'}, 
+    {country: 'japan', title: 'housestorm', likes: 1, dislikes: 0, video: 'video', synopsis: 'synopsis', id: 3, title_date: '2023-1-1', image: 'image'}
 ]
 ////
 
@@ -110,7 +110,8 @@ return(
         <div key={data.country}>
             <Card sx={{ minWidth: 275 }}>
             <CardContent>
-        <div>{data.movie}</div>  
+        <div>{data.title}</div>
+        <div>{data.image}</div>  
         <div>{data.video}</div>
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -122,7 +123,8 @@ return(
       </Toolbar>
       </AppBar>
       </Box>
-      <div>{data.descriptions}</div>
+      <div>made in {data.title_date}</div>
+      <div>{data.synopsis}</div>
       </CardContent>
       </Card>
       </div>
