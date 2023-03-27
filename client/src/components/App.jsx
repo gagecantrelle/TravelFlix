@@ -4,6 +4,7 @@ import Story2 from './Story2/Story2.jsx';
 import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './MediaInfo.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
+import Map from './ThumUpDown/Map.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class App extends React.Component {
         <button>Click me!</button>
         <Story2 changeMovie={this.changeMovie} />
         <VideoList />
-      
+        <Map />
         <MediaInfo />
         {/* <YouTubePlayer /> */}
       </div>
