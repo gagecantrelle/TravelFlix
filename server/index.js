@@ -38,7 +38,7 @@ app.get('/findUnique', async (req, res) => {
   const uniqueArray1 = destinationArr
   // eslint-disable-next-line max-len
     .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
-
+  // returns the new unique array to client
   res.send(uniqueArray1);
 });
 
@@ -53,7 +53,7 @@ app.post('/search', (req, res) => {
 // needed to add this because without it was trying to create
 // a new instance without having defined the model
 (async () => {
-  // Initialize the database and get the User model
+  // Initialize the database and get the User/Movie model
   const { User, Movie } = await initDb();
 
   // Use the User model in your app.post('/User') route
