@@ -1,5 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
+import MediaInfo from './MediaInfo.jsx';
+import YouTubePlayer from './YouTubePlayer.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,12 +11,13 @@ class App extends React.Component {
     };
   }
 
+
+
   render() {
     return (
       <div>
-        <Button variant="contained">Hello World</Button>
-        <p>You clicked  times.</p>
-        <button type="button">Click me!</button>
+        <MediaInfo />
+        {/* <YouTubePlayer /> */}
       </div>
     );
   }
