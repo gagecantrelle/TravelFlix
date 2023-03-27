@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+// eslint-disable-next-line import/extensions
+import App from './components/App.jsx';
+// import './styles.css';
 
-const myFirstElement = <h1>Hello React!</h1>
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(myFirstElement);
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<App tab="home" />);
