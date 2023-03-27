@@ -4,17 +4,9 @@ import axios from 'axios';
 
 function YouTubePlayer(props) {
   const playerRef = useRef(null);
-  console.log(props.title);
+  console.log(props);
 
 
-  // axios.post('/search', {
-  //   title: props.title,
-  // }).then((response) => {
-  //   console.log(response.data);
-  // })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 
   useEffect(() => {
     if (playerRef.current) {
