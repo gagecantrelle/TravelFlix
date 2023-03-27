@@ -25,25 +25,29 @@ class App extends React.Component {
         top250tv: 0,
         title_date: '2023-03-24',
       },
+      userName: 'username',
     };
     this.changeMovie = this.changeMovie.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   changeMovie(movie) {
     this.setState({ selectedMovie: movie });
   }
 
-
+  changeUser(user) {
+    this.setState({ userName: user });
+  }
 
   render() {
+    const { userName } = this.state;
     return (
-        <div>
-        <Button variant="contained">Hello World</Button>
-        <p>You clicked  times.</p>
-        <button>Click me!</button>
-        <Story2 changeMovie={this.changeMovie} />
+      <div>
+        <Button variant="contained">Travel App</Button>
+
+        <Story2 changeMovie={this.changeMovie} userName={userName} />
         <VideoList />
-      
+
         <MediaInfo />
         {/* <YouTubePlayer /> */}
       </div>
