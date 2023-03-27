@@ -20,10 +20,9 @@ function MediaInfo(props) {
     axios.post('/search', {
       title: props.selectedMovie.title,
     }).then((response) => {
-      console.log(response.data)
-      setVideoId(response.data)
+      console.log(response.data);
+      setVideoId(response.data);
       setShowTrailer(true);
-    ;
     })
       .catch((error) => {
         console.log(error);
@@ -33,7 +32,7 @@ function MediaInfo(props) {
 
   return (
   // <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
-  
+
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography variant="h5" component="div">
