@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import Story2 from './Story2.jsx';
+import Story2 from './Story2/Story2.jsx';
+import VideoList from './VideoList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // eslint-disable-next-line react/no-unused-state
-      selectedMovie: [{
+      selectedMovie: {
         title: 'The Goat and Her Three Kids',
         img: 'https://occ-0-2758-3467.1.nflxso.net/dnm/api/v6/WNk1mr9x_Cd_2itp6pUM7-lXMJg/AAAABcAhg7Ed9mUM0OwBbe0DMWKmi9W4HcbSYhpju4xeMRr1WODB1iVTACz8_XS7JP32HKU5UmHoy0a-5hh70yVj9eYehl1jSatX3g.jpg?r=852',
         title_type: 'movie',
@@ -21,21 +22,26 @@ class App extends React.Component {
         top250: 0,
         top250tv: 0,
         title_date: '2023-03-24',
-      }],
+      },
     };
+    this.changeMovie = this.changeMovie.bind(this);
   }
 
+  changeMovie(movie) {
+    this.setState({ selectedMovie: movie });
+  }
 
-  render(){
-    return (<div>
-     <Button variant="contained">Hello World</Button>
-      <p>You clicked  times.</p>
-      <button >Click me!</button>
-      <Story2 />
-      <VideoList />
-    </div>)
-  }};
-
-
+  render() {
+    return (
+      <div>
+        <Button variant="contained">Hello World</Button>
+        <p>You clicked  times.</p>
+        <button>Click me!</button>
+        <Story2 changeMovie={this.changeMovie} />
+        <VideoList />
+      </div>
+    );
+  }
+}
 
 export default App;
