@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
@@ -43,12 +44,10 @@ class App extends React.Component {
     return (
       <div>
         <Button variant="contained">Hello World</Button>
-        <p>You clicked  times.</p>
-        <button>Click me!</button>
         <Story2 changeMovie={this.changeMovie} />
         <VideoList />
 
-        <MediaInfo selectedMovie={selectedMovie}/>
+        <MediaInfo selectedMovie={selectedMovie} />
         {/* <YouTubePlayer /> */}
       </div>
     );
