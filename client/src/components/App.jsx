@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-// import VideoList from './ThumUpDown/VideoList';
+import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 
 class App extends React.Component {
@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { userName } = this.state;
+    const { userName, selectedMovie } = this.state;
     return (
       <div>
         <Button variant="contained">Hello World</Button>
@@ -48,7 +48,7 @@ class App extends React.Component {
         <Story2 changeMovie={this.changeMovie} />
         <VideoList />
 
-        <MediaInfo />
+        <MediaInfo selectedMovie={selectedMovie}/>
         {/* <YouTubePlayer /> */}
       </div>
     );
