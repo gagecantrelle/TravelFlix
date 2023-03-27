@@ -1,29 +1,24 @@
- import React from 'react'
- import Video from './Video.jsx'
+import React from 'react';
+import Video from './Video.jsx';
 
 class VideoList extends React.Component {
-    constructor(){
-        super()
-        this.state={
-      
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
 
+    };
+  }
 
-
-render(){
-
-return(
-    <div>
+  render() {
+    return (
+      <div>
         <div>commintes</div>
         <Video />
-        
-    </div>
-)  
 
+      </div>
+    );
+  }
 }
 
-}
-
-//<Video />
+// <Video />
 export default VideoList;
