@@ -44,9 +44,9 @@ async function init() {
   } catch (error) {
     console.log('dbFailed:', error);
   }
+  return { User, Sequelize };
 }
 
-init();
+// init();
 
-module.exports.User = User;
-module.exports.sequelize = sequelize;
+module.exports.initDb = init;
