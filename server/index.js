@@ -54,7 +54,7 @@ app.post('/search', (req, res) => {
 // a new instance without having defined the model
 (async () => {
   // Initialize the database and get the User model
-  const { User } = await initDb();
+  const { User, Movie } = await initDb();
 
   // Use the User model in your app.post('/User') route
   app.post('/User', async (req, res) => {
@@ -62,6 +62,7 @@ app.post('/search', (req, res) => {
     await User.create({ userName })
       .then((data) => console.log(data));
   });
+  // Put movie app.? here
 })();
 
 app.listen(PORT, () => {
