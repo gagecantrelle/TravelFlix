@@ -13,7 +13,7 @@ const getTop100By = (countryID) => {
       country_andorunique: 'or',
     },
     headers: {
-      'X-RapidAPI-Key': '253ff4744dmsh976b774f3e48267p189808jsnfd316ee46cf2',
+      'X-RapidAPI-Key': '',
       'X-RapidAPI-Host': 'unogs-unogs-v1.p.rapidapi.com',
     },
   };
