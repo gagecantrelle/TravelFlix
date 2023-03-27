@@ -44,7 +44,7 @@ class App extends React.Component {
     return (
       <div>
         <Button variant="contained">Hello World</Button>
-        <Story2 changeMovie={this.changeMovie} />
+        <Story2 changeMovie={this.changeMovie} userName={userName} />
         {/* <VideoList /> */}
 
         <MediaInfo selectedMovie={selectedMovie} />
