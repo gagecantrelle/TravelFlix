@@ -29,9 +29,9 @@ const youtubeSearch = (title) => {
     method: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
     params: {
-      key: YOUTUBE_KEY,
-      q: title,
-      part: 'snippet',
+      key: 'AIzaSyAUtFK82kru3O2T-c1KuVhIofmOq41q3fM',
+      q: 'dog',
+      // part: 'snippet',
       type: 'video',
       maxResults: 3,
     },

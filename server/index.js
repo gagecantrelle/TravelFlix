@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 const path = require('path');
 const express = require('express');
-const { getTop100By } = require('./Api/api');
+const { getTop100By, youtubeSearch } = require('./Api/api');
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
@@ -37,6 +37,14 @@ app.get('/findUnique', async (req, res) => {
     .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
 
   res.send(uniqueArray1);
+});
+
+app.post('/search', (req, res) => {
+  youtubeSearch('dog').then((data) => {
+    const videoIds = data.items.map((item) => item.id.videoId);
+    console.log(videoIds);
+    res.send(videoIds[0]);
+  });
 });
 
 //  sequelize.authenticate().then(()=>{console.log("connected")});
