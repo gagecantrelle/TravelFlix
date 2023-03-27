@@ -113,6 +113,8 @@ return(
         <div>{data.title}</div>
         <div>{data.image}</div>  
         <div>{data.video}</div>
+        
+
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
         <Toolbar variant="dense">
@@ -123,6 +125,8 @@ return(
       </Toolbar>
       </AppBar>
       </Box>
+
+
       <div>made in {data.title_date}</div>
       <div>{data.synopsis}</div>
       </CardContent>

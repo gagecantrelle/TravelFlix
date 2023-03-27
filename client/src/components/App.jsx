@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-import VideoList from './VideoList.jsx';
+import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './MediaInfo.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 
