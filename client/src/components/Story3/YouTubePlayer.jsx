@@ -24,7 +24,6 @@ function YouTubePlayer(props) {
   return (
     <YouTube
       videoId={props.id}
-      // videoId={'ZUCJrcjZ63Q'}
       opts={opts}
       onReady={(event) => playerRef.current = event.target}
     />

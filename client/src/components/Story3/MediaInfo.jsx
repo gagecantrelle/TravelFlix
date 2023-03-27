@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import VideoList from '../VideoList.jsx';
+import VideoList from '../ThumUpDown/VideoList.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 
 function MediaInfo(props) {

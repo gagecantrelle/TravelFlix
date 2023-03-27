@@ -1,9 +1,8 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-import VideoList from './VideoList.jsx';
-import MediaInfo from './Story 3/MediaInfo.jsx';
-
+// import VideoList from './ThumUpDown/VideoList';
+import MediaInfo from './Story3/MediaInfo.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,14 +30,12 @@ class App extends React.Component {
 
   changeMovie(movie) {
     this.setState({ selectedMovie: movie });
-    
   }
-  
 
   render() {
     return (
       <div>
-      
+
         <Story2 changeMovie={this.changeMovie} />
         {/* <VideoList /> */}
         <MediaInfo selectedMovie={this.state.selectedMovie} />
