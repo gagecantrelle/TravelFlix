@@ -29,7 +29,7 @@ const youtubeSearch = (title) => {
     method: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
     params: {
-      key: 'AIzaSyAUtFK82kru3O2T-c1KuVhIofmOq41q3fM',
+      key: 'INSERT HERE',
       //  key: YOUTUBE_KEY,
       // q: 'dog',
       q: title,
