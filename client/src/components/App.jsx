@@ -44,7 +44,7 @@ class App extends React.Component {
         <button>Click me!</button>
         <Story2 changeMovie={this.changeMovie} />
         <VideoList />
-        <Map />      
+        <Map />
         <MediaInfo />
         {/* <YouTubePlayer /> */}
       </div>
