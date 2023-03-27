@@ -6,31 +6,36 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import VideoList from '../VideoList.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 
-function MediaInfo() {
+function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
-  const title = 'Title';
 
   function handleClick() {
     console.log('Opening YouTube player...');
+    // console.log(props)
     setShowTrailer(true);
   }
 
   return (
-    <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
+  // <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
+    <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography variant="h5" component="div">
-          {title}
+          {props.selectedMovie.title}
         </Typography>
         <Typography variant="body2">
-          User Rating: 4.5/5
+          {props.selectedMovie.synopsis}
+        </Typography>
+        <Typography variant="body2">
+          <VideoList />
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleClick}>Watch Trailer</Button>
       </CardActions>
-      {showTrailer && <YouTubePlayer title={title} />}
+      {showTrailer && <YouTubePlayer title={props.selectedMovie.title} />}
     </Card>
   );
 }

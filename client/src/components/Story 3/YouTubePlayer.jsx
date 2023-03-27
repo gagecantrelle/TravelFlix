@@ -1,8 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
+import axios from 'axios';
 
-function YouTubePlayer() {
+function YouTubePlayer(props) {
   const playerRef = useRef(null);
+  console.log(props.title);
+
+
+  // axios.post('/search', {
+  //   title: props.title,
+  // }).then((response) => {
+  //   console.log(response.data);
+  // })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 
   useEffect(() => {
     if (playerRef.current) {

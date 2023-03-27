@@ -2,8 +2,8 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
 import VideoList from './VideoList.jsx';
-import MediaInfo from './MediaInfo.jsx';
-import YouTubePlayer from './YouTubePlayer.jsx';
+import MediaInfo from './Story 3/MediaInfo.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -31,21 +31,17 @@ class App extends React.Component {
 
   changeMovie(movie) {
     this.setState({ selectedMovie: movie });
+    
   }
-
-
+  
 
   render() {
     return (
-        <div>
-        <Button variant="contained">Hello World</Button>
-        <p>You clicked  times.</p>
-        <button>Click me!</button>
-        <Story2 changeMovie={this.changeMovie} />
-        <VideoList />
+      <div>
       
-        <MediaInfo />
-        {/* <YouTubePlayer /> */}
+        <Story2 changeMovie={this.changeMovie} />
+        {/* <VideoList /> */}
+        <MediaInfo selectedMovie={this.state.selectedMovie} />
       </div>
     );
   }
