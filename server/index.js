@@ -45,10 +45,7 @@ app.get('/findUnique', async (req, res) => {
   // returns the new unique array to client
   res.send(uniqueArray1);
 });
-// handles put request to add movies to watch list (in progress)
-app.put('/addToWatchList', (req, res) => {
 
-});
 app.post('/search', (req, res) => {
   console.log(req.body);
   youtubeSearch(req.body.title).then((data) => {
@@ -63,12 +60,29 @@ app.post('/search', (req, res) => {
 (async () => {
   // Initialize the database and get the User/Movie model
   const { User, Movie } = await initDb();
+  // handles put request to add movies to watch list (in progress)
+  app.put('/addToWatchList', (req, res) => {
 
-  // Use the User model in your app.post('/User') route
+  });
+
+  app.get('/userObject', (req, res) => {
+    const { userName } = req.query;
+    console.log(userName);
+    User.findOne({ where: { userName } })
+      .then((data) => res.send(data))
+      .catch((error) => {
+        console.error('Error in UserObject');
+        res.send(error);
+      });
+  });
+
+  // Use the User model in your app.post('/User') route to create new
+  // user
   app.post('/User', async (req, res) => {
     const { userName } = req.body;
     await User.create({ userName })
-      .then((data) => console.log(data));
+      .then((data) => res.send(data))
+      .catch((error) => res.send(error));
   });
   // Put movie app.? here
 })();

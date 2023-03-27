@@ -21,7 +21,6 @@ const GageDummyData = [
   },
 ];
 /// /
-
 class Video extends React.Component {
   constructor() {
     super();
@@ -110,7 +109,7 @@ class Video extends React.Component {
     const { videos } = this.state;
     // this.thums('likes', data.likes, data._id)
     // this.thums('dislikes', data.dislikes, data._id)
-
+    console.log(videos);
     return (
       <div className="box">
         {videos.map((data) => (
