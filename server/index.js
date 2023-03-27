@@ -1,9 +1,10 @@
 /* eslint-disable no-return-assign */
 const path = require('path');
 const express = require('express');
-const { getTop100By } = require('./Api/api');
+const { getTop100By, youtubeSearch } = require('./Api/api');
+require('dotenv').config();
 
-const { User } = require('./database/index');
+const { initDb } = require('./database');
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
@@ -41,7 +42,34 @@ app.get('/findUnique', async (req, res) => {
   res.send(uniqueArray1);
 });
 
-//  sequelize.authenticate().then(()=>{console.log("connected")});
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  youtubeSearch(req.body.title).then((data) => {
+    const videoIds = data.items.map((item) => item.id.videoId);
+    console.log(videoIds);
+    res.send(videoIds[0]);
+  });
+});
+// needed to add this because without it was trying to create
+// a new instance without having defined the model
+(async () => {
+  // Initialize the database and get the User model
+  const { User, Movie } = await initDb();
+
+  // Use the User model in your app.post('/User') route
+  app.post('/User', async (req, res) => {
+    const { userName } = req.body;
+    await User.create({ userName })
+      .then((data) => console.log(data));
+  });
+  // Put movie app.? here
+})();
+
+//get all the movies from the movie modle
+app.get("/getMovies", async (req, res) =>{
+
+})
+
 app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);
 });

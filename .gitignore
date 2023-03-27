@@ -4,6 +4,7 @@ node_modules
 
 
 # Project
-client/dist/bundle.js
+client/dist/bundle
 client/src/config.js
+
 .env
