@@ -4,7 +4,7 @@ const express = require('express');
 const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
-const { User } = require('./database/index');
+const { initDb } = require('./database');
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
@@ -50,8 +50,20 @@ app.post('/search', (req, res) => {
     res.send(videoIds[0]);
   });
 });
+// needed to add this because without it was trying to create
+// a new instance without having defined the model
+(async () => {
+  // Initialize the database and get the User model
+  const { User } = await initDb();
 
-//  sequelize.authenticate().then(()=>{console.log("connected")});
+  // Use the User model in your app.post('/User') route
+  app.post('/User', async (req, res) => {
+    const { userName } = req.body;
+    await User.create({ userName })
+      .then((data) => console.log(data));
+  });
+})();
+
 app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);
 });

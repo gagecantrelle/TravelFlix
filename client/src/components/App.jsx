@@ -1,7 +1,8 @@
+/* eslint-disable import/extensions */
 import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-// import VideoList from './ThumUpDown/VideoList';
+import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 
 class App extends React.Component {
@@ -24,21 +25,30 @@ class App extends React.Component {
         top250tv: 0,
         title_date: '2023-03-24',
       },
+      userName: 'username',
     };
     this.changeMovie = this.changeMovie.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   changeMovie(movie) {
     this.setState({ selectedMovie: movie });
   }
 
+  changeUser(user) {
+    this.setState({ userName: user });
+  }
+
   render() {
+    const { userName, selectedMovie } = this.state;
     return (
       <div>
-
-        <Story2 changeMovie={this.changeMovie} />
+        <Button variant="contained">Hello World</Button>
+        <Story2 changeMovie={this.changeMovie} userName={userName} />
         {/* <VideoList /> */}
-        <MediaInfo selectedMovie={this.state.selectedMovie} />
+
+        <MediaInfo selectedMovie={selectedMovie} />
+        {/* <YouTubePlayer /> */}
       </div>
     );
   }
