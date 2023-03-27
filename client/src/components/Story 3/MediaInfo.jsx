@@ -45,7 +45,6 @@ function MediaInfo(props) {
         <Typography variant="body2">
           <VideoList />
         </Typography>
-        Current video ID: {videoId}
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleClick}>Watch Trailer</Button>
