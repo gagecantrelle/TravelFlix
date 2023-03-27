@@ -56,7 +56,7 @@ function BasicTable(props) {
               </TableCell>
               <TableCell align="right">
                 <Button variant="contained" color="primary" onClick={() => trailerPlay(row.trailer)}>
-                  Watch Trailer
+                  Get More Details
                 </Button>
               </TableCell>
               <TableCell align="right">
