@@ -13,7 +13,7 @@ const getTop100By = (countryID) => {
       country_andorunique: 'or',
     },
     headers: {
-      'X-RapidAPI-Key': '',
+      'X-RapidAPI-Key': UNOGD_KEY,
       'X-RapidAPI-Host': 'unogs-unogs-v1.p.rapidapi.com',
     },
   };
@@ -29,7 +29,7 @@ const youtubeSearch = (title) => {
     method: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
     params: {
-      key: 'INSERT HERE',
+      key: YOUTUBE_KEY,
       //  key: YOUTUBE_KEY,
       // q: 'dog',
       q: title,
