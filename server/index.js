@@ -11,7 +11,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8085;
+const PORT = 8086;
 
 app.get('/', (req, res) => {
   console.log('here');
@@ -65,19 +65,24 @@ app.post('/search', (req, res) => {
 
   // get all the movies from the movie model
   app.get('/findMovies', async (req, res) => {
-    Movie.find()
-      .then((data) => {
-        if (data) {
-          console.log('successful get');
-          res.send(data).status(200);
-        } else {
-          console.log('unsuccessful get');
-          res.sendStatus(200);
-        }
-      })
+    await Movie.findAll({}).then((data) => {
+      if (data) {
+        console.log('successful get');
+        res.send(data).status(200);
+      } else {
+        console.log('unsuccessful get');
+        res.sendStatus(200);
+      }
+    })
       .catch((err) => {
         console.log('ERROR was unable to get all movies: ', err);
       });
+  });
+
+  app.post('/Movie', async (req, res) => {
+    const { movieName, thumbsUp, thumbsDown } = req.body;
+    console.log('yes');
+    Movie.create({ movieName, thumbsUp, thumbsDown }).then((data) => res.send(data));
   });
 })();
 

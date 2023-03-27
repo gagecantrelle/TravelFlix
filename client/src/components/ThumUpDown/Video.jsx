@@ -28,60 +28,61 @@ class Video extends React.Component {
     super();
     this.state = {
       // will referent the list of videos
+      movies: [],
       list: GageDummyData,
     };
   }
 
   // will get the list of videos from the api and then give that value to the state video key
-  // getMoviesData() {
-  //   axios.get('/findMovies')
-  //     .then((data) => {
-  //       if (data) {
-  //         this.setState({
-  //           movies: data,
-  //         });
-  //         console.log('successful get');
-  //       } else {
-  //         console.log('unsuccessful get');
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log('ERROR was unable to get video data:  ', err);
-  //     });
-  // }
+  getMoviesData() {
+    axios.get('/findMovies')
+      .then((data) => {
+        if (data) {
+          this.setState({
+            movies: data,
+          });
+          console.log('successful get');
+        } else {
+          console.log('unsuccessful get');
+        }
+      })
+      .catch((err) => {
+        console.log('ERROR was unable to get video data:  ', err);
+      });
+  }
 
-  // // onclick add to like or dislike
-  // thump(opinion, value, id) {
-  //   if (opinion === 'likes') {
-  //     axios.put(`/${id}`, {
-  //       thumbsUp: value + 1,
-  //     })
-  //       .then((data) => {
-  //         if (data) {
-  //           console.log('successful put');
-  //         } else {
-  //           console.log('unsuccessful put');
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log('ERROR was unable to get video data:  ', err);
-  //       });
-  //   } else if (opinion === 'dislikes') {
-  //     axios.put(`/${id}`, {
-  //       thumbsDown: value + 1,
-  //     })
-  //       .then((data) => {
-  //         if (data) {
-  //           console.log('successful put');
-  //         } else {
-  //           console.log('unsuccessful put');
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log('ERROR was unable to get video data:  ', err);
-  //       });
-  //   }
-  // }
+  // onclick add to like or dislike
+  thump(opinion, value, id) {
+    if (opinion === 'likes') {
+      axios.put(`/${id}`, {
+        thumbsUp: value + 1,
+      })
+        .then((data) => {
+          if (data) {
+            console.log('successful put');
+          } else {
+            console.log('unsuccessful put');
+          }
+        })
+        .catch((err) => {
+          console.log('ERROR was unable to get video data:  ', err);
+        });
+    } else if (opinion === 'dislikes') {
+      axios.put(`/${id}`, {
+        thumbsDown: value + 1,
+      })
+        .then((data) => {
+          if (data) {
+            console.log('successful put');
+          } else {
+            console.log('unsuccessful put');
+          }
+        })
+        .catch((err) => {
+          console.log('ERROR was unable to get video data:  ', err);
+        });
+    }
+  }
 
   // componentDidMount() {
   //   this.getMoviesData()
@@ -106,7 +107,7 @@ class Video extends React.Component {
                     <Toolbar variant="dense">
                       <button onClick={()=> console.log('like')}><ThumbUpOffAltIcon /></button>
                       <div className="likebutton">{data.thumbsUp}</div>
-                      <button onClick={()=> console.log('dislike')}><ThumbDownOffAltIcon /></button>
+                      <button onClick={()=>console.log('dislike')}><ThumbDownOffAltIcon /></button>
                       <div className="dislikebutton">{data.thumbsDown}</div>
                     </Toolbar>
                   </AppBar>
