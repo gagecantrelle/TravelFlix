@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { Sequelize } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
