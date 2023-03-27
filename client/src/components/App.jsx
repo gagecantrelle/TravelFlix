@@ -37,7 +37,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+        <div>
+        <Button variant="contained">Hello World</Button>
+        <p>You clicked  times.</p>
+        <button>Click me!</button>
+        <Story2 changeMovie={this.changeMovie} />
+        <VideoList />
+      
         <MediaInfo />
         {/* <YouTubePlayer /> */}
       </div>
