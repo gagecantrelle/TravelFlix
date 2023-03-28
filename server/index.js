@@ -14,7 +14,7 @@ app.use(express.json());
 const PORT = 8086;
 
 app.get('/', (req, res) => {
-   console.log('here');
+  console.log('here');
   res.send();
 });
 // Receives request for unique netflix programs
@@ -65,33 +65,41 @@ app.post('/search', (req, res) => {
 
   // get all the movies from the movie model
   app.get('/findMovies', async (req, res) => {
-    await Movie.findAll({}).then((data) => {
+    const { title } = req.query.selectedMovie;
+    await Movie.findOne({ where: { movieName: title } }).then((data) => {
       if (data) {
-        console.log('successful get');
         res.send(data).status(200);
       } else {
-        console.log('unsuccessful get');
-        res.sendStatus(200);
+        res.send(data).status(200);
       }
     })
       .catch((err) => {
         console.log('ERROR was unable to get all movies: ', err);
       });
   });
-//create movie
+  // create movie
   app.post('/Movie', async (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
 
     await Movie.create({ movieName, thumbsUp, thumbsDown }).then((data) => res.send(data));
   });
 
-  app.put('/Movie/UpdateThumbsUp/:id', (req, res) => {
-    const { thumbsUp } = req.body;
-    const { id } = req.params;
-    console.log(thumbsUp)
-    console.log(id)
-    Movie.findOneAndUpdate(id, thumbsUp)
+  app.put('/Movie/UpdateThumbs/', (req, res) => {
+    const { movieName, thumbsUp, thumbsDown } = req.body;
+
+    //console.log(movieName, thumbsUp, thumbsDown);
+
+    Movie.update({
+      thumbsUp,
+      thumbsDown,
+    }, {
+      where: {
+        movieName,
+      },
+      returning: true,
+    })
       .then((data) => {
+        console.log(data);
         if (data) {
           console.log('updated');
           res.sendStatus(200);

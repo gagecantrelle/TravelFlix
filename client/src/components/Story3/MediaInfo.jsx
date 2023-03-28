@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
-import Video from '../ThumUpDown/VideoList.jsx';
+import Video from '../ThumUpDown/Video.jsx';
 import YouTubePlayer from './YouTubePlayer.jsx';
 
 function MediaInfo(props) {
@@ -27,7 +27,7 @@ function MediaInfo(props) {
         console.log(error);
       });
   }
-  console.log('yes');
+
   return (
   // <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
 
