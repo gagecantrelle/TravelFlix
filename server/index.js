@@ -91,7 +91,7 @@ app.post('/search', (req, res) => {
   //     .then((data) => res.send(data))
   //     .catch((error) => res.send(error));
   // });
-
+// for testing
   app.post('/User', async (req, res) => {
     const {
       userName,
