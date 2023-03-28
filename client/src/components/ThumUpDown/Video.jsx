@@ -22,21 +22,32 @@ const GageDummyData = [
   },
 ];
 /// /
-
 class Video extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       // will referent the list of videos
       movies: [],
       list: GageDummyData,
+      data: false,
+      thumbsUp: 0,
+      thumbsDown: 0,  
     };
   }
+  //   const selectedMovie
+  // }
 
+  componentDidMount() {
+    this.getMoviesData();
+  }
+
+  // axios.get('/findMovies', param:{selectedMovie: props.selectedMovie} )
   // will get the list of videos from the api and then give that value to the state video key
   getMoviesData() {
-    axios.get('/findMovies')
-      .then(({data}) => {
+    const param = { selectedMovie: this.props.selectedMovie };
+    console.log(this.props);
+    axios.get('/findMovies', { params: param })
+      .then(({ data }) => {
         if (data) {
           this.setState({
             movies: data,
@@ -54,7 +65,7 @@ class Video extends React.Component {
   // // onclick add to like or dislike
   thump(opinion, value, id) {
     if (opinion === 'likes') {
-      axios.put(`/Movie/UpdateThumbs/${id}`, {
+      axios.put(`/Movie/UpdateThumbsUp/${id}`, {
         thumbsUp: value + 1,
       })
         .then((data) => {
@@ -84,13 +95,11 @@ class Video extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.getMoviesData()
-    console.log(this.state.movies)
-  }
+  // getOneMovie(id) {
+  // }
 
-//() => this.thump('like', data.thumbsUp, data.id)
-//() => this.thump('dislike', data.thumbsDown, data.id)
+  // () => this.thump('like', data.thumbsUp, data.id)
+  // () => this.thump('dislike', data.thumbsDown, data.id)
   render() {
     const { movies } = this.state;
     // this.thumbs('likes', data.likes, data._id)
@@ -105,9 +114,9 @@ class Video extends React.Component {
                 <Box sx={{ flexGrow: 1 }}>
                   <AppBar position="static">
                     <Toolbar variant="dense">
-                      <button onClick={() => this.thump('like', data.thumbsUp, data.id)}><ThumbUpOffAltIcon /></button>
+                      <button onClick={() => console.log(data.thumbsUp, data.thumbsUp + 1)}><ThumbUpOffAltIcon /></button>
                       <div className="likebutton">{data.thumbsUp}</div>
-                      <button onClick={()=>console.log('dislike')}><ThumbDownOffAltIcon /></button>
+                      <button onClick={() => console.log('dislike')}><ThumbDownOffAltIcon /></button>
                       <div className="dislikebutton">{data.thumbsDown}</div>
                     </Toolbar>
                   </AppBar>

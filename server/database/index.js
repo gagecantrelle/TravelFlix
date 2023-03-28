@@ -2,6 +2,7 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
+const { unique } = require('underscore');
 
 const database = 'travel';
 let sequelize;
@@ -31,7 +32,7 @@ async function init() {
     });
     // creates user Model
     User = sequelize.define('User', {
-      userName: { type: DataTypes.STRING },
+      userName: { type: DataTypes.STRING, unique: true },
       refreshToken: { type: DataTypes.STRING },
       authToken: { type: DataTypes.STRING },
       comments: { type: DataTypes.STRING },

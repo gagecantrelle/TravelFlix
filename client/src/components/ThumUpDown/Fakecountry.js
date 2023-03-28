@@ -3,14 +3,11 @@ const locations = [
   { markerOffset: -25, name: "Belgium", coordinates: [5, 51.4897]},
   { markerOffset: -25, name: "Australia", coordinates: [130.8825, -22.7942]},
   { markerOffset: -25, name: "Argentina", coordinates: [-64.6693, -33.4489]},
+  { markerOffset: -25, name: "Brazil", coordinates: [-50, -10.4897]},
+  { markerOffset: -25, name: "Canada", coordinates: [-100.8825, 51.7942]},
+  { markerOffset: -25, name: "Colombia", coordinates: [-73.6693, 1.4489]},
 
-  { markerOffset: -25, name: "Brazil", coordinates: [5, 51.4897]},
-
-  { markerOffset: -25, name: "Canada", coordinates: [130.8825, -22.7942]},
-
-  { markerOffset: -25, name: "Colombia", coordinates: [-64.6693, -33.4489]},
-
-  { markerOffset: -25, name: "Czech Republic", coordinates: [5, 51.4897]},
+  { markerOffset: 15, name: "Czech Republic", coordinates: [15, 49.4897]},
 
   { markerOffset: -25, name: "France", coordinates: [130.8825, -22.7942]},
 

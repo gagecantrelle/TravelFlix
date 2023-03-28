@@ -1,10 +1,12 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 import Story2 from './Story2/Story2.jsx';
 import Video from './ThumUpDown/Video.jsx';
-// import MediaInfo from './Story3/MediaInfo.jsx';
+import MediaInfo from './Story3/MediaInfo.jsx';
 import Map from './ThumUpDown/Map.jsx';
+import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,10 +28,24 @@ class App extends React.Component {
         top250tv: 0,
         title_date: '2023-03-24',
       },
-      userName: 'username',
+      userName: 'fred',
+      userObject: {},
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
+    this.getUserObject = this.getUserObject.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserObject();
+  }
+
+  getUserObject() {
+    const { userName } = this.state;
+    const param = { userName };
+
+    axios.get('/userObject', { params: param })
+      .then((data) => this.setState({ userObject: data }));
   }
 
   changeMovie(movie) {
@@ -44,11 +60,12 @@ class App extends React.Component {
     const { userName, selectedMovie } = this.state;
     return (
       <div>
+        <UserFeed />
         <Button variant="contained">Hello World</Button>
         <Story2 changeMovie={this.changeMovie} userName={userName} />
         <Video />
         <Map />
-        {/* <MediaInfo selectedMovie={selectedMovie} /> */}
+        <MediaInfo selectedMovie={selectedMovie} />
         {/* <YouTubePlayer /> */}
       </div>
     );
