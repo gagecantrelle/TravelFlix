@@ -2,10 +2,15 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
-// import VideoList from './ThumUpDown/VideoList.jsx';
+import Video from './ThumUpDown/Video.jsx';
+import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
+import Map from './ThumUpDown/Map.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,14 +33,29 @@ class App extends React.Component {
       },
       userName: 'fred',
       userObject: {},
+      activityFeedUsers: {},
+      darkTheme: createTheme({
+        palette: {
+          mode: 'dark',
+        },
+      }),
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
+    this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentDidMount() {
     this.getUserObject();
+    this.getUsers();
+    
+  }
+
+  getUsers() {
+    axios.get('/users')
+      .then((data) => this.setState({ activityFeedUsers: data.data }));
   }
 
   getUserObject() {
@@ -54,17 +74,41 @@ class App extends React.Component {
     this.setState({ userName: user });
   }
 
-  render() {
-    const { userName, selectedMovie } = this.state;
-    return (
-      <div>
-        <UserFeed />
-        <Button variant="contained">Hello World</Button>
-        <Story2 changeMovie={this.changeMovie} userName={userName} />
+  // eslint-disable-next-line react/sort-comp
+  handleDarkModeToggle() {
+    const { darkTheme } = this.state;
+    const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
+    const newTheme = createTheme({
+      palette: {
+        mode: newMode,
+      },
+    });
+    this.setState({ darkTheme: newTheme });
+  }
 
-        <MediaInfo selectedMovie={selectedMovie} />
-        
-      </div>
+  render() {
+    const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
+    if (activityFeedUsers === null) {
+      return <div>Loading...</div>;
+    }
+    return (
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+
+        <div>
+          <UserFeed activityFeedUsers={activityFeedUsers}/>
+          <Button variant="contained">Hello World</Button>
+          {/* {this.state.userObject} */}
+          <DarkModeSwitch
+            isDarkMode={darkTheme.palette.mode === 'dark'}
+            onToggle={this.handleDarkModeToggle}
+          />
+          <Story2 changeMovie={this.changeMovie} userName={userName} />
+
+          <MediaInfo selectedMovie={selectedMovie} />
+
+        </div>
+      </ThemeProvider>
     );
   }
 }
