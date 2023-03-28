@@ -82,6 +82,10 @@ class App extends React.Component {
       <div>
         <UserFeed />
         <Button variant="contained">Hello World</Button>
+        <DarkModeSwitch
+          isDarkMode={darkTheme.palette.mode === 'dark'}
+          onToggle={this.handleDarkModeToggle}
+        />
         <Story2 changeMovie={this.changeMovie} userName={userName} />
 
         <MediaInfo selectedMovie={selectedMovie} />
