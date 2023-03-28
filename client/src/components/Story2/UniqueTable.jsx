@@ -30,6 +30,9 @@ function BasicTable(props) {
   const { changeMovie } = props;
   const trailerPlay = (movie) => {
     changeMovie(movie);
+    // const addToWatchList()=>{
+
+    // }
   };
   return (
     <TableContainer component={Paper}>

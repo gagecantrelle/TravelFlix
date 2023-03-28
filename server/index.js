@@ -67,7 +67,6 @@ app.post('/search', (req, res) => {
 
   app.get('/userObject', (req, res) => {
     const { userName } = req.query;
-    console.log(userName);
     User.findOne({ where: { userName } })
       .then((data) => res.send(data))
       .catch((error) => {
