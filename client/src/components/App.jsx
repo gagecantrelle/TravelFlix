@@ -33,6 +33,7 @@ class App extends React.Component {
       },
       userName: 'fred',
       userObject: {},
+      activityFeedUsers: {},
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
@@ -43,10 +44,18 @@ class App extends React.Component {
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentDidMount() {
     this.getUserObject();
+    this.getUsers();
+    
+  }
+
+  getUsers() {
+    axios.get('/users')
+      .then((data) => this.setState({ activityFeedUsers: data.data }));
   }
 
   getUserObject() {
@@ -65,6 +74,7 @@ class App extends React.Component {
     this.setState({ userName: user });
   }
 
+  // eslint-disable-next-line react/sort-comp
   handleDarkModeToggle() {
     const { darkTheme } = this.state;
     const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
@@ -77,14 +87,18 @@ class App extends React.Component {
   }
 
   render() {
-    const { userName, selectedMovie, darkTheme } = this.state;
+    const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
+    if (activityFeedUsers === null) {
+      return <div>Loading...</div>;
+    }
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
 
         <div>
-          <UserFeed />
+          <UserFeed activityFeedUsers={activityFeedUsers}/>
           <Button variant="contained">Hello World</Button>
+          {/* {this.state.userObject} */}
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}

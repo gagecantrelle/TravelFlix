@@ -112,6 +112,42 @@ app.post('/search', (req, res) => {
         console.error('error data is undefine', err);
         res.sendStatus(500);
       });
+    app.get('/users', (req, res) => {
+      User.findAll({ limit: 20 })
+        .then((data) => res.send(data))
+        .catch((error) => {
+          console.error('Error in UserObject');
+          res.send(error);
+        });
+    });
+
+    // Use the User model in your app.post('/User') route to create new
+    // user
+    // app.post('/User', async (req, res) => {
+    //   const { userName } = req.body;
+    //   await User.create({ userName })
+    //     .then((data) => res.send(data))
+    //     .catch((error) => res.send(error));
+    // });
+
+    app.post('/User', async (req, res) => {
+      const {
+        userName,
+        comments,
+        locationsTraveled,
+        movieList,
+        homeCountry,
+      } = req.body;
+      await User.create({
+        userName,
+        comments,
+        locationsTraveled,
+        movieList,
+        homeCountry,
+      })
+        .then((data) => res.send(data))
+        .catch((error) => res.send(error));
+    });
   });
 })();
 
