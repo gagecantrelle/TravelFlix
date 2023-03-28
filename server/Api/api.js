@@ -13,7 +13,7 @@ const getTop100By = (countryID) => {
       country_andorunique: 'or',
     },
     headers: {
-      'X-RapidAPI-Key': '',
+      'X-RapidAPI-Key': UNOGD_KEY,
       'X-RapidAPI-Host': 'unogs-unogs-v1.p.rapidapi.com',
     },
   };
@@ -22,5 +22,29 @@ const getTop100By = (countryID) => {
     console.error(error);
   });
 };
+// zachs function
+// searches youtube and gets three results
+const youtubeSearch = (title) => {
+  const options = {
+    method: 'GET',
+    url: 'https://www.googleapis.com/youtube/v3/search',
+    params: {
+      key: YOUTUBE_KEY,
+      //  key: YOUTUBE_KEY,
+      // q: 'dog',
+      q: title,
+      // part: 'snippet',
+      type: 'video',
+      maxResults: 3,
+    },
+  };
 
+  return axios.request(options)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+module.exports.youtubeSearch = youtubeSearch;
 module.exports.getTop100By = getTop100By;

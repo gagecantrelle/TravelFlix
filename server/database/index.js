@@ -2,10 +2,12 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
+const { unique } = require('underscore');
 
 const database = 'travel';
 let sequelize;
 let User;
+let Movie;
 async function createDatabaseIfNotExists() {
   const connection = await mysql2.createConnection({
     host: 'localhost',
@@ -30,7 +32,7 @@ async function init() {
     });
     // creates user Model
     User = sequelize.define('User', {
-      userName: { type: DataTypes.STRING },
+      userName: { type: DataTypes.STRING, unique: true },
       refreshToken: { type: DataTypes.STRING },
       authToken: { type: DataTypes.STRING },
       comments: { type: DataTypes.STRING },
@@ -41,12 +43,26 @@ async function init() {
     });
     // makes sure the User Schema matches the one we just created in DB
     await User.sync();
+    // create movie model
+    Movie = sequelize.define('Movie', {
+      movieName: DataTypes.STRING,
+      thumbsUp: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      thumbsDown: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+
+    });
+    await Movie.sync();
   } catch (error) {
     console.log('dbFailed:', error);
   }
+  return { User, Sequelize, Movie };
 }
 
-init();
+// init();
 
-module.exports.User = User;
-module.exports.sequelize = sequelize;
+module.exports.initDb = init;

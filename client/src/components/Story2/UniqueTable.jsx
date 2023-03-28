@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -28,12 +29,14 @@ const rows = fakeUniqueData.map((movie) => createData(movie.title, movie.img, mo
 function BasicTable(props) {
   const { changeMovie } = props;
   const trailerPlay = (movie) => {
-    console.log('yes');
     changeMovie(movie);
+    // const addToWatchList()=>{
+
+    // }
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 400, maxHeight: 100 }} aria-label="simple table">
+      <Table sx={{ minWidth: 200, maxHeight: 100 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Unique Programs</TableCell>
@@ -56,7 +59,7 @@ function BasicTable(props) {
               </TableCell>
               <TableCell align="right">
                 <Button variant="contained" color="primary" onClick={() => trailerPlay(row.trailer)}>
-                  Watch Trailer
+                  Get More Details
                 </Button>
               </TableCell>
               <TableCell align="right">

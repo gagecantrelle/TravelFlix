@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
+// import axios from 'axios';
 
-function YouTubePlayer() {
+function YouTubePlayer(props) {
   const playerRef = useRef(null);
-
+  // console.log(props.id);
+  const { id } = props;
   useEffect(() => {
     if (playerRef.current) {
       playerRef.current.internalPlayer.pauseVideo();
@@ -19,7 +21,16 @@ function YouTubePlayer() {
     },
   };
 
-  return <YouTube videoId="2g811Eo7K8U" opts={opts} onReady={(event) => playerRef.current = event.target} />;
+  return (
+    <YouTube
+      videoId={id}
+      opts={opts}
+      onReady={(event) => {
+        playerRef.current = event.target;
+        return undefined;
+      }}
+    />
+  );
 }
 
 export default YouTubePlayer;
