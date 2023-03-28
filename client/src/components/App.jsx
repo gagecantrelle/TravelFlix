@@ -2,8 +2,11 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
 import Video from './ThumUpDown/Video.jsx';
+import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 import Map from './ThumUpDown/Map.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
@@ -30,10 +33,16 @@ class App extends React.Component {
       },
       userName: 'fred',
       userObject: {},
+      darkTheme: createTheme({
+        palette: {
+          mode: 'dark',
+        },
+      }),
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
+    this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
   }
 
   componentDidMount() {
@@ -56,18 +65,36 @@ class App extends React.Component {
     this.setState({ userName: user });
   }
 
+  handleDarkModeToggle() {
+    const { darkTheme } = this.state;
+    const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
+    const newTheme = createTheme({
+      palette: {
+        mode: newMode,
+      },
+    });
+    this.setState({ darkTheme: newTheme });
+  }
+
   render() {
-    const { userName, selectedMovie } = this.state;
+    const { userName, selectedMovie, darkTheme } = this.state;
     return (
-      <div>
-        <UserFeed />
-        <Button variant="contained">Hello World</Button>
-        <Story2 changeMovie={this.changeMovie} userName={userName} />
-        <Video />
-        <Map />
-        <MediaInfo selectedMovie={selectedMovie} />
-        {/* <YouTubePlayer /> */}
-      </div>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+
+        <div>
+          <UserFeed />
+          <Button variant="contained">Hello World</Button>
+          <DarkModeSwitch
+            isDarkMode={darkTheme.palette.mode === 'dark'}
+            onToggle={this.handleDarkModeToggle}
+          />
+          <Story2 changeMovie={this.changeMovie} userName={userName} />
+
+          <MediaInfo selectedMovie={selectedMovie} />
+
+        </div>
+      </ThemeProvider>
     );
   }
 }
