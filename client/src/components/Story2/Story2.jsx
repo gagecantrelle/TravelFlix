@@ -19,15 +19,15 @@ function Story2(props) {
   const changeDest = (destination) => setDest(destination);
   const [uniqueArray, setUniqueArray] = React.useState([]);
   const setUnique = (list) => setUniqueArray(list);
-
+  const { changeMovie, userName } = props;
   // when LFG button is clicked make a call to the server to find unique items
-  const findUnique = (props) => {
-    const { changeMovie } = props;
+  const findUnique = () => {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
       .then((data) => setUnique(data.data))
       .catch();
   };
+
   return (
     <>
       <CssBaseline />
@@ -64,7 +64,7 @@ function Story2(props) {
             height: '40vh',
           }}
           >
-            <UniqueTable changeMovie={props.changeMovie} />
+            <UniqueTable changeMovie={changeMovie} userName={userName} />
           </Box>
         </Stack>
       </Container>

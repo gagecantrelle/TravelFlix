@@ -1,8 +1,9 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 import Story2 from './Story2/Story2.jsx';
-import VideoList from './ThumUpDown/VideoList.jsx';
+// import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 
 class App extends React.Component {
@@ -25,10 +26,24 @@ class App extends React.Component {
         top250tv: 0,
         title_date: '2023-03-24',
       },
-      userName: 'username',
+      userName: 'fred',
+      userObject: {},
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
+    this.getUserObject = this.getUserObject.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserObject();
+  }
+
+  getUserObject() {
+    const { userName } = this.state;
+    const param = { userName };
+
+    axios.get('/userObject', { params: param })
+      .then((data) => this.setState({ userObject: data }));
   }
 
   changeMovie(movie) {
@@ -45,10 +60,8 @@ class App extends React.Component {
       <div>
         <Button variant="contained">Hello World</Button>
         <Story2 changeMovie={this.changeMovie} userName={userName} />
-        {/* <VideoList /> */}
 
         <MediaInfo selectedMovie={selectedMovie} />
-        {/* <YouTubePlayer /> */}
       </div>
     );
   }
