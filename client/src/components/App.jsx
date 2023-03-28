@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
 import Video from './ThumUpDown/Video.jsx';
-import MediaInfo from './Story3/MediaInfo.jsx';
+// import MediaInfo from './Story3/MediaInfo.jsx';
 import Map from './ThumUpDown/Map.jsx';
 
 class App extends React.Component {
