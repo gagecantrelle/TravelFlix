@@ -15,7 +15,7 @@ const PORT = 8085;
 
 app.get('/', (req, res) => {
   console.log('here');
-  res.send();
+  res.send("hi");
 });
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
