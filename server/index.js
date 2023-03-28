@@ -81,8 +81,44 @@ app.post('/search', (req, res) => {
 
   app.post('/Movie', async (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
-    console.log('yes');
-    Movie.create({ movieName, thumbsUp, thumbsDown }).then((data) => res.send(data));
+
+    await Movie.create({ movieName, thumbsUp, thumbsDown }).then((data) => res.send(data));
+  });
+
+  app.post('/Movie/UpdateThumbs/:id', async (req, res) => {
+    const { thumbsUp, thumbsDown } = req.body;
+    const { id } = req.params;
+    if (thumbsDown) {
+      Movie.findByIdAndUpdate(id, thumbsUp)
+        .then((data) => {
+          if (data) {
+            console.log('updated');
+            res.sendStatus(200);
+          } else {
+            console.log('error: ', data);
+            res.sendStatus(404);
+          }
+        })
+        .catch((err) => {
+          console.error('error data is undefine', err);
+          res.sendStatus(500);
+        });
+    } else {
+      Movie.findByIdAndUpdate(id, thumbsDown)
+        .then((data) => {
+          if (data) {
+            console.log('updated');
+            res.sendStatus(200);
+          } else {
+            console.log('error: ', data);
+            res.sendStatus(404);
+          }
+        })
+        .catch((err) => {
+          console.error('error data is undefine', err);
+          res.sendStatus(500);
+        });
+    }
   });
 })();
 

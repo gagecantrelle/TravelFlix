@@ -48,7 +48,7 @@ class App extends React.Component {
         <Story2 changeMovie={this.changeMovie} userName={userName} />
         <Video />
         <Map />
-        <MediaInfo selectedMovie={selectedMovie} />
+        {/* <MediaInfo selectedMovie={selectedMovie} /> */}
         {/* <YouTubePlayer /> */}
       </div>
     );

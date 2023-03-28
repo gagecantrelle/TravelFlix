@@ -36,7 +36,7 @@ class Video extends React.Component {
   // will get the list of videos from the api and then give that value to the state video key
   getMoviesData() {
     axios.get('/findMovies')
-      .then((data) => {
+      .then(({data}) => {
         if (data) {
           this.setState({
             movies: data,
@@ -51,10 +51,10 @@ class Video extends React.Component {
       });
   }
 
-  // onclick add to like or dislike
+  // // onclick add to like or dislike
   thump(opinion, value, id) {
     if (opinion === 'likes') {
-      axios.put(`/${id}`, {
+      axios.put(`/Movie/UpdateThumbs/${id}`, {
         thumbsUp: value + 1,
       })
         .then((data) => {
@@ -84,28 +84,28 @@ class Video extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.getMoviesData()
-  //   console.log(this.state.videos)
-  // }
+  componentDidMount() {
+    this.getMoviesData()
+    console.log(this.state.movies)
+  }
 
-//() => this.thump('like', data.thumbsUp, data._id)
-//() => this.thump('dislike', data.thumbsDown, data._id)
+//() => this.thump('like', data.thumbsUp, data.id)
+//() => this.thump('dislike', data.thumbsDown, data.id)
   render() {
-    const { list } = this.state;
+    const { movies } = this.state;
     // this.thumbs('likes', data.likes, data._id)
     // this.thumbs('dislikes', data.dislikes, data._id)
 
     return (
       <div className="box">
-        {list.map((data) => (
+        {movies.map((data) => (
           <div key={data._id}>
             <Card sx={{ minWidth: 275 }}>
               <CardContent>
                 <Box sx={{ flexGrow: 1 }}>
                   <AppBar position="static">
                     <Toolbar variant="dense">
-                      <button onClick={()=> console.log('like')}><ThumbUpOffAltIcon /></button>
+                      <button onClick={() => this.thump('like', data.thumbsUp, data.id)}><ThumbUpOffAltIcon /></button>
                       <div className="likebutton">{data.thumbsUp}</div>
                       <button onClick={()=>console.log('dislike')}><ThumbDownOffAltIcon /></button>
                       <div className="dislikebutton">{data.thumbsDown}</div>
