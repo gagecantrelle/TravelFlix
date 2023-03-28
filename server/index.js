@@ -1,6 +1,10 @@
 /* eslint-disable no-return-assign */
 const path = require('path');
 const express = require('express');
+//Below are the added http/https imports
+const http = require('http')
+const https = require('https')
+
 const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
