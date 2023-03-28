@@ -40,7 +40,7 @@ app.get('/findUnique', async (req, res) => {
   // array  however because the bang operator is used filter will remove
   // what doesn't come back true
   const uniqueArray1 = destinationArr
-  // eslint-disable-next-line max-len
+    // eslint-disable-next-line max-len
     .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
   // returns the new unique array to client
   res.send(uniqueArray1);
