@@ -8,3 +8,4 @@ client/dist/bundle
 client/src/config.js
 
 .env
+client/dist/bundle.js
