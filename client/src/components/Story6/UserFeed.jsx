@@ -1,33 +1,40 @@
-import React, { useState } from 'react';
-// import { Card } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import React, { useState, useEffect } from 'react';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 function UserFeed(props) {
+  const { activityFeedUsers } = props;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+
+    const intervalId = setInterval(() => {
+      setIndex((index) => (index + 1) % activityFeedUsers.length);
+    }, 1000);
+
+    
+    return () => clearInterval(intervalId);
+  }, [activityFeedUsers.length]);
+
+  const user = activityFeedUsers[index];
+
+  const movieList = user && user.movieList;
+  const movies = movieList ? movieList.split(', ') : [];
+
   return (
-    <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
-
-      {/* // <Card sx={{ minWidth: 275 }}> */}
-      <CardContent>
-
-        <Typography variant="body1">
-          user1
+    <Paper sx={{ p: 2, width: 300, height: 150}}>
+      <Typography variant="h6" gutterBottom>
+        Activity Feed
+      </Typography>
+      <Typography variant="body1" onClick={() => console.log(movie)}>
+        {user && user.userName}
+      </Typography>
+      {movies && movies.map((movie, index) => (
+        <Typography key={index} variant="body2" onClick={() => console.log(movie)} >
+          {movie}
         </Typography>
-        <Typography variant="body1">
-          user2
-        </Typography>
-        <Typography variant="body1">
-          user3
-        </Typography>
-        <Typography variant="body1">
-          user4
-        </Typography>
-      </CardContent>
-      <CardActions />
-
-    </Card>
+      ))}
+    </Paper>
   );
 }
 

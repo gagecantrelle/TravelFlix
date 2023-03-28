@@ -5,8 +5,10 @@ import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
+import Video from './ThumUpDown/Video.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
+import Map from './ThumUpDown/Map.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
@@ -31,6 +33,7 @@ class App extends React.Component {
       },
       userName: 'fred',
       userObject: {},
+      activityFeedUsers: {},
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
@@ -41,12 +44,40 @@ class App extends React.Component {
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentDidMount() {
     this.getUserObject();
+    this.getUsers();
+    
   }
 
+  getUsers() {
+    axios.get('/users')
+      .then((data) => this.setState({ activityFeedUsers: data.data }));
+  }
+
+<<<<<<< HEAD
+=======
+  getUserObject() {
+    const { userName } = this.state;
+    const param = { userName };
+
+    axios.get('/userObject', { params: param })
+      .then((data) => this.setState({ userObject: data }));
+  }
+
+  changeMovie(movie) {
+    this.setState({ selectedMovie: movie });
+  }
+
+  changeUser(user) {
+    this.setState({ userName: user });
+  }
+
+  // eslint-disable-next-line react/sort-comp
+>>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
   handleDarkModeToggle() {
     const { darkTheme } = this.state;
     const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
@@ -75,9 +106,16 @@ class App extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     const {
       userName, selectedMovie, userObject, darkTheme,
     } = this.state;
+=======
+    const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
+    if (activityFeedUsers === null) {
+      return <div>Loading...</div>;
+    }
+>>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
     return (
       <div>
         <UserFeed />
@@ -88,7 +126,19 @@ class App extends React.Component {
         />
         <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
+<<<<<<< HEAD
         <MediaInfo selectedMovie={selectedMovie} />
+=======
+        <div>
+          <UserFeed activityFeedUsers={activityFeedUsers}/>
+          <Button variant="contained">Hello World</Button>
+          {/* {this.state.userObject} */}
+          <DarkModeSwitch
+            isDarkMode={darkTheme.palette.mode === 'dark'}
+            onToggle={this.handleDarkModeToggle}
+          />
+          <Story2 changeMovie={this.changeMovie} userName={userName} />
+>>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
 
       </div>
     );

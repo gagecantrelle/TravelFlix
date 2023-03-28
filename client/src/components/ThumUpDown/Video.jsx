@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import axios from 'axios';
 import { Toolbar } from '@mui/material';
@@ -8,39 +9,60 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-/// /dummy data
-const GageDummyData = [
-  {
-    country: 'mexico', title: 'housefire', likes: 300, dislikes: 30, video: 'video', synopsis: 'synopsis', id: 1, title_date: '2023-1-1', image: 'image',
-  },
-  {
-    country: 'usa', title: 'housefloods', likes: 500, dislikes: 3, video: 'video', synopsis: 'synopsis', id: 2, title_date: '2023-1-1', image: 'image',
-  },
-  {
-    country: 'japan', title: 'housestorm', likes: 1, dislikes: 0, video: 'video', synopsis: 'synopsis', id: 3, title_date: '2023-1-1', image: 'image',
-  },
-];
-/// /
 class Video extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { selectedMovie } = props;
     this.state = {
-      // will resprent the list of videos
-      videos: GageDummyData,
+      // will referent the list of videos
+      selectedMovie,
+      movieName: '',
+      data: false,
+      thumbsUp: 0,
+      thumbsDown: 0,
     };
+    // this.thumbChange = this.thumbChange.bind(this)
+  }
+  //   const selectedMovie
+  // }
+
+  componentDidMount() {
+    this.getMoviesData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.selectedMovie !== prevProps.selectedMovie) {
+      console.log('propsChanged');
+      this.getMoviesData();
+    }
+  }
+
+  // axios.get('/findMovies', param:{selectedMovie: props.selectedMovie} )
   // will get the list of videos from the api and then give that value to the state video key
-  getVideosData() {
-    axios.get('/')
+  getMoviesData() {
+    // const{ }
+    const param = { selectedMovie: this.props.selectedMovie };
+    console.log('reRender', this.props);
+    axios.get('/findMovies', { params: param })
       .then((data) => {
-        if (data) {
+        const { movieName, thumbsDown, thumbsUp } = data.data;
+        if (movieName) {
+          console.log('state is changed');
           this.setState({
-            videos: data,
+            movieName,
+            thumbsUp,
+            thumbsDown,
+            data: true,
           });
-          console.log('sucessfull get');
         } else {
-          console.log('unsucessfull get');
+          console.log('why no state change');
+          this.setState({
+            movieName: this.props.selectedMovie.title,
+            thumbsUp: 0,
+            thumbsDown: 0,
+            data: false,
+          });
+          console.log('unsuccessful get');
         }
       })
       .catch((err) => {
@@ -48,99 +70,99 @@ class Video extends React.Component {
       });
   }
 
-  // onclick add to like of dislike
-  thums(opition, value, id) {
-    if (opition === 'likes') {
-      axios.put(`/${id}`, {
-        likes: value + 1,
-      })
-        .then((data) => {
-          if (data) {
-            console.log('sucessfull put');
-          } else {
-            console.log('unsucessfull put');
-          }
-        })
-        .catch((err) => {
-          console.log('ERROR was unable to get video data:  ', err);
-        });
-    } else if (opition === 'dislikes') {
-      axios.put(`/${id}`, {
-        dislikes: value + 1,
-      })
-        .then((data) => {
-          if (data) {
-            console.log('sucessfull put');
-          } else {
-            console.log('unsucessfull put');
-          }
-        })
-        .catch((err) => {
-          console.log('ERROR was unable to get video data:  ', err);
-        });
-    }
+  addMovie() {
+    const { movieName, thumbsUp, thumbsDown } = this.state;
+    const body = { movieName, thumbsUp, thumbsDown };
+    axios.post('/Movie', body)
+      .then((data) => {
+        console.log('line77', data);
+      });
   }
 
-  log(id, value) {
-    console.log(value, id);
-    //   if(value === 'like'){
-    //     for(let i = 0; i < this.state.videos.length; i++){
-    //         if(this.state.videos[i].id === id){
-    //             this.state.video[i].likes += 1;
-    //         }
-    //     }
-
-    //   }else if(value === 'dislike'){
-    //     for(let i = 0; i < this.state.videos.length; i++){
-    //         if(this.state.videos[i].id === id){
-    //             this.state.video[i].likes += 1;
-    //         }
-    //     }
-    //   }
-    //   console.log(this.state.videos)
+  incrementMovie() {
+    const { movieName, thumbsUp, thumbsDown } = this.state;
+    const body = { movieName, thumbsUp, thumbsDown };
+    axios.put('/Movie/UpdateThumbs/', body)
+      .then((data) => {
+        console.log('line77', data);
+      });
   }
 
-  // will run all componets that need to run befor render
-  // componentDidMount(){
-  //   this.getVideosData();
+  // // onclick add to like or dislike
+  async thumbChange(thumb) {
+    const { data } = this.state;
+    const count = this.state[thumb] + 1;
+    await this.setState({
+      [thumb]: count,
+    });
+    !data ? this.addMovie() : this.incrementMovie();
+  }
+
+  // if(this.state.data === false){
+  //   axios.post('/Movie', {
+  //     movieName:
+  //   })
+  // }
+  // if (opinion === 'likes') {
+  // axios.put(`/Movie/UpdateThumbsUp/${id}`, {
+  //   thumbsUp: value + 1,
+  // })
+  //   .then((data) => {
+  //     if (data) {
+  //       console.log('successful put');
+  //     } else {
+  //       console.log('unsuccessful put');
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log('ERROR was unable to get video data:  ', err);
+  //   });
+  // } else if (opinion === 'dislikes') {
+  //   axios.put(`/${id}`, {
+  //     thumbsDown: value + 1,
+  //   })
+  //     .then((data) => {
+  //       if (data) {
+  //         console.log('successful put');
+  //       } else {
+  //         console.log('unsuccessful put');
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log('ERROR was unable to get video data:  ', err);
+  //     });
   // }
 
+  // getOneMovie(id) {
+  // }
+
+  // () => this.thump('like', data.thumbsUp, data.id)
+  // () => this.thump('dislike', data.thumbsDown, data.id)
   render() {
-    const { videos } = this.state;
-    // this.thums('likes', data.likes, data._id)
-    // this.thums('dislikes', data.dislikes, data._id)
-    console.log(videos);
+    const {
+      movieName, thumbsUp, thumbsDown, data,
+    } = this.state;
+    // this.thumbs('likes', data.likes, data._id)
+    // this.thumbs('dislikes', data.dislikes, data._id)
+
     return (
       <div className="box">
-        {videos.map((data) => (
-          <div key={data.country}>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <div>{data.title}</div>
-                <div>{data.image}</div>
-                <div>{data.video}</div>
-
-                <Box sx={{ flexGrow: 1 }}>
-                  <AppBar position="static">
-                    <Toolbar variant="dense">
-                      <button onClick={() => this.log(data.id, 'like')}><ThumbUpOffAltIcon /></button>
-                      <div className="likebutton">{data.likes}</div>
-                      <button onClick={() => this.log(data.id, 'dislike')}><ThumbDownOffAltIcon /></button>
-                      <div className="dislikebutton">{data.dislikes}</div>
-                    </Toolbar>
-                  </AppBar>
-                </Box>
-
-                <div>
-                  made in
-                  {data.title_date}
-                </div>
-                <div>{data.synopsis}</div>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
-
+        <div>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static">
+                  <Toolbar variant="dense">
+                    <button onClick={() => this.thumbChange('thumbsUp')}><ThumbUpOffAltIcon /></button>
+                    <div className="likebutton">{thumbsUp}</div>
+                    <button onClick={() => this.thumbChange('thumbsDown')}><ThumbDownOffAltIcon /></button>
+                    <div className="dislikebutton">{thumbsDown}</div>
+                  </Toolbar>
+                </AppBar>
+              </Box>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
