@@ -9,7 +9,7 @@ import Video from './ThumUpDown/Video.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 import Map from './ThumUpDown/Map.jsx';
-import UserFeed from './Story6/UserFeed.jsx';
+// import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -50,7 +50,6 @@ class App extends React.Component {
   componentDidMount() {
     this.getUserObject();
     this.getUsers();
-    
   }
 
   getUsers() {
@@ -58,26 +57,6 @@ class App extends React.Component {
       .then((data) => this.setState({ activityFeedUsers: data.data }));
   }
 
-<<<<<<< HEAD
-=======
-  getUserObject() {
-    const { userName } = this.state;
-    const param = { userName };
-
-    axios.get('/userObject', { params: param })
-      .then((data) => this.setState({ userObject: data }));
-  }
-
-  changeMovie(movie) {
-    this.setState({ selectedMovie: movie });
-  }
-
-  changeUser(user) {
-    this.setState({ userName: user });
-  }
-
-  // eslint-disable-next-line react/sort-comp
->>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
   handleDarkModeToggle() {
     const { darkTheme } = this.state;
     const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
@@ -106,40 +85,26 @@ class App extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
     const {
-      userName, selectedMovie, userObject, darkTheme,
+      userName, selectedMovie, darkTheme, activityFeedUsers, userObject,
     } = this.state;
-=======
-    const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
     if (activityFeedUsers === null) {
       return <div>Loading...</div>;
     }
->>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
     return (
       <div>
-        <UserFeed />
-        <Button variant="contained">Hello World</Button>
+        {/* <UserFeed /> */}
         <DarkModeSwitch
           isDarkMode={darkTheme.palette.mode === 'dark'}
           onToggle={this.handleDarkModeToggle}
         />
         <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
-<<<<<<< HEAD
         <MediaInfo selectedMovie={selectedMovie} />
-=======
         <div>
-          <UserFeed activityFeedUsers={activityFeedUsers}/>
-          <Button variant="contained">Hello World</Button>
+          {/* <UserFeed activityFeedUsers={activityFeedUsers} /> */}
           {/* {this.state.userObject} */}
-          <DarkModeSwitch
-            isDarkMode={darkTheme.palette.mode === 'dark'}
-            onToggle={this.handleDarkModeToggle}
-          />
-          <Story2 changeMovie={this.changeMovie} userName={userName} />
->>>>>>> 520fadf0b3e55e03dd4307e9259210cd404f9fac
-
+        </div>
       </div>
     );
   }
