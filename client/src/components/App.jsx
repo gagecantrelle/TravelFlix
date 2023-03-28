@@ -43,7 +43,7 @@ class App extends React.Component {
     const param = { userName };
 
     axios.get('/userObject', { params: param })
-      .then((data) => this.setState({ userObject: data }));
+      .then((data) => this.setState({ userObject: data.data }));
   }
 
   changeMovie(movie) {
@@ -55,15 +55,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { userName, selectedMovie } = this.state;
+    const { userName, selectedMovie, userObject } = this.state;
     return (
       <div>
         <UserFeed />
-        <Button variant="contained">Hello World</Button>
-        <Story2 changeMovie={this.changeMovie} userName={userName} />
+        <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
         <MediaInfo selectedMovie={selectedMovie} />
-        
       </div>
     );
   }

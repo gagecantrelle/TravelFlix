@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import axios from 'axios';
 import { fakeUniqueData } from '../../NetFlixCountries';
 
 function createData(
@@ -26,13 +27,16 @@ function createData(
 // creates the rows by taking data and extracting each movies data
 const rows = fakeUniqueData.map((movie) => createData(movie.title, movie.img, movie));
 
+// adds movie to watch list
+const addMovie2WL = (movie) => {
+  console.log(movie);
+};
+
 function BasicTable(props) {
   const { changeMovie } = props;
   const trailerPlay = (movie) => {
     changeMovie(movie);
-    // const addToWatchList()=>{
-
-    // }
+    // git
   };
   return (
     <TableContainer component={Paper}>
@@ -63,7 +67,7 @@ function BasicTable(props) {
                 </Button>
               </TableCell>
               <TableCell align="right">
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={() => addMovie2WL(row)}>
                   Add To WatchList
                 </Button>
               </TableCell>
