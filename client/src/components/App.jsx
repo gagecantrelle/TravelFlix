@@ -2,10 +2,14 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Switch } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
 // import VideoList from './ThumUpDown/VideoList.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +32,11 @@ class App extends React.Component {
       },
       userName: 'fred',
       userObject: {},
+      darkTheme: createTheme({
+        palette: {
+          mode: 'dark',
+        },
+      }),
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
@@ -55,16 +64,20 @@ class App extends React.Component {
   }
 
   render() {
-    const { userName, selectedMovie } = this.state;
+    const { userName, selectedMovie, darkTheme } = this.state;
     return (
-      <div>
-        <UserFeed />
-        <Button variant="contained">Hello World</Button>
-        <Story2 changeMovie={this.changeMovie} userName={userName} />
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
 
-        <MediaInfo selectedMovie={selectedMovie} />
-        
-      </div>
+        <div>
+          <UserFeed />
+          <Button variant="contained">Hello World</Button>
+          <Story2 changeMovie={this.changeMovie} userName={userName} />
+
+          <MediaInfo selectedMovie={selectedMovie} />
+
+        </div>
+      </ThemeProvider>
     );
   }
 }
