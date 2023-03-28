@@ -11,7 +11,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8088;
+const PORT = 8070;
 
 app.get('/', (req, res) => {
   // console.log('here');

@@ -65,7 +65,7 @@ function Story2(props) {
             height: '40vh',
           }}
           >
-            <UniqueTable changeMovie={changeMovie} userName={userName} />
+            <UniqueTable changeMovie={changeMovie} userName={userName} userObject={userObject} keyCode={`${originC}${destC}`} />
             {/* <WatchList userObject={userObject} /> */}
           </Box>
         </Stack>

@@ -86,7 +86,7 @@ class App extends React.Component {
           isDarkMode={darkTheme.palette.mode === 'dark'}
           onToggle={this.handleDarkModeToggle}
         />
-        <Story2 changeMovie={this.changeMovie} userName={userName} />
+        <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
         <MediaInfo selectedMovie={selectedMovie} />
 

@@ -27,17 +27,23 @@ function createData(
 // creates the rows by taking data and extracting each movies data
 const rows = fakeUniqueData.map((movie) => createData(movie.title, movie.img, movie));
 
-// adds movie to watch list
-const addMovie2WL = (movie) => {
-  console.log(movie);
-};
-
 function BasicTable(props) {
-  const { changeMovie } = props;
+  const { changeMovie, userObject, keyCode } = props;
   const trailerPlay = (movie) => {
     changeMovie(movie);
-    // git
   };
+  // adds movie to watch list
+  const addMovie2WL = (movie) => {
+    // checks if keycode exists and if doesnt makes the key of the keycode
+    if (!userObject.movieList || !userObject.movieList[keyCode]) {
+      userObject.movieList[keyCode] = [];
+      userObject.movieList[keyCode].push(movie);
+    } else {
+      userObject.movieList[keyCode].push(movie);
+    }
+    console.log(userObject);
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 200, maxHeight: 100 }} aria-label="simple table">
