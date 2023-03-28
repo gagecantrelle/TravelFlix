@@ -42,6 +42,7 @@ class App extends React.Component {
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +86,9 @@ class App extends React.Component {
 
   render() {
     const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
+    if (activityFeedUsers === null) {
+      return <div>Loading...</div>;
+    }
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
