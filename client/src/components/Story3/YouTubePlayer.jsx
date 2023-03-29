@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
-// import axios from 'axios';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 function YouTubePlayer(props) {
   const playerRef = useRef(null);
-  // console.log(props.id);
   const { id } = props;
   useEffect(() => {
     if (playerRef.current) {
@@ -16,20 +16,26 @@ function YouTubePlayer(props) {
     height: '390',
     width: '640',
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
     },
   };
 
   return (
-    <YouTube
-      videoId={id}
-      opts={opts}
-      onReady={(event) => {
-        playerRef.current = event.target;
-        return undefined;
-      }}
-    />
+    <Card sx={{
+      width: 680, display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px',
+    }}
+    >
+      <CardContent>
+        <YouTube
+          videoId={id}
+          opts={opts}
+          onReady={(event) => {
+            playerRef.current = event.target;
+            return undefined;
+          }}
+        />
+      </CardContent>
+    </Card>
   );
 }
 

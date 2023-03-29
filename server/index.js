@@ -155,10 +155,6 @@ app.post('/search', (req, res) => {
       });
   });
 })();
-app.get('/', (req, res) => {
-  console.log('here');
-  res.send();
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);

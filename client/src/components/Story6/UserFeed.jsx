@@ -5,6 +5,20 @@ import Typography from '@mui/material/Typography';
 function UserFeed(props) {
   const { activityFeedUsers } = props;
   const [index, setIndex] = useState(0);
+// creates a click function to query the db for the movie clicked
+  function handleClick(event) {
+   
+    console.log(`Clicked ${event}`);
+    // axios.post('/searchFeed', {
+    //   event,
+    // }).then((response) => {
+    //   setVideoId(response.data);
+    //   setShowTrailer(true);
+    // })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,11 +38,11 @@ function UserFeed(props) {
       <Typography variant="h6" gutterBottom>
         Activity Feed
       </Typography>
-      <Typography variant="body1" onClick={() => console.log(movie)}>
+      <Typography variant="body1" onClick={() => console.log(user.userName)}>
         {user && user.userName}
       </Typography>
       {movies && movies.map((movie, index) => (
-        <Typography key={index} variant="body2" onClick={() => console.log(movie)}>
+        <Typography key={index} variant="body2" onClick={() => handleClick(movie)} >
           {movie}
         </Typography>
       ))}
