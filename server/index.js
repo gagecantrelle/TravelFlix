@@ -5,26 +5,15 @@ const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
 const { initDb } = require('./database');
+const { default: axios } = require('axios');
 
 const app = express();
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8086;
+const PORT = 8087;
 
-// app.get('/', (req, res) => {
-//   console.log('here');
-//   res.send();
-// });
-// app.get('/users', async (req, res) => {
-//   await User.findAll({ limit: 20 })
-//     .then((data) => res.send(data))
-//     .catch((error) => {
-//       console.error('Error in UserObject');
-//       res.send(error);
-//     });
-// });
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
 // server which then uses ServerFunc to manipulate and then returns manipulated data back to client
@@ -72,34 +61,7 @@ app.post('/search', (req, res) => {
         res.send(error);
       });
   });
-  // for testing
-  app.post('/Users', async (req, res) => {
-    const {
-      userName,
-      comments,
-      locationsTraveled,
-      movieList,
-      homeCountry,
-    } = req.body;
-    await User.create({
-      userName,
-      comments,
-      locationsTraveled,
-      movieList,
-      homeCountry,
-    })
-      .then((data) => res.send(data))
-      .catch((error) => res.send(error));
-  });
-
-  // Use the User model in your app.post('/User') route
-  app.post('/User', async (req, res) => {
-    const { userName } = req.body;
-    await User.create({ userName })
-      .then((data) => console.log(data));
-  });
-
-  // get all the movies from the movie model
+  // find one movies from the movie model to get its thumbsUp/Down Data
   app.get('/findMovies', async (req, res) => {
     const { title } = req.query.selectedMovie;
     await Movie.findOne({ where: { movieName: title } }).then((data) => {
@@ -122,9 +84,6 @@ app.post('/search', (req, res) => {
 
   app.put('/Movie/UpdateThumbs/', (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
-
-    // console.log(movieName, thumbsUp, thumbsDown);
-
     Movie.update({
       thumbsUp,
       thumbsDown,
@@ -148,34 +107,52 @@ app.post('/search', (req, res) => {
         console.error('error data is undefine', err);
         res.sendStatus(500);
       });
+  });
 
-    // Use the User model in your app.post('/User') route to create new
-    // user
-    // app.post('/User', async (req, res) => {
-    //   const { userName } = req.body;
-    //   await User.create({ userName })
-    //     .then((data) => res.send(data))
-    //     .catch((error) => res.send(error));
-    // });
-
-    // app.post('/Users', async (req, res) => {
-    //   const {
-    //     userName,
-    //     comments,
-    //     locationsTraveled,
-    //     movieList,
-    //     homeCountry,
-    //   } = req.body;
-    //   await User.create({
-    //     userName,
-    //     comments,
-    //     locationsTraveled,
-    //     movieList,
-    //     homeCountry,
-    //   })
-    //     .then((data) => res.send(data))
-    //     .catch((error) => res.send(error));
-    // });
+  // Use the User model in your app.post('/User') route to create new
+  // User
+  app.post('/User', async (req, res) => {
+    const { userName } = req.body;
+    await User.create({ userName })
+      .then((data) => res.send(data))
+      .catch((error) => res.send(error));
+  });
+  // gets the users table to retrieve watchlist object
+  app.get('/UserObject', async (req, res) => {
+    const { userName } = req.query;
+    User.findAll({
+      where: {
+        userName,
+      },
+    })
+      .then((data) => res.send(data[0].dataValues))
+      .catch(((error) => res.send(error)));
+  });
+  // updating the user watchlist
+  app.post('/UserObject', async (req, res) => {
+    const { userName, movieList } = req.body;
+    User.update({
+      movieList,
+    }, {
+      where: {
+        userName,
+      },
+      returning: true,
+    })
+      .then((data) => {
+        console.log(data);
+        if (data) {
+          console.log('updated');
+          res.sendStatus(200);
+        } else {
+          console.log('error: ', data);
+          res.sendStatus(404);
+        }
+      })
+      .catch((err) => {
+        console.error('error data is undefine', err);
+        res.sendStatus(500);
+      });
   });
 })();
 app.get('/', (req, res) => {

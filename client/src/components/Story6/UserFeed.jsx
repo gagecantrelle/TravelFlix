@@ -7,12 +7,10 @@ function UserFeed(props) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-
     const intervalId = setInterval(() => {
       setIndex((index) => (index + 1) % activityFeedUsers.length);
     }, 1000);
 
-    
     return () => clearInterval(intervalId);
   }, [activityFeedUsers.length]);
 
@@ -22,7 +20,7 @@ function UserFeed(props) {
   const movies = movieList ? movieList.split(', ') : [];
 
   return (
-    <Paper sx={{ p: 2, width: 300, height: 150}}>
+    <Paper sx={{ p: 2, width: 300, height: 150 }}>
       <Typography variant="h6" gutterBottom>
         Activity Feed
       </Typography>
@@ -30,7 +28,7 @@ function UserFeed(props) {
         {user && user.userName}
       </Typography>
       {movies && movies.map((movie, index) => (
-        <Typography key={index} variant="body2" onClick={() => console.log(movie)} >
+        <Typography key={index} variant="body2" onClick={() => console.log(movie)}>
           {movie}
         </Typography>
       ))}
