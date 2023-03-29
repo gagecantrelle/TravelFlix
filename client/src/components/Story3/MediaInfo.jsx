@@ -12,9 +12,10 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
-  // eslint-disable-next-line react/prop-types
-  const { title, poster, synopsis } = props.selectedMovie;
   const { selectedMovie } = props;
+  // eslint-disable-next-line react/prop-types
+  const { title, poster, synopsis, img } = selectedMovie
+  
   function handleClick() {
     console.log('Opening YouTube player...');
     axios.post('/search', {
@@ -29,28 +30,35 @@ function MediaInfo(props) {
   }
 
   return (
-  // <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
+    <>
+      <Card sx={{
+        width: 300, display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px',
+      }}
+      >
 
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body1">
-          <img src={poster} alt={title} width="100" />
-        </Typography>
-        <Typography variant="body2">
-          {synopsis}
-        </Typography>
-        <Typography variant="body3">
-          <Video selectedMovie={selectedMovie} />
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={handleClick}>Watch Trailer</Button>
-      </CardActions>
-      {showTrailer && <YouTubePlayer id={videoId} />}
-    </Card>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {title}
+          </Typography>
+          <Typography variant="body1">
+            <img src={poster || img} alt="Poster" width="100" />
+          </Typography>
+          <Typography variant="body2">
+            {synopsis}
+          </Typography>
+          <Typography variant="body2">
+            <Video selectedMovie={selectedMovie} />
+          </Typography>
+        </CardContent>
+        <CardActions sx={{ marginTop: 'auto' }}>
+          <Button size="small" onClick={handleClick}>Watch Trailer</Button>
+        </CardActions>
+      </Card>
+      <div>
+        {showTrailer && <YouTubePlayer id={videoId} />}
+      </div>
+
+    </>
   );
 }
 

@@ -13,18 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const PORT = 8086;
 
-// app.get('/', (req, res) => {
-//   console.log('here');
-//   res.send();
-// });
-// app.get('/users', async (req, res) => {
-//   await User.findAll({ limit: 20 })
-//     .then((data) => res.send(data))
-//     .catch((error) => {
-//       console.error('Error in UserObject');
-//       res.send(error);
-//     });
-// });
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
 // server which then uses ServerFunc to manipulate and then returns manipulated data back to client
@@ -73,24 +61,24 @@ app.post('/search', (req, res) => {
       });
   });
   // for testing
-  app.post('/Users', async (req, res) => {
-    const {
-      userName,
-      comments,
-      locationsTraveled,
-      movieList,
-      homeCountry,
-    } = req.body;
-    await User.create({
-      userName,
-      comments,
-      locationsTraveled,
-      movieList,
-      homeCountry,
-    })
-      .then((data) => res.send(data))
-      .catch((error) => res.send(error));
-  });
+  // app.post('/Users', async (req, res) => {
+  //   const {
+  //     userName,
+  //     comments,
+  //     locationsTraveled,
+  //     movieList,
+  //     homeCountry,
+  //   } = req.body;
+  //   await User.create({
+  //     userName,
+  //     comments,
+  //     locationsTraveled,
+  //     movieList,
+  //     homeCountry,
+  //   })
+  //     .then((data) => res.send(data))
+  //     .catch((error) => res.send(error));
+  // });
 
   // Use the User model in your app.post('/User') route
   app.post('/User', async (req, res) => {
@@ -148,40 +136,8 @@ app.post('/search', (req, res) => {
         console.error('error data is undefine', err);
         res.sendStatus(500);
       });
-
-    // Use the User model in your app.post('/User') route to create new
-    // user
-    // app.post('/User', async (req, res) => {
-    //   const { userName } = req.body;
-    //   await User.create({ userName })
-    //     .then((data) => res.send(data))
-    //     .catch((error) => res.send(error));
-    // });
-
-    // app.post('/Users', async (req, res) => {
-    //   const {
-    //     userName,
-    //     comments,
-    //     locationsTraveled,
-    //     movieList,
-    //     homeCountry,
-    //   } = req.body;
-    //   await User.create({
-    //     userName,
-    //     comments,
-    //     locationsTraveled,
-    //     movieList,
-    //     homeCountry,
-    //   })
-    //     .then((data) => res.send(data))
-    //     .catch((error) => res.send(error));
-    // });
   });
 })();
-app.get('/', (req, res) => {
-  console.log('here');
-  res.send();
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on :${PORT}`);
