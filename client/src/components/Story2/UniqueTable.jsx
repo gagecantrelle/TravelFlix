@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import * as React from 'react';
+import React from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -35,6 +36,8 @@ function BasicTable(props) {
   const trailerPlay = (movie) => {
     changeMovie(movie);
   };
+  const [User, setUser] = React.useState({});
+  const setUserObj = (user) => setUser(user);
   // adds movie to watch list
   const addMovie2WL = (movie) => {
     // checks if keycode exists and if doesnt makes the key of the keycode
@@ -44,6 +47,7 @@ function BasicTable(props) {
     } else {
       userObject.movieList[keyCode].push(movie);
     }
+
     const body = {
       userName,
       movieList: userObject.movieList,
@@ -51,6 +55,7 @@ function BasicTable(props) {
     axios.post('/UserObject', body)
       .then((response) => {
         console.log(response.data);
+        setUserObj(userObject); // <-- Update state here if needed
       })
       .catch((error) => {
         console.log(error);
