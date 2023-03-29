@@ -106,7 +106,7 @@ class App extends React.Component {
           <Story2 changeMovie={this.changeMovie} userName={userName} />
 
           <MediaInfo selectedMovie={selectedMovie} />
-
+          <Map />
         </div>
       </ThemeProvider>
     );
