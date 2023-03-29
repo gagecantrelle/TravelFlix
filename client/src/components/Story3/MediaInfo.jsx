@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import { Card } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,10 +11,13 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false); 
   const { selectedMovie } = props;
   // eslint-disable-next-line react/prop-types
-  const { title, poster, synopsis, img } = selectedMovie
-  
+  const {
+    title, poster, synopsis, img,
+  } = selectedMovie;
+
   function handleClick() {
     console.log('Opening YouTube player...');
     axios.post('/search', {
@@ -28,6 +30,14 @@ function MediaInfo(props) {
         console.log(error);
       });
   }
+
+  // listen for changes in the props and close the player if it's open
+  useEffect(() => {
+    if (isPlayerOpen) {
+      setShowTrailer(false);
+      setIsPlayerOpen(false);
+    }
+  }, [selectedMovie]);
 
   return (
     <>
@@ -51,7 +61,16 @@ function MediaInfo(props) {
           </Typography>
         </CardContent>
         <CardActions sx={{ marginTop: 'auto' }}>
-          <Button size="small" onClick={handleClick}>Watch Trailer</Button>
+          <Button
+            size="small"
+            onClick={() => {
+              handleClick();
+              setIsPlayerOpen(true);
+            }}
+          >
+            Watch Trailer
+
+          </Button>
         </CardActions>
       </Card>
       <div>
