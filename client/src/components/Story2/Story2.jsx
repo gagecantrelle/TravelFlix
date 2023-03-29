@@ -12,7 +12,6 @@ import { useState } from 'react';
 import DestC from './DestC.jsx';
 import OriginC from './OriginC.jsx';
 import UniqueTable from './UniqueTable.jsx';
-import WatchList from './WatchList.jsx';
 
 function Story2(props) {
   const [originC, setOrigin] = React.useState('');
@@ -79,7 +78,6 @@ function Story2(props) {
               uniqueArray={uniqueArray}
             />
           </Box>
-          <WatchList userObject={userObject} keyCode={keyCode} />
         </Stack>
       </Container>
     </>
