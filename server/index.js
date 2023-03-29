@@ -86,6 +86,11 @@ app.post('/search', (req, res) => {
     await User.create({ userName })
       .then((data) => console.log(data));
   });
+  // to get the movie data from clicking the watchlist
+  app.post('/searchFeed', async (req, res) => {
+    const { title } = req.body;
+    console.log({ title });
+  });
 
   // get all the movies from the movie model
   app.get('/findMovies', async (req, res) => {
