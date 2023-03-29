@@ -70,7 +70,7 @@ class App extends React.Component {
     const { userName } = this.state;
     const param = { userName };
 
-    axios.get('/userObject', { params: param })
+    axios.get('/UserObject', { params: param })
       .then((data) => this.setState({ userObject: data.data }));
   }
 

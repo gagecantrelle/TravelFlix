@@ -2,7 +2,6 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
-const { unique } = require('underscore');
 
 const database = 'travel';
 let sequelize;
