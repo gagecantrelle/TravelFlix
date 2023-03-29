@@ -5,10 +5,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-// import UserFeed from './Story6/UserFeed.jsx';
+import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-// import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class App extends React.Component {
       selectedMovie: null,
       userName: 'fred',
       userObject: {},
-      activityFeedUsers: null,
+      activityFeedUsers: [],
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
@@ -80,13 +79,12 @@ class App extends React.Component {
         <div>
           {/* {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
           {/* <UserFeed activityFeedUsers={activityFeedUsers} /> */}
-          <Button variant="contained">Hello World</Button>
-          {/* {this.state.userObject} */}
+
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
           />
-          <Story2 changeMovie={this.changeMovie} userName={userName} />
+          <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
           {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />}
 
