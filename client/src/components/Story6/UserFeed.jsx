@@ -4,34 +4,29 @@ import Typography from '@mui/material/Typography';
 
 function UserFeed(props) {
   const { activityFeedUsers } = props;
-  const [index, setIndex] = useState(0);
-// creates a click function to query the db for the movie clicked
+  const [userId, setUserId] = useState(Object.keys(activityFeedUsers)[0]);
+
   function handleClick(event) {
-   
     console.log(`Clicked ${event}`);
-    // axios.post('/searchFeed', {
-    //   event,
-    // }).then((response) => {
-    //   setVideoId(response.data);
-    //   setShowTrailer(true);
-    // })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
 
   useEffect(() => {
+    const userCount = Object.keys(activityFeedUsers).length;
     const intervalId = setInterval(() => {
-      setIndex((index) => (index + 1) % activityFeedUsers.length);
+      setUserId((prevUserId) => {
+        const userIds = Object.keys(activityFeedUsers);
+        const currentIndex = userIds.indexOf(prevUserId);
+        const nextIndex = (currentIndex + 1) % userCount;
+        return userIds[nextIndex];
+      });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [activityFeedUsers.length]);
+  }, [activityFeedUsers]);
 
-  const user = activityFeedUsers[index];
+  const user = activityFeedUsers[userId];
 
-  const movieList = user && user.movieList;
-  const movies = movieList ? movieList.split(', ') : [];
+
 
   return (
     <Paper sx={{ p: 2, width: 300, height: 150 }}>
@@ -41,13 +36,8 @@ function UserFeed(props) {
       <Typography variant="body1" onClick={() => console.log(user.userName)}>
         {user && user.userName}
       </Typography>
-      {movies && movies.map((movie, index) => (
-        <Typography key={index} variant="body2" onClick={() => handleClick(movie)} >
-          {movie}
-        </Typography>
-      ))}
+     
     </Paper>
   );
 }
-
-export default UserFeed;
+export default UserFeed
