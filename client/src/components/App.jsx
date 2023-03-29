@@ -4,9 +4,10 @@ import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
+import UserFeed from  './Story6/UserFeed.jsx'
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-
+import Button from '@mui/material/Button';
 // import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
@@ -89,7 +90,7 @@ class App extends React.Component {
           {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />}
 
         </div>
-      </div>
+      </ThemeProvider>
     );
   }
 }
