@@ -34,7 +34,7 @@ function UserFeed(props) {
   const movies = movieList ? movieList.split(', ') : [];
 
   return (
-    <Paper sx={{ p: 2, width: 300, height: 150}}>
+    <Paper sx={{ p: 2, width: 300, height: 150 }}>
       <Typography variant="h6" gutterBottom>
         Activity Feed
       </Typography>

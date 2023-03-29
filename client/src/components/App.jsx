@@ -1,15 +1,13 @@
 /* eslint-disable import/extensions */
 import React from 'react';
-import Button from '@mui/material/Button';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Story2 from './Story2/Story2.jsx';
-import Video from './ThumUpDown/Video.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-import Map from './ThumUpDown/Map.jsx';
-import UserFeed from './Story6/UserFeed.jsx';
+
+// import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,31 +34,8 @@ class App extends React.Component {
   componentDidMount() {
     this.getUserObject();
     this.getUsers();
-    
   }
 
-  getUsers() {
-    axios.get('/users')
-      .then((data) => this.setState({ activityFeedUsers: data.data }));
-  }
-
-  getUserObject() {
-    const { userName } = this.state;
-    const param = { userName };
-
-    axios.get('/userObject', { params: param })
-      .then((data) => this.setState({ userObject: data }));
-  }
-
-  changeMovie(movie) {
-    this.setState({ selectedMovie: movie });
-  }
-
-  changeUser(user) {
-    this.setState({ userName: user });
-  }
-
-  // eslint-disable-next-line react/sort-comp
   handleDarkModeToggle() {
     const { darkTheme } = this.state;
     const newMode = darkTheme.palette.mode === 'dark' ? 'light' : 'dark';
@@ -72,9 +47,29 @@ class App extends React.Component {
     this.setState({ darkTheme: newTheme });
   }
 
+  getUsers() {
+    axios.get('/users')
+      .then((data) => this.setState({ activityFeedUsers: data.data }));
+  }
+
+  getUserObject() {
+    const { userName } = this.state;
+    const param = { userName };
+
+    axios.get('/UserObject', { params: param })
+      .then((data) => this.setState({ userObject: data.data }));
+  }
+
+  changeMovie(movie) {
+    this.setState({ selectedMovie: movie });
+  }
+
+  changeUser(user) {
+    this.setState({ userName: user });
+  }
+
   render() {
-    const { userName, selectedMovie, darkTheme, activityFeedUsers } = this.state;
-  
+    const { userName, selectedMovie, darkTheme, activityFeedUsers, userObject} = this.state;
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
@@ -94,7 +89,7 @@ class App extends React.Component {
           {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />}
 
         </div>
-      </ThemeProvider>
+      </div>
     );
   }
 }

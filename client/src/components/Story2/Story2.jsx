@@ -8,9 +8,11 @@ import Button from '@mui/material/Button';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
+import { useState } from 'react';
 import DestC from './DestC.jsx';
 import OriginC from './OriginC.jsx';
 import UniqueTable from './UniqueTable.jsx';
+import WatchList from './WatchList.jsx';
 
 function Story2(props) {
   const [originC, setOrigin] = React.useState('');
@@ -19,12 +21,17 @@ function Story2(props) {
   const changeDest = (destination) => setDest(destination);
   const [uniqueArray, setUniqueArray] = React.useState([]);
   const setUnique = (list) => setUniqueArray(list);
-  const { changeMovie, userName } = props;
+  const { changeMovie, userName, userObject } = props;
   // when LFG button is clicked make a call to the server to find unique items
+  const [keyCode, setKeyCode] = useState('');
   const findUnique = () => {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
       .then((data) => setUnique(data.data))
+      .then(() => {
+        setKeyCode(`${originC}${destC}`);
+        console.log(keyCode);
+      })
       .catch();
   };
 
@@ -64,8 +71,15 @@ function Story2(props) {
             height: '40vh',
           }}
           >
-            <UniqueTable changeMovie={changeMovie} userName={userName} />
+            <UniqueTable
+              changeMovie={changeMovie}
+              userName={userName}
+              userObject={userObject}
+              keyCode={keyCode}
+              uniqueArray={uniqueArray}
+            />
           </Box>
+          <WatchList userObject={userObject} keyCode={keyCode} />
         </Stack>
       </Container>
     </>

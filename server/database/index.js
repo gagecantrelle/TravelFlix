@@ -2,7 +2,6 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
 const mysql2 = require('mysql2/promise');
-const { unique } = require('underscore');
 
 const database = 'travel';
 let sequelize;
@@ -30,7 +29,7 @@ async function init() {
     await sequelize.authenticate().then(() => {
       console.log('connected');
     });
-    // creates user Model
+    // creates user Model having
     User = sequelize.define('User', {
       userName: { type: DataTypes.STRING, unique: true },
       refreshToken: { type: DataTypes.STRING },
@@ -38,7 +37,11 @@ async function init() {
       comments: { type: DataTypes.STRING },
       userImage: { type: DataTypes.STRING },
       locationsTraveled: { type: DataTypes.STRING },
-      movieList: { type: DataTypes.STRING },
+      movieList: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: {},
+      },
       homeCountry: { type: DataTypes.STRING },
     });
     // makes sure the User Schema matches the one we just created in DB
