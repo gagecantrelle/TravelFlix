@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const WatchList = (props)=>{
-const { userObject } =props 
+function WatchList(props) {
+  const [movieList, setMovieList] = useState([]);
+  const { keyCode } = props;
 
+  useEffect(() => {
+    if (props.userObject && props.userObject.movieList) {
+      setMovieList(props.userObject.movieList);
+    }
+  }, [props.userObject]);
 
-return (
-
-)
+  if (movieList[keyCode] && Array.isArray(movieList[keyCode]) && movieList[keyCode].length > 0) {
+    return (
+      <ul>
+        {movieList[keyCode].map((movie, i) => (
+          <li key={i}>
+            {movie}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  return null;
 }
+
+export default WatchList;
