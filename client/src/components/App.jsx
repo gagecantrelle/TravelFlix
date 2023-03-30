@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,9 +8,10 @@ import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
+import Drawer from '@mui/material/Drawer';
 // import UserFeed from './Story6/UserFeed.jsx';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +25,7 @@ class App extends React.Component {
           mode: 'dark',
         },
       }),
+      showMediaInfo: false,
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
@@ -62,7 +64,7 @@ class App extends React.Component {
   }
 
   changeMovie(movie) {
-    this.setState({ selectedMovie: movie });
+    this.setState({ selectedMovie: movie, showMediaInfo: true });
   }
 
   changeUser(user) {
@@ -71,7 +73,7 @@ class App extends React.Component {
 
   render() {
     const {
-      userName, selectedMovie, darkTheme, activityFeedUsers, userObject,
+      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo
     } = this.state;
     return (
       <ThemeProvider theme={darkTheme}>
@@ -87,7 +89,16 @@ class App extends React.Component {
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
-          {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />}
+          {/* {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />} */}
+          {selectedMovie && (
+            <Drawer
+              anchor="right"
+              open={showMediaInfo}
+              onClose={() => this.setState({ showMediaInfo: false })}
+            >
+              <MediaInfo selectedMovie={selectedMovie} />
+            </Drawer>
+          )}
 
         </div>
       </ThemeProvider>
