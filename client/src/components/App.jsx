@@ -4,12 +4,11 @@ import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
-import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
-import UserFeed from  './Story6/UserFeed.jsx'
+import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
 // import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends Component {
@@ -73,22 +72,22 @@ class App extends Component {
   }
 
   render() {
-    const { userName, selectedMovie, darkTheme, activityFeedUsers, userObject} = this.state;
+    const {
+      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo
+    } = this.state;
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
 
         <div>
           {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
-          {/* <UserFeed activityFeedUsers={activityFeedUsers} /> */}
-          <Button variant="contained">Hello World</Button>
-          {/* {this.state.userObject} */}
+
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
           />
-          
-          <Story2 changeMovie={this.changeMovie} userName={userName} />
+
+          <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
           {/* {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />} */}
           {selectedMovie && (
