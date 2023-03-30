@@ -1,0 +1,26 @@
+.username-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  overflow: hidden;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  animation: slide-left 3s linear infinite;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
