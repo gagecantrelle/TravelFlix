@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-//import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
 import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-import Drawer from '@mui/material/Drawer';
 import Map from './ThumUpDown/Map.jsx';
 // import UserFeed from './Story6/UserFeed.jsx';
 
@@ -18,9 +18,9 @@ class App extends Component {
     this.state = {
       // eslint-disable-next-line react/no-unused-state
       selectedMovie: null,
-      userName: 'fred',
+      userName: 'tom',
       userObject: {},
-      activityFeedUsers: [],
+      activityFeedUsers: null,
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
@@ -74,7 +74,7 @@ class App extends Component {
 
   render() {
     const {
-      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo
+      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo,
     } = this.state;
     return (
       <ThemeProvider theme={darkTheme}>

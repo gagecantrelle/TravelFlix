@@ -95,12 +95,12 @@ class Video extends React.Component {
     await this.setState({
       [thumb]: count,
     });
-    !data ? this.addMovie() : this.incrementMovie();
-    // if (!data) {
-    //   this.addMovie();
-    // } else {
-    //   alert("you already like/dislike this movie , you can't like/dislike a movie more than one time");
-    // }
+    // !data ? this.addMovie() : this.incrementMovie();
+    if (!data) {
+      this.addMovie();
+    } else {
+      alert("you already like/dislike this movie , you can't like/dislike a movie more than one time");
+    }
   // }
   }
   // if(this.state.data === false){
