@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import { Card } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,9 +11,13 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
-  // eslint-disable-next-line react/prop-types
-  const { title, poster, synopsis } = props.selectedMovie;
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false); 
   const { selectedMovie } = props;
+  // eslint-disable-next-line react/prop-types
+  const {
+    title, poster, synopsis, img,
+  } = selectedMovie;
+
   function handleClick() {
     console.log('Opening YouTube player...');
     axios.post('/search', {
@@ -28,29 +31,53 @@ function MediaInfo(props) {
       });
   }
 
-  return (
-  // <Card sx={{ minWidth: 275, height: '275px', width: '275px' }}>
+  // listen for changes in the props and close the player if it's open
+  useEffect(() => {
+    if (isPlayerOpen) {
+      setShowTrailer(false);
+      setIsPlayerOpen(false);
+    }
+  }, [selectedMovie]);
 
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body1">
-          <img src={poster} alt={title} width="100" />
-        </Typography>
-        <Typography variant="body2">
-          {synopsis}
-        </Typography>
-        <Typography variant="body3">
-          <Video selectedMovie={selectedMovie} />
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={handleClick}>Watch Trailer</Button>
-      </CardActions>
-      {showTrailer && <YouTubePlayer id={videoId} />}
-    </Card>
+  return (
+    <>
+      <Card sx={{
+        width: 680, display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px',
+      }}
+      >
+
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {title}
+          </Typography>
+          <Typography variant="body1">
+            <img src={poster || img} alt="Poster" width="100" />
+          </Typography>
+          <Typography variant="body2">
+            {synopsis}
+          </Typography>
+          <Typography variant="body2">
+            <Video selectedMovie={selectedMovie} />
+          </Typography>
+        </CardContent>
+        <CardActions sx={{ marginTop: 'auto' }}>
+          <Button
+            size="small"
+            onClick={() => {
+              handleClick();
+              setIsPlayerOpen(true);
+            }}
+          >
+            Watch Trailer
+
+          </Button>
+        </CardActions>
+      </Card>
+      <div>
+        {showTrailer && <YouTubePlayer id={videoId} />}
+      </div>
+
+    </>
   );
 }
 
