@@ -23,15 +23,18 @@ function Story2(props) {
   const { changeMovie, userName, userObject } = props;
   // when LFG button is clicked make a call to the server to find unique items
   const [keyCode, setKeyCode] = useState('');
+  const [buttonClicked, setButtonClicked] = useState(false);
   const findUnique = () => {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
-      .then((data) => setUnique(data.data))
+      .then((data) => {
+        setUnique(data.data);
+      })
       .then(() => {
         setKeyCode(`${originC}${destC}`);
-        console.log(keyCode);
       })
       .catch();
+    setButtonClicked(!buttonClicked);
   };
 
   return (
@@ -71,6 +74,7 @@ function Story2(props) {
           }}
           >
             <UniqueTable
+              buttonClicked={buttonClicked}
               changeMovie={changeMovie}
               userName={userName}
               userObject={userObject}

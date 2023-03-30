@@ -6,7 +6,6 @@ import './UserFeed.css';
 function UserFeed(props) {
   const { activityFeedUsers } = props;
   const [index, setIndex] = useState(0);
-
   function handleClick(event) {
     console.log(`Clicked ${event}`);
   }

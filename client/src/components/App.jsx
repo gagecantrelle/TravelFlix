@@ -19,7 +19,7 @@ class App extends Component {
       selectedMovie: null,
       userName: 'fred',
       userObject: {},
-      activityFeedUsers: null,
+      activityFeedUsers: [],
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
