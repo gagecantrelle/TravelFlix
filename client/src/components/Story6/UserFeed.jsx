@@ -29,7 +29,7 @@ function UserFeed(props) {
 
   const user = activityFeedUsers[index];
   const mostRecentMovies = iterateMostRecentArray(user.movieList);
-
+// console.log(user)
   return (
     <Paper sx={{ p: 2, width: 300, height: 300 }}>
       <Typography variant="h6" gutterBottom>
