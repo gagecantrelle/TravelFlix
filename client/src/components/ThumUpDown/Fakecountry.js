@@ -18,7 +18,7 @@ const locations = [
   { markerOffset: -25, name: "Italy", coordinates: [14, 41.4897]},
   { markerOffset: -25, name: "Japan", coordinates: [138.8825, 36.7942]},
   { markerOffset: -25, name: "Lithuania", coordinates: [21.6693, 53.7089]},
-  { markerOffset: -25, name: "Malaysia", coordinates: [113, 2.4897]},
+  { markerOffset: 10, name: "Malaysia", coordinates: [113, 2.4897]},
   { markerOffset: -25, name: "Mexico", coordinates: [-100.8825, 17.7942]},
   { markerOffset: -25, name: "Netherlands", coordinates: [5, 51.4897]},
   { markerOffset: -25, name: "Philippines", coordinates: [123.6693, 11.4489]},
