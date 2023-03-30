@@ -42,7 +42,7 @@ function MediaInfo(props) {
   return (
     <>
       <Card sx={{
-        width: 300, display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px',
+        width: 680, display: 'flex', flexDirection: 'column', border: '1px solid black', borderRadius: '10px',
       }}
       >
 
