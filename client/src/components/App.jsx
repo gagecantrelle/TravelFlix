@@ -17,9 +17,9 @@ class App extends Component {
     this.state = {
       // eslint-disable-next-line react/no-unused-state
       selectedMovie: null,
-      userName: 'fred',
+      userName: 'tom',
       userObject: {},
-      activityFeedUsers: [],
+      activityFeedUsers: null,
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
@@ -80,7 +80,7 @@ class App extends Component {
         <CssBaseline />
 
         <div>
-          {/* {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
+          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
 
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}

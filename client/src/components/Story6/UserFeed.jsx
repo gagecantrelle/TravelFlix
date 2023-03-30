@@ -13,21 +13,27 @@ function UserFeed(props) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((index) => (index + 1) % activityFeedUsers.length);
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [activityFeedUsers.length]);
-
+  // error
   function iterateMostRecentArray(dataObject) {
     const keys = Object.keys(dataObject);
     keys.sort((a, b) => b - a);
     const mostRecentKey = keys[0];
+    //
     const mostRecentArray = dataObject[mostRecentKey];
     return mostRecentArray;
   }
 
-  const user = activityFeedUsers[index];
-  const mostRecentMovies = iterateMostRecentArray(user.movieList);
+  const user = activityFeedUsers[index]; // 0Obj
+  // error
+  // resolve when data returns
+  const userMovieList = iterateMostRecentArray(user.movieList);
+
+  const mostRecentMovies = userMovieList;// movielist
+  console.log(mostRecentMovies);
 
   return (
     <Paper sx={{ p: 2, width: 300, height: 300 }}>
