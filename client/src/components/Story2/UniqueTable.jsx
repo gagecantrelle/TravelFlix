@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -26,21 +25,33 @@ function createData(
     addToWatchList,
   };
 }
+
 // creates the rows by taking data and extracting each movies data
 
 function BasicTable(props) {
   const {
-    changeMovie, userObject, keyCode, uniqueArray, userName,
+    changeMovie, userObject, keyCode, uniqueArray, userName, buttonClicked,
   } = props;
+
+  const [User, setUser] = React.useState({ userObject });
+  const setUserObj = (newUser) => {
+    setUser(newUser);
+  };
+  // const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setUserObj(User);
+  }, []);
 
   const rows = uniqueArray.map((movie) => createData(movie.title, movie.img, movie));
   const trailerPlay = (movie) => {
     changeMovie(movie);
   };
-  const [User, setUser] = React.useState({});
-  const setUserObj = (user) => setUser(user);
+
   // adds movie to watch list
   const addMovie2WL = (movie) => {
+    // copy user object
+    const newUserObject = { ...User };
     // checks if keycode exists and if doesnt makes the key of the keycode
     if (!userObject.movieList || !userObject.movieList[keyCode]) {
       userObject.movieList[keyCode] = [];
@@ -48,7 +59,7 @@ function BasicTable(props) {
     } else {
       userObject.movieList[keyCode].push(movie);
     }
-
+    setUserObj(newUserObject);
     const body = {
       userName,
       movieList: userObject.movieList,
@@ -56,7 +67,7 @@ function BasicTable(props) {
     axios.post('/UserObject', body)
       .then((response) => {
         console.log(response.data);
-        setUserObj(userObject); // <-- Update state here if needed
+        setUserObj(userObject);
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +81,7 @@ function BasicTable(props) {
           component={Paper}
           sx={{
             width: '100%',
-            maxHeight: '500px', // Adjust this value to match your desired table height
+            maxHeight: '500px',
             overflowY: 'auto',
           }}
         >
@@ -120,7 +131,9 @@ function BasicTable(props) {
             padding: '16px',
           }}
         >
-          <WatchList userObject={userObject} keyCode={keyCode} />
+
+          <WatchList buttonClicked={buttonClicked} userObject={User} keyCode={keyCode} />
+
         </Paper>
       </Grid>
     </Grid>

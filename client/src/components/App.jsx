@@ -77,7 +77,7 @@ class App extends React.Component {
         <CssBaseline />
 
         <div>
-          {/* {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
+          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
           {/* <UserFeed activityFeedUsers={activityFeedUsers} /> */}
 
           <DarkModeSwitch
