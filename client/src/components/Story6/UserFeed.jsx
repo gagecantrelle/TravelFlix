@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import './UserFeed.css'; 
+import './UserFeed.css';
 
 function UserFeed(props) {
   const { activityFeedUsers } = props;
@@ -40,10 +40,10 @@ function UserFeed(props) {
         <Typography className="username" variant="body1" onClick={() => console.log(user.userName)}>
           {user && user.userName}
         </Typography>
-      </div >
+      </div>
       {mostRecentMovies && mostRecentMovies.map((movie, index) => (
-        <Typography key={index} variant="body2"  onClick={() => handleClick(movie)}>
-          {movie}
+        <Typography key={index} variant="body2" onClick={() => handleClick(movie)}>
+          {movie.name}
         </Typography>
       ))}
     </Paper>
