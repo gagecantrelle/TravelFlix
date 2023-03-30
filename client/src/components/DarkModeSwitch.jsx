@@ -6,12 +6,12 @@ import LightModeTwoToneIcon from '@mui/icons-material/LightModeTwoTone';
 function DarkModeSwitch({ isDarkMode, onToggle }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <DarkModeTwoToneIcon />
+      <LightModeTwoToneIcon />
       <Switch
         checked={isDarkMode}
         onChange={onToggle}
       />
-      <LightModeTwoToneIcon />
+      <DarkModeTwoToneIcon />
     </div>
   );
 }
