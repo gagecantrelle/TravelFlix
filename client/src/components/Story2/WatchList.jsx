@@ -16,7 +16,7 @@ function WatchList(props) {
       <ul>
         {movieList[keyCode].map((movie, i) => (
           <li key={i}>
-            {movie}
+            {movie.name}
           </li>
         ))}
       </ul>
