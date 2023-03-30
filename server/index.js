@@ -84,12 +84,9 @@ app.post('/search', (req, res) => {
 
   app.put('/Movie/UpdateThumbs/', (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
-<<<<<<< HEAD
 
     // console.log(movieName, thumbsUp, thumbsDown);
 
-=======
->>>>>>> 866897c424668da2ab4286517b07a6205d2323ab
     Movie.update({
       thumbsUp,
       thumbsDown,
@@ -113,29 +110,7 @@ app.post('/search', (req, res) => {
         console.error('error data is undefine', err);
         res.sendStatus(500);
       });
-<<<<<<< HEAD
-    app.get('/users', (req, res) => {
-      User.findAll({ limit: 20 })
-        .then((data) => res.send(data))
-        .catch((error) => {
-          console.error('Error in UserObject');
-          res.send(error);
-        });
-    });
-
-
-
-    // Use the User model in your app.post('/User') route to create new
-    // user
-    // app.post('/User', async (req, res) => {
-    //   const { userName } = req.body;
-    //   await User.create({ userName })
-    //     .then((data) => res.send(data))
-    //     .catch((error) => res.send(error));
-    // });
-=======
   });
->>>>>>> 866897c424668da2ab4286517b07a6205d2323ab
 
   // Use the User model in your app.post('/User') route to create new
   // User

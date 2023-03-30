@@ -9,6 +9,7 @@ import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 import Drawer from '@mui/material/Drawer';
+import Map from './ThumUpDown/Map.jsx';
 // import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends Component {
@@ -101,7 +102,7 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-
+          <Map />
         </div>
       </ThemeProvider>
     );
