@@ -112,7 +112,7 @@ function BasicTable(props) {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <Button variant="contained" color="secondary" onClick={() => addMovie2WL(row.name)}>
+                    <Button variant="contained" color="secondary" onClick={() => addMovie2WL(row)}>
                       Add To WatchList
                     </Button>
                   </TableCell>

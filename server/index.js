@@ -14,7 +14,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8091;
+const PORT = 8098;
 
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
