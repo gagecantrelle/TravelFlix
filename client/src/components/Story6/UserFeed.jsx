@@ -41,9 +41,9 @@ function UserFeed(props) {
         <Typography className="username" variant="body1" onClick={() => console.log(user.userName)}>
           {user && user.userName}
         </Typography>
-      </div>
+      </div >
       {mostRecentMovies && mostRecentMovies.map((movie, index) => (
-        <Typography key={index} variant="body2" onClick={() => handleClick(movie)}>
+        <Typography key={index} variant="body2"  onClick={() => handleClick(movie)}>
           {movie}
         </Typography>
       ))}
