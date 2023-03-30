@@ -96,8 +96,13 @@ class Video extends React.Component {
       [thumb]: count,
     });
     !data ? this.addMovie() : this.incrementMovie();
+    // if (!data) {
+    //   this.addMovie();
+    // } else {
+    //   alert("you already like/dislike this movie , you can't like/dislike a movie more than one time");
+    // }
+  // }
   }
-
   // if(this.state.data === false){
   //   axios.post('/Movie', {
   //     movieName:
@@ -139,9 +144,7 @@ class Video extends React.Component {
   // () => this.thump('like', data.thumbsUp, data.id)
   // () => this.thump('dislike', data.thumbsDown, data.id)
   render() {
-    const {
-      movieName, thumbsUp, thumbsDown, data,
-    } = this.state;
+    const { movieName, thumbsUp, thumbsDown, data,} = this.state;
     // this.thumbs('likes', data.likes, data._id)
     // this.thumbs('dislikes', data.dislikes, data._id)
 

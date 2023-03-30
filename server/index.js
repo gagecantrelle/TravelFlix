@@ -87,7 +87,7 @@ app.post('/search', (req, res) => {
   app.put('/Movie/UpdateThumbs/', (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
 
-    //console.log(movieName, thumbsUp, thumbsDown);
+    // console.log(movieName, thumbsUp, thumbsDown);
 
     Movie.update({
       thumbsUp,
@@ -120,6 +120,8 @@ app.post('/search', (req, res) => {
           res.send(error);
         });
     });
+
+
 
     // Use the User model in your app.post('/User') route to create new
     // user

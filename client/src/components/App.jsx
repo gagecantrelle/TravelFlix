@@ -97,7 +97,6 @@ class App extends React.Component {
 
         <div>
           <UserFeed activityFeedUsers={activityFeedUsers}/>
-          <Button variant="contained">Hello World</Button>
           {/* {this.state.userObject} */}
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
