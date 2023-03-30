@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
+//import Button from '@mui/material/Button';
 import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
@@ -81,9 +81,9 @@ class App extends Component {
         <CssBaseline />
 
         <div>
-          <UserFeed activityFeedUsers={activityFeedUsers}/>
-          {/* {this.state.userObject} */}
-          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+          {/* <UserFeed activityFeedUsers={activityFeedUsers}/>
+          {this.state.userObject}
+          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
 
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
