@@ -18,3 +18,11 @@ passport.use(new GoogleStrategy({
 ));
 
 //2. Serialization for user
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+    done(null, user)
+  })
+
