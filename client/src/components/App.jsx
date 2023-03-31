@@ -8,6 +8,7 @@ import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
+import Map from './ThumUpDown/Map.jsx';
 // import UserFeed from './Story6/UserFeed.jsx';
 
 class App extends Component {
@@ -79,7 +80,9 @@ class App extends Component {
         <CssBaseline />
 
         <div>
-          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+          {/* <UserFeed activityFeedUsers={activityFeedUsers}/>
+          {this.state.userObject}
+          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
 
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
@@ -98,7 +101,7 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-
+          <Map />
         </div>
       </ThemeProvider>
     );
