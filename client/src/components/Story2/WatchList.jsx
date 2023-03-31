@@ -82,7 +82,12 @@ function WatchList(props) {
 
   if (movieList[keyCode] && Array.isArray(movieList[keyCode]) && movieList[keyCode].length > 0) {
     return (
-      <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
+      <List
+        dense
+        sx={{
+          width: '100%', maxWidth: 400, minWidth: 400, bgcolor: 'background.paper',
+        }}
+      >
         <ListItem>
           <Button
             variant="contained"
