@@ -11,6 +11,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import Chip from '@mui/material/Chip';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 
 function WatchList(props) {
   const {
@@ -49,10 +51,10 @@ function WatchList(props) {
 
   const deleteFromWatchList = (list) => {
     const body = {
-      userName: userName,
+      userName,
       movieList: list,
     };
-    console.log(body)
+    console.log(body);
     axios.post('/UserObject', body);
   };
 
@@ -87,17 +89,26 @@ function WatchList(props) {
       <List
         dense
         sx={{
-          width: '100%', maxWidth: 400, minWidth: 400, bgcolor: 'background.paper',
+          width: '100%', minWidth: 500, bgcolor: 'background.paper',
         }}
       >
         <ListItem>
+          <Chip
+            icon={<PlayCircleFilledIcon />}
+            label="Click On Name To Play"
+            variant="outlined"
+          />
           <Button
             variant="contained"
             color="secondary"
             onClick={handleDeleteSelected}
+            sx={{
+              ml: 5,
+            }}
           >
             Delete Selected
           </Button>
+
         </ListItem>
         {movieList[keyCode].map((movie, value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;

@@ -134,7 +134,6 @@ function BasicTable(props) {
             padding: '16px',
           }}
         >
-          <h3>Watch List</h3>
           <WatchList
             buttonClicked={buttonClicked}
             userObject={User}
