@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
@@ -27,17 +26,33 @@ class App extends Component {
         },
       }),
       showMediaInfo: false,
+      showUserFeed: false,
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
     this.getUsers = this.getUsers.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
   }
 
   componentDidMount() {
     this.getUserObject();
     this.getUsers();
+    window.addEventListener('mousemove', this.handleMouseMove);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+  }
+
+  handleMouseMove(event) {
+    const { showUserFeed } = this.state;
+    if (event.clientX < 50 && !showUserFeed) {
+      this.setState({ showUserFeed: true });
+    } else if (event.clientX > 250 && showUserFeed) {
+      this.setState({ showUserFeed: false });
+    }
   }
 
   handleDarkModeToggle() {
@@ -74,21 +89,26 @@ class App extends Component {
 
   render() {
     const {
-      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo,
+      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo, showUserFeed,
     } = this.state;
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
 
         <div>
-          {/* <UserFeed activityFeedUsers={activityFeedUsers}/>
-          {this.state.userObject}
-          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
+          <Drawer
+            anchor="left"
+            open={showUserFeed}
+            onMouseEnter={() => this.setState({ showUserFeed: true })}
+            onMouseLeave={() => this.setState({ showUserFeed: false })}
+          >
+            {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+          </Drawer>
 
-          <DarkModeSwitch
+          {/* <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
-          />
+          /> */}
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
@@ -102,7 +122,10 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-          <Map />
+          <DarkModeSwitch
+            isDarkMode={darkTheme.palette.mode === 'dark'}
+            onToggle={this.handleDarkModeToggle}
+          />
         </div>
       </ThemeProvider>
     );

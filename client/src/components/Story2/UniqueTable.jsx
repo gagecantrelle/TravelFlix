@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import WatchList from './WatchList.jsx';
 
 function createData(
@@ -40,8 +40,8 @@ function BasicTable(props) {
   // const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setUserObj(User);
-  }, []);
+    setUserObj(userObject);
+  }, [buttonClicked]);
 
   const rows = uniqueArray.map((movie) => createData(movie.title, movie.img, movie));
   const trailerPlay = (movie) => {
@@ -131,7 +131,7 @@ function BasicTable(props) {
             padding: '16px',
           }}
         >
-
+          <h3>Watch List</h3>
           <WatchList buttonClicked={buttonClicked} userObject={User} keyCode={keyCode} />
 
         </Paper>
