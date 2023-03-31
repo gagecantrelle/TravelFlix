@@ -102,7 +102,7 @@ class App extends Component {
             onMouseEnter={() => this.setState({ showUserFeed: true })}
             onMouseLeave={() => this.setState({ showUserFeed: false })}
           >
-            {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+            {activityFeedUsers && <UserFeed  activityFeedUsers={activityFeedUsers} />}
           </Drawer>
 
           {/* <DarkModeSwitch

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import './UserFeed.css';
+// import './UserFeed.css';
+import MediaInfo from '../Story3/MediaInfo.jsx';
 
 function UserFeed(props) {
   const { activityFeedUsers } = props;
@@ -13,7 +14,7 @@ function UserFeed(props) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((index) => (index + 1) % activityFeedUsers.length);
-    }, 10000);
+    }, 100000);
 
     return () => clearInterval(intervalId);
   }, [activityFeedUsers.length]);
@@ -32,7 +33,7 @@ function UserFeed(props) {
   // resolve when data returns
   const userMovieList = iterateMostRecentArray(user.movieList);
 
-  const mostRecentMovies = userMovieList;// movielist
+  const mostRecentMovies = userMovieList.slice(0, 5);// movielist
   console.log(mostRecentMovies);
 
   return (
@@ -48,11 +49,13 @@ function UserFeed(props) {
         </Typography>
       </div>
       {mostRecentMovies && mostRecentMovies.map((movie, index) => (
-        <Typography key={index} variant="body2" onClick={() => handleClick(movie)}>
+        <Typography key={index} variant="body2" onClick={() => handleClick(movie.name)}>
           {movie.name}
         </Typography>
       ))}
+
     </Paper>
+
   );
 }
 
