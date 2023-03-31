@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import Chip from '@mui/material/Chip';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import { styled } from '@mui/system';
 
 function WatchList(props) {
   const {
@@ -20,6 +21,12 @@ function WatchList(props) {
   } = props;
   const [movieList, setMovieList] = useState(userObject.movieList || {});
   const [checked, setChecked] = React.useState([1]);
+
+  const LargeListItemText = styled(ListItemText)(({ theme }) => ({
+    '.MuiListItemText-primary': {
+      fontSize: theme.typography.pxToRem(18),
+    },
+  }));
 
   // render when button clicked
   useEffect(() => {
@@ -94,9 +101,10 @@ function WatchList(props) {
       >
         <ListItem>
           <Chip
-            icon={<PlayCircleFilledIcon />}
-            label="Click On Name To Play"
+            icon={<PlayCircleFilledIcon style={{ fontSize: 30 }} />}
+            label="Click On Name To Play On Netflix"
             variant="outlined"
+            style={{ fontSize: 20 }}
           />
           <Button
             variant="contained"
@@ -106,7 +114,7 @@ function WatchList(props) {
               ml: 5,
             }}
           >
-            Delete Selected
+            Delete Checked Items
           </Button>
 
         </ListItem>
@@ -130,9 +138,14 @@ function WatchList(props) {
                   <Avatar
                     alt={`Avatar n°${value + 1}`}
                     src={movie.image}
+                    sx={{
+                      width: 55,
+                      height: 55,
+                      mr: 5,
+                    }}
                   />
                 </ListItemAvatar>
-                <ListItemText
+                <LargeListItemText
                   id={labelId}
                   primary={movie.name}
                   onClick={() => playOnNetflix(movie.trailer.netflix_id)}

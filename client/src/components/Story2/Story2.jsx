@@ -45,8 +45,8 @@ function Story2(props) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'space-around',
-            bgcolor: 'black',
-            height: '12vh',
+            bgcolor: 'slategrey',
+            height: '13vh',
           }}
           >
             {' '}

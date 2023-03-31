@@ -9,7 +9,7 @@ import { NetFlixCountries } from '../../NetFlixCountries';
 function DestC(props) {
   const { changeDest } = props;
 
-  const [value, setValue] = React.useState('Type or Select');
+  const [value, setValue] = React.useState('Destination');
   const [inputValue, setInputValue] = React.useState('');
 
   const options = NetFlixCountries.map((option) => option.country);
