@@ -12,7 +12,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8086;
+const PORT = 8080;
 
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
@@ -21,14 +21,25 @@ app.get('/findUnique', async (req, res) => {
   const { origin, destination } = req.query;
   let originArr;
   let destinationArr;
+  const startArray = [100, 200, 300];
 
-  await getTop100By(origin)
+  await getTop100By(origin, 0)
     .then((data) => originArr = data.results)
     .catch((error) => console.error(error));
 
-  await getTop100By(destination)
+  await Promise.all(startArray.map((start) => getTop100By(origin, start)
+    .then((data) => originArr = originArr.concat(data.results))
+    .catch((error) => console.error(error))));
+
+  await getTop100By(destination, 0)
     .then((data) => destinationArr = data.results)
     .catch((error) => console.error(error));
+
+  await Promise.all(startArray.map((start) => getTop100By(destination, start)
+    .then((data) => destinationArr = destinationArr.concat(data.results))
+    .catch((error) => console.error(error))));
+
+  console.log(destinationArr.length);
 
   // this code takes the destination array and the origin array and returns
   // a newArray of unique items
