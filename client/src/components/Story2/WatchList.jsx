@@ -102,7 +102,7 @@ function WatchList(props) {
         <ListItem>
           <Chip
             icon={<PlayCircleFilledIcon style={{ fontSize: 30 }} />}
-            label="Click On Name To Play On Netflix"
+            label="Click Title To Play On Netflix"
             variant="outlined"
             style={{ fontSize: 20 }}
           />

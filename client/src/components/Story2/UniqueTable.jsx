@@ -4,7 +4,7 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
+// import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -105,7 +105,11 @@ function BasicTable(props) {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <Button variant="contained" color="secondary" onClick={() => addMovie2WL(row)}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => addMovie2WL(row)}
+                    >
                       Add To WatchList
                     </Button>
                   </TableCell>
@@ -120,7 +124,7 @@ function BasicTable(props) {
           sx={{
             width: '100%',
             height: '100%',
-            maxHeight: '500px', // Adjust this value to match your table's height
+            maxHeight: '500px',
             minHeight: '500px',
             overflowY: 'auto',
             padding: '16px',
