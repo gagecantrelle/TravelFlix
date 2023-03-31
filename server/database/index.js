@@ -53,7 +53,7 @@ async function init() {
     // periodically or create function that will run every
     // few weeks to check if new unique items exits
     UniqueArrays = sequelize.define('UniqueArrays', {
-      keyCode: DataTypes.STRING,
+      keyCode: { type: DataTypes.STRING },
       uniqueArray: {
         type: DataTypes.JSON,
         allowNull: false,
