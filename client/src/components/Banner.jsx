@@ -6,7 +6,16 @@ class Banner extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        quoteArray: ['\n"Wherever you go, there you are\n"'],
+        quoteArray: ['\n"Wherever you go, there you are\n"',
+        '\n" Get off my plane \n"',
+        '\n" Nice try Lau-Che \n"',
+
+      ]
+
+        
+        
+        
+        
         currentQuote: '\n"Wherever you go, there you are\n"'
       }
      this.logOutClick = this.logOutClick.bind(this)
@@ -40,22 +49,4 @@ class Banner extends Component {
 }
     export default Banner;
 
-
-
-    // render() {
-    //     return (
-    //   <div style={{display: 'flex', justifyContent: 'space-between'}}>
-    //       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1}}>
-    //           <Button variant="contained" sx={{ width: 500, fontSize: 20 }} onClick={this.changeQuoteClick}>TravelFlix</Button>
-    //       </div>
-    //       <div style={{ display: 'flex', alignItems: 'left'}}>
-    //           <div>{this.state.currentQuote}</div>
-    //       </div>
-    //       <div style={{ display: 'flex', alignItems: 'center'}}>
-    //           <Button variant="contained" sx={{ width: 150 }} onClick={this.logOutClick}>Log Out</Button>
-    //       </div>
-    //   </div>
-    //     )
-    //   }
-    //   }
 
