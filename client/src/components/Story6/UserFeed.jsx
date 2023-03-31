@@ -19,7 +19,7 @@ function UserFeed(props) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIndex((index) => (index + 1) % activityFeedUsers.length);
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [activityFeedUsers.length]);
@@ -43,7 +43,7 @@ function UserFeed(props) {
     <div style={{ position: 'relative' }}>
       <Paper sx={{ p: 2, width: 680, height: 200 }}>
         <Typography variant="h6" gutterBottom>
-          Activity Feed
+          Recent Watch Lists
         </Typography>
         <div className="username-container">
           <Typography className="username" variant="body1" onClick={() => console.log(user.userName)}>
