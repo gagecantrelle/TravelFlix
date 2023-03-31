@@ -12,8 +12,8 @@ const { initDb } = require('./database');
 const { default: axios } = require('axios');
 
 //Authentication Requirements
-const passport = require('passport');
 const session = require('express-session')
+const passport = require('passport');
 require('./authentication/auth')
 const { SESSION_SECRET } = require('./config')
 ///
@@ -28,7 +28,7 @@ function isLoggedIn(req, res, next) {
 const app = express();
 
 //Session Middleware (SR)
-app.use(session({ secret: SESSION_SECRET }));
+app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -66,14 +66,16 @@ app.get('/auth/failure', (req, res) => {
 
 //3.2 Success case of 3.0
 app.get('/protected', isLoggedIn, (req, res) => {
-  res.send(`Hello ${req.user.displayName}`);
+  res.redirect('/index.html')
 });
 
 //4. Logout Route
 app.get('/logout', (req, res) => {
-  req.logout()
-  req.session.destroy()
-  res.sendFile(__dirname + '/authentication/loginPage.html')
+  req.logout(() => {
+    res.redirect('/');
+  })
+  req.session.destroy();
+  //res.sendFile(__dirname + '/authentication/loginPage.html')
 })
 ///
 
