@@ -11,10 +11,19 @@ const { default: axios } = require('axios');
 
 const app = express();
 
-app.get('/', (req, res) => {
-   
-})
 
+app.get('/', (req, res) => {
+   res.sendFile(__dirname + '/authentication/loginPage.html')
+});
+
+app.get('/protected', (req, res) => {
+  res.send('Hello!')
+});
+
+app.get('/loginPage.css', (req, res) => {
+  res.set('Content-Type', 'text/css')
+  res.sendFile(__dirname + '/authentication/loginPage.css');
+});
 
 
 
