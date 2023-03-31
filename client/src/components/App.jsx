@@ -10,6 +10,7 @@ import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
 import Map from './ThumUpDown/Map.jsx';
 // import UserFeed from './Story6/UserFeed.jsx';
+import Banner from './Banner.jsx';
 
 class App extends Component {
   constructor(props) {
