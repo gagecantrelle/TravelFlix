@@ -97,9 +97,10 @@ class App extends Component {
     } = this.state;
 
     return (
+      
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-
+        <Banner/>
         <div>
           <Drawer
             anchor="left"
