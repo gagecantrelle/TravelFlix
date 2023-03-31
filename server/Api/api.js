@@ -33,7 +33,7 @@ const youtubeSearch = (title) => {
       key: YOUTUBE_KEY,
       //  key: YOUTUBE_KEY,
       // q: 'dog',
-      q: title,
+      q: `${title} trailer`,
       // part: 'snippet',
       type: 'video',
       maxResults: 3,

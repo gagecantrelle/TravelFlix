@@ -87,14 +87,6 @@ function BasicTable(props) {
           }}
         >
           <Table sx={{ minWidth: 300, maxHeight: 100 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Unique Programs</TableCell>
-                <TableCell align="right">Image</TableCell>
-                <TableCell align="right">Watch Trailer</TableCell>
-                <TableCell align="right">Add To WatchList</TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
