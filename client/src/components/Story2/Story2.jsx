@@ -55,7 +55,10 @@ function Story2(props) {
               variant="contained"
               endIcon={<FlightTakeoffIcon />}
               size="large"
-              onClick={findUnique}
+              onClick={() => {
+                findUnique();
+                setButtonClicked(!buttonClicked);
+              }}
               sx={{ width: 170, height: 90 }}
             >
               {' '}
