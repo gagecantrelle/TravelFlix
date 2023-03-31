@@ -11,15 +11,27 @@ require('dotenv').config();
 const { initDb } = require('./database');
 const { default: axios } = require('axios');
 
-//auth requirements:
+//Authentication Requirements
 const passport = require('passport');
+const session = require('express-session')
 require('./authentication/auth')
+const { SESSION_SECRET } = require('./config')
+///
 
+//Authentication Middleware
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }
+///
+
 
 const app = express();
+
+//Session Middleware (SR)
+app.use(session({ secret: SESSION_SECRET }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //Authentication Routes (AR)
 // 1.A Serves the Login Page
@@ -53,9 +65,10 @@ app.get('/auth/failure', (req, res) => {
 })
 
 //3.2 Success case of 3.0
-app.get('/protected', (req, res) => {
+app.get('/protected', isLoggedIn, (req, res) => {
   res.send('Hello!');
 });
+///
 
 
 
