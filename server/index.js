@@ -39,10 +39,10 @@ app.get('/', (req, res) => {
    res.sendFile(__dirname + '/authentication/loginPage.html')
 });
 // 1.B Serves the Login Page's CSS
-app.get('/loginPage.css', (req, res) => {
-  res.set('Content-Type', 'text/css')
-  res.sendFile(__dirname + '/authentication/loginPage.css');
-});
+// app.get('/loginPage.css', (req, res) => {
+//   res.set('Content-Type', 'text/css')
+//   res.sendFile(__dirname + '/authentication/loginPage.css');
+// });
 
 // 2. Accesses Google
 app.get('/auth/google',
@@ -66,8 +66,15 @@ app.get('/auth/failure', (req, res) => {
 
 //3.2 Success case of 3.0
 app.get('/protected', isLoggedIn, (req, res) => {
-  res.send('Hello!');
+  res.send(`Hello ${req.user.displayName}`);
 });
+
+//4. Logout Route
+app.get('/logout', (req, res) => {
+  req.logout()
+  req.session.destroy()
+  res.sendFile(__dirname + '/authentication/loginPage.html')
+})
 ///
 
 
