@@ -49,7 +49,7 @@ class App extends Component {
 
   handleMouseMove(event) {
     const { showUserFeed } = this.state;
-    if (event.clientX < 50 && !showUserFeed) {
+    if (event.clientX < 10 && !showUserFeed) {
       this.setState({ showUserFeed: true });
     } else if (event.clientX > 700 && showUserFeed) {
       this.setState({ showUserFeed: false });
