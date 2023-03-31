@@ -2,37 +2,59 @@
 const path = require('path');
 const express = require('express');
 
+//auth require:
+require('./authentication/auth')
+
 
 const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
 const { initDb } = require('./database');
 const { default: axios } = require('axios');
+const passport = require('passport');
 
 const app = express();
 
-
+//Authentication Routes (AR)
+// 1.A Serves the Login Page
 app.get('/', (req, res) => {
    res.sendFile(__dirname + '/authentication/loginPage.html')
 });
-
-app.get('/protected', (req, res) => {
-  res.send('Hello!')
-});
-
+// 1.B Serves the Login Page's CSS
 app.get('/loginPage.css', (req, res) => {
   res.set('Content-Type', 'text/css')
   res.sendFile(__dirname + '/authentication/loginPage.css');
 });
 
+// 3. Accesses Google
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] } )
+)
+
+// 3. Returns to Client
+app.get('google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/protected',
+    failureRedirect: '/auth/failure'
+  })
+);
+// const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
+// app.use(express.static(CLIENT_PATH));
+
+app.get('/protected', (req, res) => {
+  res.send('YAY')
+});
 
 
 
 
 
 
-const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
-app.use(express.static(CLIENT_PATH));
+
+
+//Client Routes
+// const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
+// app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const PORT = 8090;
