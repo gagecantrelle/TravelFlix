@@ -11,7 +11,7 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
-  const [isPlayerOpen, setIsPlayerOpen] = useState(false); 
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const { selectedMovie } = props;
   // eslint-disable-next-line react/prop-types
   const {
@@ -51,7 +51,15 @@ function MediaInfo(props) {
             {title}
           </Typography>
           <Typography variant="body1">
-            <img src={poster || img} alt="Poster" width="100" />
+            <img
+              src={poster === '0' ? img : poster}
+              alt="Poster"
+              width="100"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = img;
+              }}
+            />
           </Typography>
           <Typography variant="body2">
             {synopsis}
