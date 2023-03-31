@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Button from '@mui/material/Button';
+import axios from 'axios'
+
 
 class Banner extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class Banner extends Component {
     }
    
     logOutClick = () => {
-      console.log('Logged Out')
+        window.location.href = '/logout';
     }
 
     changeQuoteClick = () => {
