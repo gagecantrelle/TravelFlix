@@ -61,7 +61,6 @@ function WatchList(props) {
       userName,
       movieList: list,
     };
-    console.log(body);
     axios.post('/UserObject', body);
   };
 

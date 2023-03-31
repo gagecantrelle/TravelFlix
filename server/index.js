@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const PORT = 8080;
 
+// search for youTube Clip
 app.post('/search', (req, res) => {
   console.log(req.body);
   youtubeSearch(req.body.title).then((data) => {
@@ -27,15 +28,7 @@ app.post('/search', (req, res) => {
 (async () => {
   // Initialize the database and get the User model
   const { User, Movie, UniqueArrays } = await initDb();
-  // Gets users for activity feed
-  app.get('/users', async (req, res) => {
-    await User.findAll({ limit: 20 })
-      .then((data) => res.send(data))
-      .catch((error) => {
-        console.error('Error in UserObject');
-        res.send(error);
-      });
-  });
+
   // find one movies from the movie model to get its thumbsUp/Down Data
   app.get('/findMovies', async (req, res) => {
     const { title } = req.query.selectedMovie;
@@ -82,6 +75,15 @@ app.post('/search', (req, res) => {
       .catch((err) => {
         console.error('error data is undefine', err);
         res.sendStatus(500);
+      });
+  });
+  // Gets users for activity feed
+  app.get('/users', async (req, res) => {
+    await User.findAll({ limit: 20 })
+      .then((data) => res.send(data))
+      .catch((error) => {
+        console.error('Error in UserObject');
+        res.send(error);
       });
   });
 
@@ -141,7 +143,14 @@ app.post('/search', (req, res) => {
     const keyCode = `${origin}${destination}`;
     // check if the search has already been made and is recorded into db
     UniqueArrays.findOne({ where: { keyCode } }).then((data) => {
-      if (data) {
+      const now = Date.now();
+      const created = Date.parse(data.createdAt);
+      const month = 2629746000;
+      //  if you want to test that the timing use
+      // const created = now - month - month;
+      // if data exists and is less then a month old
+      if (data && (now - created) < month) {
+        console.log(Date.parse(data.createdAt));
         res.send(data).status(200);
       }
     })
@@ -149,7 +158,7 @@ app.post('/search', (req, res) => {
         console.error('ERROR was unable to get all movies: ', err);
       });
 
-    const startArray = [100, 200, 300];
+    const startArray = [100, 200, 300, 400];
 
     await getTop100By(origin, 0)
       .then((data) => originArr = data.results)
