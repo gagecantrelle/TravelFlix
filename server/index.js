@@ -146,6 +146,8 @@ app.post('/search', (req, res) => {
       const now = Date.now();
       const created = Date.parse(data.createdAt);
       const month = 2629746000;
+      //  if you want to test that the timing use
+      // const created = now - month - month;
       // if data exists and is less then a month old
       if (data && (now - created) < month) {
         console.log(Date.parse(data.createdAt));
