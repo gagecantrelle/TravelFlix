@@ -89,8 +89,12 @@ class App extends Component {
 
   render() {
     const {
-      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo, showUserFeed,
+      userName, selectedMovie,
+      darkTheme, activityFeedUsers,
+      userObject, showMediaInfo,
+      showUserFeed,
     } = this.state;
+
     return (
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
@@ -105,10 +109,10 @@ class App extends Component {
             {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
           </Drawer>
 
-          {/* <DarkModeSwitch
+          <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
-          /> */}
+          />
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
@@ -122,10 +126,7 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-          <DarkModeSwitch
-            isDarkMode={darkTheme.palette.mode === 'dark'}
-            onToggle={this.handleDarkModeToggle}
-          />
+
         </div>
       </ThemeProvider>
     );
