@@ -33,10 +33,10 @@ function OriginC(props) {
         }}
         id="menu-1"
         options={options}
-        sx={{ width: 150 }}
+        sx={{ width: 200 }}
         renderInput={(params) => <TextField {...params} country="Country" />}
       />
-      <Button variant="contained" sx={{ width: 150 }} onClick={clickHandler}>Select Origin</Button>
+      <Button variant="contained" sx={{ width: 200 }} onClick={clickHandler}>Select Origin</Button>
     </div>
   );
 }
