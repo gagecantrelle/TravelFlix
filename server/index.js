@@ -2,8 +2,7 @@
 const path = require('path');
 const express = require('express');
 
-//auth require:
-require('./authentication/auth')
+
 
 
 const { getTop100By, youtubeSearch } = require('./Api/api');
@@ -11,7 +10,14 @@ require('dotenv').config();
 
 const { initDb } = require('./database');
 const { default: axios } = require('axios');
+
+//auth requirements:
 const passport = require('passport');
+require('./authentication/auth')
+
+function isLoggedIn(req, res, next) {
+  req.user ? next() : res.sendStatus(401);
+}
 
 const app = express();
 
@@ -26,23 +32,29 @@ app.get('/loginPage.css', (req, res) => {
   res.sendFile(__dirname + '/authentication/loginPage.css');
 });
 
-// 3. Accesses Google
+// 2. Accesses Google
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] } )
 )
 
-// 3. Returns to Client
-app.get('google/callback',
+// 3.0 Returns to Client
+app.get('/google/callback',
   passport.authenticate('google', {
     successRedirect: '/protected',
-    failureRedirect: '/auth/failure'
+    failureRedirect: '/auth/failure',
   })
 );
 // const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 // app.use(express.static(CLIENT_PATH));
 
+//3.1 Failure case of 3.0
+app.get('/auth/failure', (req, res) => {
+  res.send('Something went wrong, unable to authenticate.')
+})
+
+//3.2 Success case of 3.0
 app.get('/protected', (req, res) => {
-  res.send('YAY')
+  res.send('Hello!');
 });
 
 
@@ -53,8 +65,8 @@ app.get('/protected', (req, res) => {
 
 
 //Client Routes
-// const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
-// app.use(express.static(CLIENT_PATH));
+const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
+app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const PORT = 8090;
