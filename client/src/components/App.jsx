@@ -101,7 +101,7 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-          <Map />
+          {/* <Map /> */}
         </div>
       </ThemeProvider>
     );
