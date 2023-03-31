@@ -12,7 +12,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const PORT = 8098;
+const PORT = 8086;
 
 // Receives request for unique netflix programs
 // makes call to api for each country, returns data to
@@ -84,6 +84,9 @@ app.post('/search', (req, res) => {
 
   app.put('/Movie/UpdateThumbs/', (req, res) => {
     const { movieName, thumbsUp, thumbsDown } = req.body;
+
+    // console.log(movieName, thumbsUp, thumbsDown);
+
     Movie.update({
       thumbsUp,
       thumbsDown,
