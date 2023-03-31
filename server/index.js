@@ -10,6 +10,18 @@ const { initDb } = require('./database');
 const { default: axios } = require('axios');
 
 const app = express();
+
+app.get('/', (req, res) => {
+   
+})
+
+
+
+
+
+
+
+
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
