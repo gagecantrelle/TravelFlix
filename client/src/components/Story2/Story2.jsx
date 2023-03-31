@@ -28,7 +28,7 @@ function Story2(props) {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
       .then((data) => {
-        setUnique(data.data);
+        setUnique(data.data.uniqueArray);
       })
       .then(() => {
         setKeyCode(`${originC}${destC}`);
