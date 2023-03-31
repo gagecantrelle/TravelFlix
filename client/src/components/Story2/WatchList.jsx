@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from 'react';
@@ -10,6 +11,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import Chip from '@mui/material/Chip';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import { styled } from '@mui/system';
 
 function WatchList(props) {
   const {
@@ -17,6 +21,12 @@ function WatchList(props) {
   } = props;
   const [movieList, setMovieList] = useState(userObject.movieList || {});
   const [checked, setChecked] = React.useState([1]);
+
+  const LargeListItemText = styled(ListItemText)(({ theme }) => ({
+    '.MuiListItemText-primary': {
+      fontSize: theme.typography.pxToRem(18),
+    },
+  }));
 
   // render when button clicked
   useEffect(() => {
@@ -46,11 +56,12 @@ function WatchList(props) {
 
   // when items are deleted update watchlist on db
 
-  const deleteFromWatchList = (movieList) => {
+  const deleteFromWatchList = (list) => {
     const body = {
       userName,
-      movieList,
+      movieList: list,
     };
+    console.log(body);
     axios.post('/UserObject', body);
   };
 
@@ -64,7 +75,7 @@ function WatchList(props) {
 
     // Update the movieList
     setMovieList(updatedMovieList);
-
+    userObject.movieList = updatedMovieList;
     // Reset the checked state
     setChecked([]);
     // delete from DB
@@ -82,15 +93,30 @@ function WatchList(props) {
 
   if (movieList[keyCode] && Array.isArray(movieList[keyCode]) && movieList[keyCode].length > 0) {
     return (
-      <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
+      <List
+        dense
+        sx={{
+          width: '100%', minWidth: 500, bgcolor: 'background.paper',
+        }}
+      >
         <ListItem>
+          <Chip
+            icon={<PlayCircleFilledIcon style={{ fontSize: 30 }} />}
+            label="Click On Name To Play On Netflix"
+            variant="outlined"
+            style={{ fontSize: 20 }}
+          />
           <Button
             variant="contained"
             color="secondary"
             onClick={handleDeleteSelected}
+            sx={{
+              ml: 5,
+            }}
           >
-            Delete Selected
+            Delete Checked Items
           </Button>
+
         </ListItem>
         {movieList[keyCode].map((movie, value) => {
           const labelId = `checkbox-list-secondary-label-${value}`;
@@ -112,9 +138,14 @@ function WatchList(props) {
                   <Avatar
                     alt={`Avatar n°${value + 1}`}
                     src={movie.image}
+                    sx={{
+                      width: 55,
+                      height: 55,
+                      mr: 5,
+                    }}
                   />
                 </ListItemAvatar>
-                <ListItemText
+                <LargeListItemText
                   id={labelId}
                   primary={movie.name}
                   onClick={() => playOnNetflix(movie.trailer.netflix_id)}
