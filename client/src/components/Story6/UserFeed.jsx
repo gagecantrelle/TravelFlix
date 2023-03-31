@@ -5,9 +5,7 @@ import List from '@mui/material/List';
 import ListItem  from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MediaInfo from '../Story3/MediaInfo.jsx';
-import Divider  from '@mui/material/Divider';
 import  Grid  from '@mui/material/Grid';
-// import './UserFeed.css';
 
 function UserFeed(props) {
   const { activityFeedUsers } = props;
@@ -48,7 +46,7 @@ function UserFeed(props) {
       <Paper sx={{ p: 2, width: 680, height: 200 }}>
         <Typography variant="h6" gutterBottom>
         </Typography>
-        <div className="username-container">
+        <div className="username-container" style={{ textAlign: 'center' }}>
           <Typography className="username" variant="body1" onClick={() => console.log(user.userName)}>
             {user && user.userName}
           </Typography>
