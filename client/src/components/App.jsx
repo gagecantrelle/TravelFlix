@@ -50,7 +50,7 @@ class App extends Component {
     const { showUserFeed } = this.state;
     if (event.clientX < 50 && !showUserFeed) {
       this.setState({ showUserFeed: true });
-    } else if (event.clientX > 250 && showUserFeed) {
+    } else if (event.clientX > 700 && showUserFeed) {
       this.setState({ showUserFeed: false });
     }
   }
