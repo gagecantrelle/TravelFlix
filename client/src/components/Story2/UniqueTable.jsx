@@ -75,25 +75,18 @@ function BasicTable(props) {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={0}>
       <Grid item xs={12} sm={6}>
         <TableContainer
           component={Paper}
           sx={{
             width: '100%',
             maxHeight: '500px',
+            minHeight: '500px',
             overflowY: 'auto',
           }}
         >
           <Table sx={{ minWidth: 300, maxHeight: 100 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Unique Programs</TableCell>
-                <TableCell align="right">Image</TableCell>
-                <TableCell align="right">Watch Trailer</TableCell>
-                <TableCell align="right">Add To WatchList</TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
@@ -125,13 +118,14 @@ function BasicTable(props) {
       <Grid item xs={12} sm={6}>
         <Paper
           sx={{
+            width: '100%',
             height: '100%',
             maxHeight: '500px', // Adjust this value to match your table's height
+            minHeight: '500px',
             overflowY: 'auto',
             padding: '16px',
           }}
         >
-          <h3>Watch List</h3>
           <WatchList
             buttonClicked={buttonClicked}
             userObject={User}

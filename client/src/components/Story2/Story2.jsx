@@ -45,8 +45,8 @@ function Story2(props) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'space-around',
-            // bgcolor: 'white', disabled for dark mode switch
-            height: '12vh',
+            bgcolor: 'slategrey',
+            height: '13vh',
           }}
           >
             {' '}
@@ -72,7 +72,7 @@ function Story2(props) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'space-around',
-            bgcolor: 'white',
+            bgcolor: 'black',
             height: '40vh',
           }}
           >
