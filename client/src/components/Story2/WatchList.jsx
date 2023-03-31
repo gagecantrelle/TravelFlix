@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from 'react';
@@ -46,11 +47,12 @@ function WatchList(props) {
 
   // when items are deleted update watchlist on db
 
-  const deleteFromWatchList = (movieList) => {
+  const deleteFromWatchList = (list) => {
     const body = {
-      userName,
-      movieList,
+      userName: userName,
+      movieList: list,
     };
+    console.log(body)
     axios.post('/UserObject', body);
   };
 
@@ -64,7 +66,7 @@ function WatchList(props) {
 
     // Update the movieList
     setMovieList(updatedMovieList);
-
+    userObject.movieList = updatedMovieList;
     // Reset the checked state
     setChecked([]);
     // delete from DB
