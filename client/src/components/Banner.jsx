@@ -6,17 +6,15 @@ class Banner extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        quoteArray: ['\n"Wherever you go, there you are\n"',
-        '\n" Get off my plane \n"',
-        '\n" Nice try Lau-Che \n"',
-
-      ]
-
-        
-        
-        
-        
-        currentQuote: '\n"Wherever you go, there you are\n"'
+        quoteArray: [
+        '\n" Get off my plane\n"',
+        `\n" Surely you can\n't be serious\n"`,
+        '\n" Nice try Lau-Che\n"',
+        '\n" Get to the chopper\n"',
+        '\n" Put the bunny back in the box\n"',
+        '\n" Show me all the blueprints\n"',
+        '\n" Fly, you fools\n"'],
+     currentQuote: '\n"Wherever you go, there you are\n"'
       }
      this.logOutClick = this.logOutClick.bind(this)
      this.changeQuoteClick = this.changeQuoteClick.bind(this)
@@ -27,7 +25,7 @@ class Banner extends Component {
     }
 
     changeQuoteClick = () => {
-        console.log('Quote Changed')
+        this.setState({ currentQuote: this.state.quoteArray[Math.floor(Math.random() * 7)] })
       }
 
 
