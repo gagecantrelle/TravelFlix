@@ -69,7 +69,7 @@ function UserFeed(props) {
         </Grid>
       </Paper>
       {showMediaInfo && (
-        <div style={{ position: 'absolute', top: '220px', left: 0 }}>
+        <div style={{ position: 'absolute', top: '205px', left: 0 }}>
           <MediaInfo selectedMovie={mediainfo.trailer} />
         </div>
       )}

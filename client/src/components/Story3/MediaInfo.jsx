@@ -51,7 +51,15 @@ function MediaInfo(props) {
             {title}
           </Typography>
           <Typography variant="body1">
-            <img src={poster === '0' ? img : poster} alt="Poster" width="100" />
+            <img
+              src={poster === '0' ? img : poster}
+              alt="Poster"
+              width="100"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = img;
+              }}
+            />
           </Typography>
           <Typography variant="body2">
             {synopsis}
