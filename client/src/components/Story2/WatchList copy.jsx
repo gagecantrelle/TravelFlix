@@ -10,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { response } from 'express';
 
 function WatchList(props) {
   const {
@@ -43,15 +44,15 @@ function WatchList(props) {
 
     setChecked(newChecked);
   };
-
   // when items are deleted update watchlist on db
 
-  const deleteFromWatchList = (movieList) => {
+  const deleteFromWatchList = () => {
     const body = {
       userName,
       movieList,
     };
-    axios.post('/UserObject', body);
+    axios.post('/UserObject', body)
+      .catch((error) => console.error(error));
   };
 
   // when deleted is pushed delete from in state movielist
@@ -67,8 +68,7 @@ function WatchList(props) {
 
     // Reset the checked state
     setChecked([]);
-    // delete from DB
-    deleteFromWatchList(updatedMovieList);
+    deleteFromWatchList();
   };
 
   // open new window and play netflix
