@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem  from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import MediaInfo from '../Story3/MediaInfo.jsx';
+import Divider  from '@mui/material/Divider';
+import  Grid  from '@mui/material/Grid';
 // import './UserFeed.css';
 
 function UserFeed(props) {
@@ -43,20 +47,27 @@ function UserFeed(props) {
     <div style={{ position: 'relative' }}>
       <Paper sx={{ p: 2, width: 680, height: 200 }}>
         <Typography variant="h6" gutterBottom>
-          Recent Watch Lists
         </Typography>
         <div className="username-container">
           <Typography className="username" variant="body1" onClick={() => console.log(user.userName)}>
             {user && user.userName}
           </Typography>
         </div>
-        {mostRecentMovies && mostRecentMovies.map((movie, index) => (
-          <Typography key={index} variant="body2" onClick={() => handleClick(movie)}>
-            {movie.name}
-          </Typography>
-        ))}
+        <Grid container spacing={0}>
+          {mostRecentMovies && mostRecentMovies.map((movie, index) => (
+            <React.Fragment key={index}>
+              <Grid item xs={6}>
+                <List dense>
+                  <ListItem button onClick={() => handleClick(movie)}>
+                    <ListItemText primary={movie.name} />
+                  </ListItem>
+                </List>
+              </Grid>
+              {index % 2 === 1 && <Grid item xs={12} />}
+            </React.Fragment>
+          ))}
+        </Grid>
       </Paper>
-
       {showMediaInfo && (
         <div style={{ position: 'absolute', top: '220px', left: 0 }}>
           <MediaInfo selectedMovie={mediainfo.trailer} />
