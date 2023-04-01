@@ -60,8 +60,16 @@ app.get('/auth/failure', (req, res) => {
 
 // 3.2 Success case of 3.0
 app.get('/protected', isLoggedIn, (req, res) => {
-  res.redirect('/index.html');
-});
+  const userToBePosted = req.user.displayName
+  axios.post('/Users', { userName: userToBePosted })
+    .then(() => {
+      res.redirect('/index.html')
+    })
+    .catch((error) => {
+      console.log('userName posting error!')
+      res.status(500).send('userName posting error!')
+  })
+})
 
 // 4. Logout Route
 app.get('/logout', (req, res) => {
