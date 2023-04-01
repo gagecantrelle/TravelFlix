@@ -28,7 +28,7 @@ function Story2(props) {
     const param = { origin: originC, destination: destC };
     axios.get('/findUnique', { params: param })
       .then((data) => {
-        setUnique(data.data);
+        setUnique(data.data.uniqueArray);
       })
       .then(() => {
         setKeyCode(`${originC}${destC}`);
@@ -45,8 +45,8 @@ function Story2(props) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'space-around',
-            // bgcolor: 'white', disabled for dark mode switch
-            height: '12vh',
+            bgcolor: 'slategrey',
+            height: '13vh',
           }}
           >
             {' '}
@@ -72,7 +72,7 @@ function Story2(props) {
           <Box sx={{
             display: 'flex',
             justifyContent: 'space-around',
-            bgcolor: 'white',
+            bgcolor: 'black',
             height: '40vh',
           }}
           >
