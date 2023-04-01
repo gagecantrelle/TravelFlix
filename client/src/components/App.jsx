@@ -100,13 +100,8 @@ class App extends Component {
     return (
       
       <ThemeProvider theme={darkTheme}>
-<<<<<<< HEAD
-        <CssBaseline />
-        <Banner/>
-=======
         <CssBaseline enableColorScheme />
 
->>>>>>> 4fd91f7e809e6f00dcad0fed003aa3ef2f6c6206
         <div>
           <Drawer
             anchor="left"
