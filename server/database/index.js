@@ -39,6 +39,11 @@ async function init() {
       comments: { type: DataTypes.STRING },
       userImage: { type: DataTypes.STRING },
       locationsTraveled: { type: DataTypes.STRING },
+      // movie list is where the "watch list" is stored
+      // the keys on the object are the combined country codes of
+      // the origin country and the destination. Each key has a value
+      // of an array of movie "objects" that the user has put on
+      // that unique watchlist
       movieList: {
         type: DataTypes.JSON,
         allowNull: false,
