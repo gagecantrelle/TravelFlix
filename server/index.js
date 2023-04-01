@@ -82,11 +82,7 @@ const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-<<<<<<< HEAD
-const PORT = 8081;
-=======
 const PORT = 8090;
->>>>>>> 188a8b6e6f4c8415fe5d3403ea865772940732af
 
 // search for youTube Clip
 app.post('/search', (req, res) => {
