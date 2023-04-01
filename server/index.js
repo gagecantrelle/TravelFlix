@@ -82,10 +82,8 @@ const PORT = 8090;
 
 // search for youTube Clip
 app.post('/search', (req, res) => {
-  console.log(req.body);
   youtubeSearch(req.body.title).then((data) => {
     const videoIds = data.items.map((item) => item.id.videoId);
-    console.log(videoIds);
     res.send(videoIds[0]);
   });
 });
@@ -231,7 +229,7 @@ app.post('/search', (req, res) => {
     });
 
     const startArray = [100, 200, 300, 400];
-
+    // these are all calls to the API
     await getTop100By(origin, 0)
       .then((data) => originArr = data.results)
       .catch((error) => console.error(error));
