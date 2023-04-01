@@ -4,79 +4,75 @@ const express = require('express');
 const { getTop100By, youtubeSearch } = require('./Api/api');
 require('dotenv').config();
 
-const { initDb } = require('./database');
 const { default: axios } = require('axios');
 
-
-//Authentication Requirements
-const session = require('express-session')
+// Authentication Requirements
+const session = require('express-session');
 const passport = require('passport');
-require('./authentication/auth')
-const { SESSION_SECRET } = require('./config')
+const { initDb } = require('./database');
+require('./authentication/auth');
+const { SESSION_SECRET } = require('./config');
 ///
 
-//Authentication Middleware
+// Authentication Middleware
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }
 ///
 
-
 const app = express();
 
-
-//Session Middleware
+// Session Middleware
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-//Authentication Routes
+// Authentication Routes
 // 1.A Serves the Login Page
 app.get('/', (req, res) => {
-   res.sendFile(__dirname + '/authentication/loginPage.html')
+  res.sendFile(`${__dirname}/authentication/loginPage.html`);
 });
 // 1.B Serves the Login Page's CSS
 app.get('/loginPage.css', (req, res) => {
-  res.set('Content-Type', 'text/css')
-  res.sendFile(__dirname + '/authentication/loginPage.css');
+  res.set('Content-Type', 'text/css');
+  res.sendFile(`${__dirname}/authentication/loginPage.css`);
 });
 
 // 2. Accesses Google
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] } )
-)
+app.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }),
+);
 
 // 3.0 Returns to Client
-app.get('/google/callback',
+app.get(
+  '/google/callback',
   passport.authenticate('google', {
     successRedirect: '/protected',
     failureRedirect: '/auth/failure',
-  })
+  }),
 );
 
-//3.1 Failure case of 3.0
+// 3.1 Failure case of 3.0
 app.get('/auth/failure', (req, res) => {
-  res.send('Something went wrong, unable to authenticate.')
-})
-
-//3.2 Success case of 3.0
-app.get('/protected', isLoggedIn, (req, res) => {
-  res.redirect('/index.html')
+  res.send('Something went wrong, unable to authenticate.');
 });
 
-//4. Logout Route
+// 3.2 Success case of 3.0
+app.get('/protected', isLoggedIn, (req, res) => {
+  res.redirect('/index.html');
+});
+
+// 4. Logout Route
 app.get('/logout', (req, res) => {
   req.logout(() => {
-  if (req.session) {
-  req.session.destroy();
-  }
-  })
-  res.redirect('/')
-})
+    if (req.session) {
+      req.session.destroy();
+    }
+  });
+  res.redirect('/');
+});
 ///
-
-
 
 const CLIENT_PATH = path.resolve(__dirname, '../client/dist');
 app.use(express.static(CLIENT_PATH));
@@ -211,22 +207,28 @@ app.post('/search', (req, res) => {
     let originArr;
     let destinationArr;
     const keyCode = `${origin}${destination}`;
+    // adds a check to see if data was sent
+    let dataSent = false;
     // check if the search has already been made and is recorded into db
-    UniqueArrays.findOne({ where: { keyCode } }).then((data) => {
+    await UniqueArrays.findOne({ where: { keyCode } }).then((data) => {
       const now = Date.now();
-      const created = Date.parse(data.createdAt);
+
       const month = 2629746000;
       //  if you want to test that the timing use
       // const created = now - month - month;
       // if data exists and is less then a month old
-      if (data && (now - created) < month) {
-        console.log(Date.parse(data.createdAt));
-        res.send(data).status(200);
+      if (data) {
+        const created = Date.parse(data.createdAt);
+        if ((now - created) < month) {
+          console.log(Date.parse(data.createdAt));
+          console.log('yes');
+          dataSent = true;
+          return res.send(data);
+        }
       }
-    })
-      .catch((err) => {
-        console.error('ERROR was unable to get all movies: ', err);
-      });
+    }).catch((err) => {
+      console.error('ERROR was unable to get all movies: ', err);
+    });
 
     const startArray = [100, 200, 300, 400];
 
@@ -252,11 +254,16 @@ app.post('/search', (req, res) => {
     // eslint-disable-next-line max-len
       .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
     // bc data does not exists in db create new entry and return the data to client
-    await UniqueArrays.create({ keyCode, uniqueArray: uniqueArray1 })
-      .then((data) => res.send(data))
-    // res.send(data))
-      .catch((error) => res.send(error));
-  // res.send(uniqueArray1);
+    if (!dataSent) {
+      await UniqueArrays.create({ keyCode, uniqueArray: uniqueArray1 })
+        .then((data) => {
+          console.log('no');
+          res.send(data).catch((error) => res.send(error));
+        })
+      // res.send(data))
+        .catch((error) => res.send(error));
+      // res.send(uniqueArray1);
+    }
   });
 })();
 
