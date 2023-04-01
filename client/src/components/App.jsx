@@ -8,7 +8,8 @@ import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-import Map from './ThumUpDown/Map.jsx';
+
+// import Map from './ThumUpDown/Map.jsx';
 // import UserFeed from './Story6/UserFeed.jsx';
 import Banner from './Banner.jsx';
 
@@ -49,9 +50,9 @@ class App extends Component {
 
   handleMouseMove(event) {
     const { showUserFeed } = this.state;
-    if (event.clientX < 50 && !showUserFeed) {
+    if (event.clientX < 10 && !showUserFeed) {
       this.setState({ showUserFeed: true });
-    } else if (event.clientX > 250 && showUserFeed) {
+    } else if (event.clientX > 700 && showUserFeed) {
       this.setState({ showUserFeed: false });
     }
   }
@@ -99,8 +100,13 @@ class App extends Component {
     return (
       
       <ThemeProvider theme={darkTheme}>
+<<<<<<< HEAD
         <CssBaseline />
         <Banner/>
+=======
+        <CssBaseline enableColorScheme />
+
+>>>>>>> 4fd91f7e809e6f00dcad0fed003aa3ef2f6c6206
         <div>
           <Drawer
             anchor="left"
@@ -108,12 +114,13 @@ class App extends Component {
             onMouseEnter={() => this.setState({ showUserFeed: true })}
             onMouseLeave={() => this.setState({ showUserFeed: false })}
           >
-            {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+            {activityFeedUsers && <UserFeed  activityFeedUsers={activityFeedUsers} />}
           </Drawer>
 
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
+            anchor="right"
           />
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />

@@ -33,3 +33,8 @@ person 4
 
 person 5
 (being able to save what vidoes i selected and the country they are from in to a list)
+
+Known Bugs: 
+1: issue with some of the regEx in programs names
+2: stupid Bojack show wont go away
+3: small error with check where second item sometimes arrives checked

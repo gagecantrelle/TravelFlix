@@ -11,11 +11,13 @@ import YouTubePlayer from './YouTubePlayer.jsx';
 function MediaInfo(props) {
   const [showTrailer, setShowTrailer] = useState(false);
   const [videoId, setVideoId] = useState(null);
-  const [isPlayerOpen, setIsPlayerOpen] = useState(false); 
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const { selectedMovie } = props;
   // eslint-disable-next-line react/prop-types
   const {
     title, poster, synopsis, img,
+    imdb_id,
+
   } = selectedMovie;
 
   function handleClick() {
@@ -47,13 +49,27 @@ function MediaInfo(props) {
       >
 
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" style={{ textAlign: 'center' }}>
             {title}
           </Typography>
-          <Typography variant="body1">
-            <img src={poster || img} alt="Poster" width="100" />
+          <Typography variant="body1" style={{ textAlign: 'center' }}>
+            <a
+              href={`https://www.imdb.com/title/${imdb_id}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src={poster === '0' ? img : poster}
+                alt="Poster"
+                width="100"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = img;
+                }}
+              />
+            </a>
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body2" style={{ textAlign: 'center' }}>
             {synopsis}
           </Typography>
           <Typography variant="body2">
