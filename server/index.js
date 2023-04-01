@@ -59,17 +59,6 @@ app.get('/auth/failure', (req, res) => {
 });
 
 // 3.2 Success case of 3.0
-app.get('/protected', isLoggedIn, (req, res) => {
-  const userToBePosted = req.user.displayName
-  axios.post('/Users', { userName: userToBePosted })
-    .then(() => {
-      res.redirect('/index.html')
-    })
-    .catch((error) => {
-      console.log('userName posting error!')
-      res.status(500).send('userName posting error!')
-  })
-})
 
 // 4. Logout Route
 app.get('/logout', (req, res) => {
@@ -273,6 +262,24 @@ app.post('/search', (req, res) => {
         res.status(500).send(error);
       }
     }
+  });
+  app.get('/protected', isLoggedIn, async (req, res) => {
+    const userName = req.user.displayName;
+    await User.create({ userName });
+    try {
+      res.redirect('/index.html');
+    } catch {
+      console.log('userName posting error!');
+      res.status(500).send('userName posting error!');
+    }
+    // axios.post('/Users', { userName: userToBePosted })
+    //   .then(() => {
+    //     res.redirect('/index.html');
+    //   })
+    //   .catch((error) => {
+    //     console.log('userName posting error!');
+    //     res.status(500).send('userName posting error!');
+    //   });
   });
 })();
 
