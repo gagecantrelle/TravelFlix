@@ -101,7 +101,7 @@ class App extends Component {
       
       <ThemeProvider theme={darkTheme}>
         <CssBaseline enableColorScheme />
-
+        <Banner/>
         <div>
           <Drawer
             anchor="left"
