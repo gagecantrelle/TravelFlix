@@ -255,14 +255,17 @@ app.post('/search', (req, res) => {
       .filter((country1) => !originArr.some((country2) => country1.netflix_id === country2.netflix_id));
     // bc data does not exists in db create new entry and return the data to client
     if (!dataSent) {
-      await UniqueArrays.create({ keyCode, uniqueArray: uniqueArray1 })
-        .then((data) => {
-          console.log('no');
-          res.send(data).catch((error) => res.send(error));
-        })
-      // res.send(data))
-        .catch((error) => res.send(error));
-      // res.send(uniqueArray1);
+      try {
+        const createdUniqueArray = await UniqueArrays.create({
+          keyCode,
+          uniqueArray: uniqueArray1,
+        });
+        console.log('no');
+        res.send(createdUniqueArray);
+      } catch (error) {
+        console.error('Error while creating unique array:', error);
+        res.status(500).send(error);
+      }
     }
   });
 })();
