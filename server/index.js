@@ -43,14 +43,20 @@ app.get(
   '/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }),
 );
-
+// successRedirect: '/protected',
 // 3.0 Returns to Client
 app.get(
   '/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/protected',
-    failureRedirect: '/auth/failure',
-  }),
+  passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+  async (req, res) => {
+    const userName = req.user.displayName;
+    try {
+      res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
+    } catch {
+      console.log('userName posting error!');
+      res.status(500).send('userName posting error!');
+    }
+  },
 );
 
 // 3.1 Failure case of 3.0
