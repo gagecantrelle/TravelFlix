@@ -9,9 +9,6 @@ import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-
-// import Map from './ThumUpDown/Map.jsx';
-// import UserFeed from './Story6/UserFeed.jsx';
 import Banner from './Banner.jsx';
 
 class App extends Component {
@@ -20,7 +17,7 @@ class App extends Component {
     this.state = {
       // eslint-disable-next-line react/no-unused-state
       selectedMovie: null,
-      userName: 'tom',
+      userName: '',
       userObject: {},
       activityFeedUsers: [],
       darkTheme: createTheme({

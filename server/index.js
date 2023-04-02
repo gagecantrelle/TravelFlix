@@ -47,7 +47,13 @@ app.get(
   }),
 );
 
+app.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }),
+);
+
 // 3.1 Failure case of 3.0
+
 app.get('/auth/failure', (req, res) => {
   res.send('Something went wrong, unable to authenticate.');
 });
