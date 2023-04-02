@@ -40,8 +40,11 @@ app.get('/loginPage.css', (req, res) => {
 
 // 2. Accesses Google
 app.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] }),
+  '/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/protected',
+    failureRedirect: '/auth/failure',
+  }),
 );
 
 // 3.1 Failure case of 3.0
@@ -256,41 +259,36 @@ app.post('/search', (req, res) => {
   });
   // successRedirect: '/protected',
   // 3.0 Returns to Client
-  app.get(
-    '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/auth/failure' }),
-    async (req, res) => {
-      const userName = req.user.displayName;
-      await User.findOrCreate({
-        where: { userName },
-        defaults: { userName },
-      }).then((data) => console.log(data));
-      try {
-        res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
-      } catch {
-        console.log('userName posting error!');
-        res.status(500).send('userName posting error!');
-      }
-    },
-  );
+  // app.get(
+  //   '/google/callback',
+  //   passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+  //   async (req, res) => {
+  //     const userName = req.user.displayName;
+  //     await User.findOrCreate({
+  //       where: { userName },
+  //       defaults: { userName },
+  //     }).then((data) => console.log(data));
+  //     try {
+  //       res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
+  //     } catch {
+  //       console.log('userName posting error!');
+  //       res.status(500).send('userName posting error!');
+  //     }
+  //   },
+  // );
 
   app.get('/protected', isLoggedIn, async (req, res) => {
     const userName = req.user.displayName;
-    await User.create({ userName });
+    await User.findOrCreate({
+      where: { userName },
+      defaults: { userName },
+    }).then((data) => console.log(data));
     try {
-      res.redirect('/index.html');
+      res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
     } catch {
       console.log('userName posting error!');
       res.status(500).send('userName posting error!');
     }
-    // axios.post('/Users', { userName: userToBePosted })
-    //   .then(() => {
-    //     res.redirect('/index.html');
-    //   })
-    //   .catch((error) => {
-    //     console.log('userName posting error!');
-    //     res.status(500).send('userName posting error!');
-    //   });
   });
 })();
 
