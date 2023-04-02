@@ -43,21 +43,6 @@ app.get(
   '/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }),
 );
-// successRedirect: '/protected',
-// 3.0 Returns to Client
-app.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/failure' }),
-  async (req, res) => {
-    const userName = req.user.displayName;
-    try {
-      res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
-    } catch {
-      console.log('userName posting error!');
-      res.status(500).send('userName posting error!');
-    }
-  },
-);
 
 // 3.1 Failure case of 3.0
 app.get('/auth/failure', (req, res) => {
@@ -269,6 +254,26 @@ app.post('/search', (req, res) => {
       }
     }
   });
+  // successRedirect: '/protected',
+  // 3.0 Returns to Client
+  app.get(
+    '/google/callback',
+    passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+    async (req, res) => {
+      const userName = req.user.displayName;
+      await User.findOrCreate({
+        where: { userName },
+        defaults: { userName },
+      }).then((data) => console.log(data));
+      try {
+        res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
+      } catch {
+        console.log('userName posting error!');
+        res.status(500).send('userName posting error!');
+      }
+    },
+  );
+
   app.get('/protected', isLoggedIn, async (req, res) => {
     const userName = req.user.displayName;
     await User.create({ userName });
