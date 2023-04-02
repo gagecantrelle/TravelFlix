@@ -1,5 +1,6 @@
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -36,9 +37,11 @@ class App extends Component {
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
     this.getUsers = this.getUsers.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.fetchUserName = this.fetchUserName.bind(this);
   }
 
   componentDidMount() {
+    this.fetchUserName();
     this.getUserObject();
     this.getUsers();
     window.addEventListener('mousemove', this.handleMouseMove);
@@ -81,6 +84,14 @@ class App extends Component {
       .then((data) => this.setState({ userObject: data.data }));
   }
 
+  fetchUserName = () => {
+    const queryParams = new URLSearchParams(location.search);
+    const userName = queryParams.get('userName');
+    if (userName) {
+      this.state.userName = decodeURIComponent(userName);
+    }
+  };
+
   changeMovie(movie) {
     this.setState({ selectedMovie: movie, showMediaInfo: true });
   }
@@ -98,10 +109,10 @@ class App extends Component {
     } = this.state;
 
     return (
-      
+
       <ThemeProvider theme={darkTheme}>
         <CssBaseline enableColorScheme />
-        <Banner/>
+        <Banner />
         <div>
           <Drawer
             anchor="left"
@@ -109,7 +120,7 @@ class App extends Component {
             onMouseEnter={() => this.setState({ showUserFeed: true })}
             onMouseLeave={() => this.setState({ showUserFeed: false })}
           >
-            {activityFeedUsers && <UserFeed  activityFeedUsers={activityFeedUsers} />}
+            {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
           </Drawer>
 
           <DarkModeSwitch

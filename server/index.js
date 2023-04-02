@@ -44,24 +44,12 @@ app.get(
   passport.authenticate('google', { scope: ['email', 'profile'] }),
 );
 
-// 3.0 Returns to Client
-app.get(
-  '/google/callback',
-  passport.authenticate('google', {
-    successRedirect: '/protected',
-    failureRedirect: '/auth/failure',
-  }),
-);
-
 // 3.1 Failure case of 3.0
 app.get('/auth/failure', (req, res) => {
   res.send('Something went wrong, unable to authenticate.');
 });
 
 // 3.2 Success case of 3.0
-app.get('/protected', isLoggedIn, (req, res) => {
-  res.redirect('/index.html');
-});
 
 // 4. Logout Route
 app.get('/logout', (req, res) => {
@@ -265,6 +253,44 @@ app.post('/search', (req, res) => {
         res.status(500).send(error);
       }
     }
+  });
+  // successRedirect: '/protected',
+  // 3.0 Returns to Client
+  app.get(
+    '/google/callback',
+    passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+    async (req, res) => {
+      const userName = req.user.displayName;
+      await User.findOrCreate({
+        where: { userName },
+        defaults: { userName },
+      }).then((data) => console.log(data));
+      try {
+        res.redirect(`/index.html?userName=${encodeURIComponent(userName)}`);
+      } catch {
+        console.log('userName posting error!');
+        res.status(500).send('userName posting error!');
+      }
+    },
+  );
+
+  app.get('/protected', isLoggedIn, async (req, res) => {
+    const userName = req.user.displayName;
+    await User.create({ userName });
+    try {
+      res.redirect('/index.html');
+    } catch {
+      console.log('userName posting error!');
+      res.status(500).send('userName posting error!');
+    }
+    // axios.post('/Users', { userName: userToBePosted })
+    //   .then(() => {
+    //     res.redirect('/index.html');
+    //   })
+    //   .catch((error) => {
+    //     console.log('userName posting error!');
+    //     res.status(500).send('userName posting error!');
+    //   });
   });
 })();
 
