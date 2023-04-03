@@ -1,16 +1,15 @@
 /* eslint-disable import/extensions */
 import React, { Component } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import Story2 from './Story2/Story2.jsx';
 import UserFeed from './Story6/UserFeed.jsx';
 import DarkModeSwitch from './DarkModeSwitch.jsx';
 import MediaInfo from './Story3/MediaInfo.jsx';
-import Map from './ThumUpDown/Map.jsx';
-// import UserFeed from './Story6/UserFeed.jsx';
+import Banner from './Banner.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -18,26 +17,44 @@ class App extends Component {
     this.state = {
       // eslint-disable-next-line react/no-unused-state
       selectedMovie: null,
-      userName: 'tom',
+      userName: '',
       userObject: {},
-      activityFeedUsers: null,
+      activityFeedUsers: [],
       darkTheme: createTheme({
         palette: {
           mode: 'dark',
         },
       }),
       showMediaInfo: false,
+      showUserFeed: false,
     };
     this.changeMovie = this.changeMovie.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.getUserObject = this.getUserObject.bind(this);
     this.handleDarkModeToggle = this.handleDarkModeToggle.bind(this);
     this.getUsers = this.getUsers.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.fetchUserName = this.fetchUserName.bind(this);
   }
 
   componentDidMount() {
+    this.fetchUserName();
     this.getUserObject();
     this.getUsers();
+    window.addEventListener('mousemove', this.handleMouseMove);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+  }
+
+  handleMouseMove(event) {
+    const { showUserFeed } = this.state;
+    if (event.clientX < 10 && !showUserFeed) {
+      this.setState({ showUserFeed: true });
+    } else if (event.clientX > 700 && showUserFeed) {
+      this.setState({ showUserFeed: false });
+    }
   }
 
   handleDarkModeToggle() {
@@ -64,6 +81,14 @@ class App extends Component {
       .then((data) => this.setState({ userObject: data.data }));
   }
 
+  fetchUserName = () => {
+    const queryParams = new URLSearchParams(location.search);
+    const userName = queryParams.get('userName');
+    if (userName) {
+      this.state.userName = decodeURIComponent(userName);
+    }
+  };
+
   changeMovie(movie) {
     this.setState({ selectedMovie: movie, showMediaInfo: true });
   }
@@ -74,20 +99,31 @@ class App extends Component {
 
   render() {
     const {
-      userName, selectedMovie, darkTheme, activityFeedUsers, userObject, showMediaInfo,
+      userName, selectedMovie,
+      darkTheme, activityFeedUsers,
+      userObject, showMediaInfo,
+      showUserFeed,
     } = this.state;
-    return (
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
 
+    return (
+
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline enableColorScheme />
+        <Banner />
         <div>
-          {/* <UserFeed activityFeedUsers={activityFeedUsers}/>
-          {this.state.userObject}
-          {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />} */}
+          <Drawer
+            anchor="left"
+            open={showUserFeed}
+            onMouseEnter={() => this.setState({ showUserFeed: true })}
+            onMouseLeave={() => this.setState({ showUserFeed: false })}
+          >
+            {activityFeedUsers && <UserFeed activityFeedUsers={activityFeedUsers} />}
+          </Drawer>
 
           <DarkModeSwitch
             isDarkMode={darkTheme.palette.mode === 'dark'}
             onToggle={this.handleDarkModeToggle}
+            anchor="right"
           />
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
@@ -102,7 +138,7 @@ class App extends Component {
               <MediaInfo selectedMovie={selectedMovie} />
             </Drawer>
           )}
-          <Map />
+
         </div>
       </ThemeProvider>
     );

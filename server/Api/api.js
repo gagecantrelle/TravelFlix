@@ -2,11 +2,12 @@ const axios = require('axios');
 const { YOUTUBE_KEY, UNOGD_KEY } = require('../config');
 
 // axios request to UNOGS API, origin and destination by NetFlix countryID
-const getTop100By = (countryID) => {
+const getTop100By = (countryID, start) => {
   const options = {
     method: 'GET',
     url: 'https://unogs-unogs-v1.p.rapidapi.com/search/titles',
     params: {
+      offset: `${start}`,
       country_list: `${countryID}`,
       order_by: 'rating',
       limit: '100',
@@ -32,7 +33,7 @@ const youtubeSearch = (title) => {
       key: YOUTUBE_KEY,
       //  key: YOUTUBE_KEY,
       // q: 'dog',
-      q: title,
+      q: `${title} trailer`,
       // part: 'snippet',
       type: 'video',
       maxResults: 3,

@@ -4,12 +4,12 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
+// import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import WatchList from './WatchList.jsx';
 
 function createData(
@@ -40,8 +40,8 @@ function BasicTable(props) {
   // const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setUserObj(User);
-  }, []);
+    setUserObj(userObject);
+  }, [buttonClicked]);
 
   const rows = uniqueArray.map((movie) => createData(movie.title, movie.img, movie));
   const trailerPlay = (movie) => {
@@ -70,30 +70,23 @@ function BasicTable(props) {
         setUserObj(userObject);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={0}>
       <Grid item xs={12} sm={6}>
         <TableContainer
           component={Paper}
           sx={{
             width: '100%',
             maxHeight: '500px',
+            minHeight: '500px',
             overflowY: 'auto',
           }}
         >
           <Table sx={{ minWidth: 300, maxHeight: 100 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Unique Programs</TableCell>
-                <TableCell align="right">Image</TableCell>
-                <TableCell align="right">Watch Trailer</TableCell>
-                <TableCell align="right">Add To WatchList</TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <TableRow
@@ -112,7 +105,11 @@ function BasicTable(props) {
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <Button variant="contained" color="secondary" onClick={() => addMovie2WL(row)}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => addMovie2WL(row)}
+                    >
                       Add To WatchList
                     </Button>
                   </TableCell>
@@ -125,14 +122,20 @@ function BasicTable(props) {
       <Grid item xs={12} sm={6}>
         <Paper
           sx={{
+            width: '100%',
             height: '100%',
-            maxHeight: '500px', // Adjust this value to match your table's height
+            maxHeight: '500px',
+            minHeight: '500px',
             overflowY: 'auto',
             padding: '16px',
           }}
         >
-
-          <WatchList buttonClicked={buttonClicked} userObject={User} keyCode={keyCode} />
+          <WatchList
+            buttonClicked={buttonClicked}
+            userObject={User}
+            keyCode={keyCode}
+            userName={userName}
+          />
 
         </Paper>
       </Grid>
