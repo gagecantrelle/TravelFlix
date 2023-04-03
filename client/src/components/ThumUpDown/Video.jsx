@@ -90,17 +90,15 @@ class Video extends React.Component {
 
   // // onclick add to like or dislike
   async thumbChange(thumb) {
-    const { data } = this.state;
+    // const { data } = this.state;
     const count = this.state[thumb] + 1;
     await this.setState({
       [thumb]: count,
     });
     // !data ? this.addMovie() : this.incrementMovie();
-    if (!data) {
-      this.addMovie();
-    } else {
-      alert("you already like/dislike this movie , you can't like/dislike a movie more than one time");
-    }
+
+    this.addMovie();
+
   // }
   }
   // if(this.state.data === false){
@@ -144,7 +142,9 @@ class Video extends React.Component {
   // () => this.thump('like', data.thumbsUp, data.id)
   // () => this.thump('dislike', data.thumbsDown, data.id)
   render() {
-    const { movieName, thumbsUp, thumbsDown, data,} = this.state;
+    const {
+      movieName, thumbsUp, thumbsDown, data,
+    } = this.state;
     // this.thumbs('likes', data.likes, data._id)
     // this.thumbs('dislikes', data.dislikes, data._id)
 

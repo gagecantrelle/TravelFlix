@@ -68,11 +68,13 @@ class App extends Component {
     this.setState({ darkTheme: newTheme });
   }
 
+  // gets the data for the usersFeed
   getUsers() {
     axios.get('/users')
       .then((data) => this.setState({ activityFeedUsers: data.data }));
   }
 
+  // gets the active users table from DB
   getUserObject() {
     const { userName } = this.state;
     const param = { userName };
@@ -80,6 +82,9 @@ class App extends Component {
     axios.get('/UserObject', { params: param })
       .then((data) => this.setState({ userObject: data.data }));
   }
+
+  // this function runs after components mount to set
+  // the state of username which is "hidden" in the url
 
   fetchUserName = () => {
     const queryParams = new URLSearchParams(location.search);
@@ -128,7 +133,6 @@ class App extends Component {
 
           <Story2 changeMovie={this.changeMovie} userName={userName} userObject={userObject} />
 
-          {/* {selectedMovie && <MediaInfo selectedMovie={selectedMovie} />} */}
           {selectedMovie && (
             <Drawer
               anchor="right"
